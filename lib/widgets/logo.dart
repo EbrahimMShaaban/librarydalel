@@ -9,7 +9,7 @@ class Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image(
       image: AssetImage(
-        'assets/logo2.png',
+        'assets/logo1.png',
       ),
       height: height,
     );
