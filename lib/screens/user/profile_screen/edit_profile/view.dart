@@ -22,7 +22,7 @@ class _EditProfileState extends State<EditProfile> {
       return;
     }
   }
-late String name;
+late String email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +45,9 @@ late String name;
               child: Column(
             children: [
               InputFieldRegist(
-                onSaved: (){},
+                onChanged: (val) {
+                  email = val;
+                },
                 hint: 'ادخل كلمةالمرورالقديم',
                 label: 'كلمة المرور القديم',
                 scure: false,
@@ -62,7 +64,9 @@ late String name;
                 height: 20,
               ),
               InputFieldRegist(
-                onSaved: (){},
+                onChanged: (val) {
+                  email = val;
+                },
 
                 hint: 'ادخل كلمة المرور الجديد',
                 label: 'كلمة المرور الجديد',
@@ -79,8 +83,10 @@ late String name;
                 height: 20,
               ),
               InputFieldRegist(
-                onSaved: (){},
-      
+                onChanged: (val) {
+                  email = val;
+                },
+
                 hint: ' تاكيد كلمة المرورالجديد',
                 label: ' تاكيد كلمة المرورالجديد',
                 scure: false,
