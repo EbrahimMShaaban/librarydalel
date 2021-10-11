@@ -4,9 +4,11 @@ import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/category_screen/view.dart';
 import 'package:librarydalel/screens/registration/password_recovery.dart';
 import 'package:librarydalel/screens/registration/sign_in_screen.dart';
+import 'package:librarydalel/screens/user/navigation.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/button/textbuton.dart';
 import 'package:librarydalel/widgets/input_field_regeist.dart';
+import 'package:librarydalel/widgets/logo.dart';
 
 class LogInScreen extends StatefulWidget {
   @override
@@ -14,40 +16,35 @@ class LogInScreen extends StatefulWidget {
 }
 
 class _LogInScreenState extends State<LogInScreen> {
-  // final auth = FirebaseAuth.instance;
-  //
-  // void submit(
-  //     String email, String password,BuildContext context, bool islogin) async {
-  //
-  //   try {UserCredential userCredential = await auth
-  //         .createUserWithEmailAndPassword(
-  //       email: email,
-  //       password: password,
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'weak-password') {
-  //       print('The password provided is too weak.');
-  //     } else if (e.code == 'email-already-in-use') {
-  //       print('The account already exists for that email.');
-  //     }
-  //   } catch (e) {
-  //     print(e);
-  //   }
-  // }
-  // GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  //
-  // validateForm() {
-  //   print('aa');
-  //   if (_formKey.currentState!.validate()) {
-  //     _formKey.currentState!.save();
-  //     widget.submitAuth(email.trim(),password.trim(),context,isLogin);
-  //
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: (context) => NavigationScreen()));
-  //   } else {
-  //     return;
-  //   }
-  // }
+
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  validateForm()async {
+    print('aa');
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      try {
+        final userLog = await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        if (userLog != null) {
+         if(email =='admin@admin.com'){
+           Navigator.push(
+               context, MaterialPageRoute(builder: (context) => Category()));
+         }
+         else{
+           Navigator.push(
+               context, MaterialPageRoute(builder: (context) => NavigationScreen()));
+         }
+        }
+      } catch (e) {
+        print(e);
+        print("eroooooooooooooooooor");
+      }
+
+    } else {
+      return;
+    }
+  }
 
  final _auth = FirebaseAuth.instance;
   String email = '';
@@ -59,10 +56,10 @@ class _LogInScreenState extends State<LogInScreen> {
       body: ListView(
           children: [
           SizedBox(height: 35),
-      // Logo(
-      //   height: 140,
-      // ),
-      SizedBox(
+            Logo(
+            height: 140,
+          ),
+          SizedBox(
         height: 30,
       ),
       Center(
@@ -72,10 +69,9 @@ class _LogInScreenState extends State<LogInScreen> {
           )),
       SizedBox(
         height: 20,
-        //d
       ),
       Form(
-          //key: _formKey,
+          key: _formKey,
           child: Column(
             children: [
               InputFieldRegist(
@@ -89,8 +85,6 @@ class _LogInScreenState extends State<LogInScreen> {
                   email = value;
                   if (value!.isEmpty) {
                     return 'برجاء كتابه البريد الالكتروني بشكل صحيح';
-                  } else if (value.toString().contains('@')) {
-                    return 'يجب ان يحتوي البريد الالكتروني علي @';
                   }
                 },
 
@@ -153,21 +147,9 @@ class _LogInScreenState extends State<LogInScreen> {
 
 
 
-      Buton("تسجيل دخول", onTap: () async {
+      Buton("تسجيل دخول", onTap: ()  {
+        validateForm();
 
-        try {
-          final userLog = await _auth.signInWithEmailAndPassword(
-              email: email, password: password);
-          if (userLog != null) {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) =>  Category()));
-          }
-
-
-        } catch (e) {
-          print(e);
-          print("eroooooooooooooooooor");
-        }
       }),
         ],
       ),
