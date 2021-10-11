@@ -120,21 +120,21 @@ class _SignInScreenState extends State<SignInScreen> {
                     }
                   },
                 ),
-                // InputFieldRegist(
-                //   onChanged: (val) {
-                //     password = val;
-                //   },
-                //   hint: "أكد كلمة مرورك",
-                //   label: "تأكيد كلمة المرور ",
-                //   scure: true,
-                //   validator: (value) {
-                //     if (value!.isEmpty) {
-                //       return 'برجاء كتابه كلمة المرور بشكل صحيح';
-                //     } else if (value.length < 5) {
-                //       return 'برجاء كتابه كلمة المرور بشكل صحيح';
-                //     }
-                //   },
-                // ),
+                InputFieldRegist(
+                  onChanged: (val) {
+                    password = val;
+                  },
+                  hint: "أكد كلمة مرورك",
+                  label: "تأكيد كلمة المرور ",
+                  scure: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'برجاء كتابه كلمة المرور بشكل صحيح';
+                    } else if (value.length < 5) {
+                      return 'برجاء كتابه كلمة المرور بشكل صحيح';
+                    }
+                  },
+                ),
               ],
             ),
           ),
