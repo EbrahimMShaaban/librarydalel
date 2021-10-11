@@ -50,10 +50,8 @@ class _LogInScreenState extends State<LogInScreen> {
   // }
 
  final _auth = FirebaseAuth.instance;
-//bool modal_progress_hud = false;
   String email = '';
   String password = '';
-  // bool isLogin = true;
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +120,7 @@ class _LogInScreenState extends State<LogInScreen> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Textbuton('هل نسيت كلمة المرور', onTap: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => PasswordRecovery()));
@@ -152,6 +150,9 @@ class _LogInScreenState extends State<LogInScreen> {
           ),
         ],
       ),
+
+
+
       Buton("تسجيل دخول", onTap: () async {
 
         try {
@@ -161,6 +162,7 @@ class _LogInScreenState extends State<LogInScreen> {
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) =>  Category()));
           }
+
 
         } catch (e) {
           print(e);

@@ -38,7 +38,7 @@ final _auth = FirebaseAuth.instance;
   String email='';
   String password='';
   String name='';
-  bool isLogin=true;
+  // bool isLogin=true;
 
   @override
   Widget build(BuildContext context) {
