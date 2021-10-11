@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "801521222310",
+    "project_id": "librarydalel",
+    "storage_bucket": "librarydalel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801521222310:android:7aa4a37f5bf1476b3daa67",
+        "android_client_info": {
+          "package_name": "com.example.librarydalel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "801521222310-5m4tklj7s2hal6uar3e2f84v3lh4jsa7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcplwImfouWPbFIVuEiLbYgibiHPea53w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "801521222310-5m4tklj7s2hal6uar3e2f84v3lh4jsa7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
