@@ -5,11 +5,13 @@ class InputField extends StatefulWidget {
   final String hint;
   final String label;
   final bool scure;
+  // final Function onSaved;
 
   InputField({
     required this.hint,
     required this.label,
     required this.scure,
+    // required this.onSaved,
   });
 
   @override
@@ -24,6 +26,7 @@ class _InputFieldState extends State<InputField> {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: TextFormField(
+          // onSaved: widget.onSaved(),
           obscureText: widget.scure,
           decoration: InputDecoration(
             enabledBorder: UnderlineInputBorder(

@@ -15,27 +15,6 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   final auth = FirebaseAuth.instance;
-
-  // void submitAuth(
-  //     String email, String password,BuildContext context, bool islogin) async {
-  //
-  //   try {
-  //     UserCredential userCredential = await auth.signInWithEmailAndPassword(
-  //         email: "barry.allen@example.com",
-  //         password: "SuperSecretPassword!"
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'user-not-found') {
-  //       print('No user found for that email.');
-  //     } else if (e.code == 'wrong-password') {
-  //       print('Wrong password provided for that user.');
-  //     }
-  //   }
-  // }
-  //
-
-
-
   @override
   void initState() {
     Timer(Duration(seconds: 10), () {

@@ -1,5 +1,7 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:librarydalel/constant/alert.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/category_screen/view.dart';
 import 'package:librarydalel/screens/registration/password_recovery.dart';
@@ -19,34 +21,36 @@ class _LogInScreenState extends State<LogInScreen> {
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  validateForm()async {
-    print('aa');
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
+  signIn() async {
+    var formdata = _formKey.currentState;
+    if (formdata!.validate()) {
+      formdata.save();
       try {
-        final userLog = await _auth.signInWithEmailAndPassword(
-            email: email, password: password);
-        if (userLog != null) {
-         if(email =='admin@admin.com'){
-           Navigator.push(
-               context, MaterialPageRoute(builder: (context) => Category()));
-         }
-         else{
-           Navigator.push(
-               context, MaterialPageRoute(builder: (context) => NavigationScreen()));
-         }
+        showLoading(context);
+        UserCredential userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+        return userCredential;
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          Navigator.of(context).pop();
+          AwesomeDialog(
+              context: context,
+              title: "Error",
+              body: Text("No user found for that email"))
+            ..show();
+        } else if (e.code == 'wrong-password') {
+          Navigator.of(context).pop();
+          AwesomeDialog(
+              context: context,
+              title: "Error",
+              body: Text("Wrong password provided for that user"))
+            ..show();
         }
-      } catch (e) {
-        print(e);
-        print("eroooooooooooooooooor");
       }
-
     } else {
-      return;
+      print("Not Vaild");
     }
   }
-
- final _auth = FirebaseAuth.instance;
   String email = '';
   String password = '';
 
@@ -147,10 +151,13 @@ class _LogInScreenState extends State<LogInScreen> {
 
 
 
-      Buton("تسجيل دخول", onTap: ()  {
-        validateForm();
-
-      }),
+      Buton("تسجيل دخول", onTap: ()async {
+        var user = await signIn();
+        if (user != null) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context)=>Category()));
+        }
+      },),
         ],
       ),
     );

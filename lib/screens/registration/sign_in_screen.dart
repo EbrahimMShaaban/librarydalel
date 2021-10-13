@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:librarydalel/constant/alert.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/category_screen/view.dart';
 import 'package:librarydalel/screens/user/navigation.dart';
@@ -7,6 +9,8 @@ import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/button/textbuton.dart';
 import 'package:librarydalel/widgets/input_field_regeist.dart';
 import 'package:librarydalel/widgets/logo.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
+
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -15,35 +19,66 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  validateForm() async {
-    print('aa');
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
+
+  // validateForm() async {
+  //   print('aa');
+  //   if (_formKey.currentState!.validate()) {
+  //     _formKey.currentState!.save();
+  //     try {
+  //       final newuser = await _auth.createUserWithEmailAndPassword(
+  //           email: email, password: password);
+  //       if (newuser != null) {
+  //         Navigator.push(context,
+  //             MaterialPageRoute(builder: (context) => NavigationScreen()));
+  //       }
+  //     } catch (e) {
+  //       print(e);
+  //       print("eroooooooooooooooooooooooooooooooooor");
+  //     }
+  //
+  //     print(email);
+  //     print(password);
+  //   } else {
+  //     return;
+  //   }
+  // }
+
+  signUp() async {
+    var formdata = _formKey.currentState;
+    if (formdata!.validate()) {
+      formdata.save();
+
       try {
-        final newuser = await _auth.createUserWithEmailAndPassword(
+        showLoading(context);
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
             email: email, password: password);
-        if (newuser != null) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NavigationScreen()));
+        return userCredential;
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          Navigator.of(context).pop();
+          AwesomeDialog(
+              context: context,
+              title: "Error",
+              body: Text("Password is to weak"))
+            ..show();
+        } else if (e.code == 'email-already-in-use') {
+          Navigator.of(context).pop();
+          AwesomeDialog(
+              context: context,
+              title: "Error",
+              body: Text("The account already exists for that email"))
+            ..show();
         }
       } catch (e) {
         print(e);
-        print("eroooooooooooooooooooooooooooooooooor");
       }
-
-      print(email);
-      print(password);
-    } else {
-      return;
-    }
+    } else {}
   }
-
-  final _auth = FirebaseAuth.instance;
+  // final _auth = FirebaseAuth.instance;
 
   // bool modal_progress_hud = false;
-  String email = '';
-  String password = '';
-  String name = '';
+  var email, password ,name ;
 
   // bool isLogin=true;
 
@@ -139,10 +174,23 @@ class _SignInScreenState extends State<SignInScreen> {
             ),
           ),
           SizedBox(height: 20),
-          Buton('تسجيل', onTap: ()
-           {
-             validateForm();
-          }),
+          Buton(
+            'تسجيل',
+            onTap: ()  async {
+              UserCredential response = await signUp();
+              print("===================");
+              if (response != null) {
+                await FirebaseFirestore.instance
+                    .collection("users")
+                    .add({"username": name, "email": email});
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context)=>Category()));
+              } else {
+                print("Sign Up Faild");
+              }
+              print("===================");
+            },
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
