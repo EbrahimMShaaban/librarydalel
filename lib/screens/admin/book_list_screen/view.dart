@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
+import 'package:librarydalel/screens/admin/add_book_screen/add_book_screen.dart';
 
 import 'displaybook_item.dart';
 
@@ -31,7 +32,9 @@ class DisplayBooksScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
       floatingActionButton: FloatingActionButton(
         backgroundColor: purple,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddBookScreen()));
+        },
         child: Icon(Icons.add),
       ),
     );

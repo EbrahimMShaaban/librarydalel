@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/alert.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/category_screen/view.dart';
+import 'package:librarydalel/screens/registration/log_in_screen.dart';
 import 'package:librarydalel/screens/user/navigation.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/button/textbuton.dart';
@@ -194,7 +195,9 @@ class _SignInScreenState extends State<SignInScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Textbuton('سجل دخول', onTap: () {}),
+              Textbuton('سجل دخول', onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>LogInScreen()));
+              }),
               Text(
                 'هل لديك حساب بالفعل ؟',
                 style: hintStyle,

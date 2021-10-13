@@ -6,12 +6,14 @@ class InputField extends StatefulWidget {
   final String label;
   final bool scure;
   final Function onSaved;
+  final Function validator;
 
   InputField({
     required this.hint,
     required this.label,
     required this.scure,
     required this.onSaved,
+    required this.validator,
   });
 
   @override
@@ -26,7 +28,8 @@ class _InputFieldState extends State<InputField> {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: TextFormField(
-           onSaved:(newValue) =>  widget.onSaved,
+           onSaved: (value)=>widget.onSaved(),
+           validator: widget.validator(),
           obscureText: widget.scure,
           decoration: InputDecoration(
             enabledBorder: UnderlineInputBorder(

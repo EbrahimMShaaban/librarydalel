@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/add_book_screen.dart';
 import 'package:librarydalel/screens/registration/log_in_screen.dart';
+import 'package:librarydalel/screens/registration/sign_in_screen.dart';
 import 'package:librarydalel/screens/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AddBookScreen(),
+      home: SignInScreen(),
     );
   }
 }
