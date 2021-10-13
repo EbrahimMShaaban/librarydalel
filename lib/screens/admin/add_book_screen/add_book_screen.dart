@@ -39,41 +39,41 @@ class _AddBookScreenState extends State<AddBookScreen> {
               hint: 'ادخل اسم الكتاب',
               label: 'اسم الكتاب',
               scure: false,
-              // onSaved: (value) {
-              //   bookname = value;
-              // },
+              onSaved: (value) {
+                bookname = value;
+              },
             ),
             InputField(
               hint: 'ادخل اسم المؤلف',
               label: 'المؤلف',
               scure: false,
-              // onSaved: (value) {
-              //   authorname = value;
-              // },
+              onSaved: (value) {
+                authorname = value;
+              },
             ),
             InputField(
               hint: 'ادخل النوع',
               label: 'النوع',
               scure: false,
-              // onSaved: (value) {
-              //   type = value;
-              // },
+              onSaved: (value) {
+                type = value;
+              },
             ),
             InputField(
               hint: 'ادخل رقم العمود',
               label: 'رقم العمود',
               scure: false,
-              // onSaved: (value) {
-              //   columnnum = value;
-              // },
+              onSaved: (value) {
+                columnnum = value;
+              },
             ),
             InputField(
               hint: 'ادخل رقم الصف',
               label: 'رقم الصف',
               scure: false,
-              // onSaved: (value) {
-              //   rownum = value;
-              // },
+              onSaved: (value) {
+                rownum = value;
+              },
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
