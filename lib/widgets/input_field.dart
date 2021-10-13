@@ -26,7 +26,7 @@ class _InputFieldState extends State<InputField> {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: TextFormField(
-           onSaved: widget.onSaved(),
+           onSaved:(newValue) =>  widget.onSaved,
           obscureText: widget.scure,
           decoration: InputDecoration(
             enabledBorder: UnderlineInputBorder(

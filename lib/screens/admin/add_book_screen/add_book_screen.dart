@@ -1,15 +1,15 @@
 import 'dart:io';
 import 'dart:math';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:librarydalel/screens/admin/book_list_screen/view.dart';
+import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:librarydalel/constant/styles.dart';
-import 'package:librarydalel/widgets/addimage.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/input_field.dart';
-import 'package:path/path.dart';
 
 class AddBookScreen extends StatefulWidget {
   @override
@@ -17,10 +17,36 @@ class AddBookScreen extends StatefulWidget {
 }
 
 class _AddBookScreenState extends State<AddBookScreen> {
+
   GlobalKey <FormState> _formKey = new GlobalKey<FormState>();
+CollectionReference addbook = FirebaseFirestore.instance.collection("addbook");
   var bookname, authorname, rownum, columnnum, type, imageurl;
   late File  file;
+  late Reference ref;
+  adNotes(context)async{
+    var formdata = _formKey.currentState;
 
+    if (formdata!.validate()){
+      formdata.save();
+      await ref.putFile(file);
+      imageurl = await ref.getDownloadURL();
+      await addbook.add({
+        "bookname": bookname,
+        "authorname": authorname,
+        "rownum": rownum,
+        "columnnum": columnnum,
+        "type": type,
+        "imageurl": imageurl,
+
+      });
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DisplayBooksScreen()));
+    }
+
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +62,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
             )),
             SizedBox(height: 25),
             InputField(
+
               hint: 'ادخل اسم الكتاب',
               label: 'اسم الكتاب',
               scure: false,
@@ -47,9 +74,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
               hint: 'ادخل اسم المؤلف',
               label: 'المؤلف',
               scure: false,
-              onSaved: (value) {
-                authorname = value;
-              },
+              onSaved:(val) => addbook = val,
             ),
             InputField(
               hint: 'ادخل النوع',
@@ -99,83 +124,92 @@ class _AddBookScreenState extends State<AddBookScreen> {
                 ),
               ),
             ),
-            Buton('اضافة', onTap: () {}),
+            Buton('اضافة', onTap: () async{
+              await adNotes(context);
+
+            }),
           ],
         ),
       ),
     );
   }
+
+  showBottomSheet(context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            padding: EdgeInsets.all(20),
+            height: 180,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Please Choose Image",
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+                InkWell(
+                  onTap: () async {
+                    var picked = await ImagePicker().pickImage(
+                        source: ImageSource.gallery);
+                      if (picked != null) {
+                        file =File(picked.path);
+                        var rang = Random().nextInt(100000);
+                       var imagename = "$rang" + basename(picked.path);
+                         ref= FirebaseStorage.instance.ref("images").child("${imagename}");
+                     Navigator.of(context).pop();
+                      }
+                  },
+                  child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.photo_outlined,
+                            size: 30,
+                          ),
+                          SizedBox(width: 20),
+                          Text(
+                            "From Gallery",
+                            style: TextStyle(fontSize: 20),
+                          )
+                        ],
+                      )),
+                ),
+                InkWell(
+                  onTap: () async {
+                    var picked = await ImagePicker().pickImage(
+                        source: ImageSource.camera);
+                    if (picked != null) {
+                      file = File(picked.path);
+                      var rang = Random().nextInt(100000);
+                      var imagename = "$rang" + basename(picked.path);
+                       ref = FirebaseStorage.instance.ref("images").child(
+                          "${imagename}");
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.camera,
+                            size: 30,
+                          ),
+                          SizedBox(width: 20),
+                          Text(
+                            "From Camera",
+                            style: TextStyle(fontSize: 20),
+                          )
+                        ],
+                      )),
+                ),
+              ],
+            ),
+          );
+        });
 }
-showBottomSheet(context) {
-  return showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Container(
-          padding: EdgeInsets.all(20),
-          height: 180,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Please Choose Image",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-              InkWell(
-                onTap: () async {
-                  var picked=  await ImagePicker().pickImage(source: ImageSource.gallery);
-
-
-                },
-                child: Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.photo_outlined,
-                          size: 30,
-                        ),
-                        SizedBox(width: 20),
-                        Text(
-                          "From Gallery",
-                          style: TextStyle(fontSize: 20),
-                        )
-                      ],
-                    )),
-              ),
-              InkWell(
-                onTap: () async{
-                  var picked=  await ImagePicker().pickImage(source: ImageSource.camera);
-                  if (picked != null) {
-                    var file = File(picked.path);
-                    var rand = Random().nextInt(100000);
-                    var imagename = "$rand" + basename(picked.path);
-                    Reference ref = FirebaseStorage.instance
-                        .ref("images")
-                        .child("$imagename");
-                    Navigator.of(context).pop();
-                  }
-
-                },
-                child: Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.camera,
-                          size: 30,
-                        ),
-                        SizedBox(width: 20),
-                        Text(
-                          "From Camera",
-                          style: TextStyle(fontSize: 20),
-                        )
-                      ],
-                    )),
-              ),
-            ],
-          ),
-        );
-      });
 }
