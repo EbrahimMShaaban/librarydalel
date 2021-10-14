@@ -1,12 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/add_book_screen.dart';
-
 import 'displaybook_item.dart';
 
-class DisplayBooksScreen extends StatelessWidget {
+class DisplayBooksScreen extends StatefulWidget {
   const DisplayBooksScreen({Key? key}) : super(key: key);
 
+  @override
+  State<DisplayBooksScreen> createState() => _DisplayBooksScreenState();
+}
+
+class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
+  CollectionReference bookref = FirebaseFirestore.instance.collection('books');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,11 +27,19 @@ class DisplayBooksScreen extends StatelessWidget {
             Text('جميع الكتب',style: labelStyle,),
             SizedBox(
               height: MediaQuery.of(context).size.height-70,
-              child: ListView.builder(
-                  itemCount: 20,
-                  itemBuilder: (context, index) {
-                    return DisplaybookItem();
-                  }),
+              child: FutureBuilder(
+                future: FirebaseFirestore.instance.collection('books').get(),
+                  builder: (context,snapshot){
+                  if(snapshot.hasData){
+                    return ListView.builder(
+                    itemCount: snapshot.data!.docs.lenght,
+                    itemBuilder: (context, index) {
+                      return DisplaybookItem();
+                    });
+                  }
+                  return Text('erooor');
+                  },
+              ),
             ),
           ],
         ),
@@ -40,3 +55,9 @@ class DisplayBooksScreen extends StatelessWidget {
     );
   }
 }
+
+// ListView.builder(
+// itemCount: 20,
+// itemBuilder: (context, index) {
+// return DisplaybookItem();
+// }),

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
         "columnnum": columnnum,
         "type": type,
         "imageurl": imageurl,
+        "userid": FirebaseAuth.instance.currentUser!.uid,
+
       });
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => DisplayBooksScreen()));
