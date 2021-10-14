@@ -26,8 +26,8 @@ class _CategoryState extends State<Category> {
           ),
           CategoryItem(
             text: 'الكتب',
-            onTap: () {
-              Navigator.push(
+            onTap: () async{
+            await Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => DisplayBooksScreen()));

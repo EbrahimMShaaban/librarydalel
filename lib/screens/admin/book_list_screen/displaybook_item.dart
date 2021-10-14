@@ -44,7 +44,7 @@ class DisplaybookItem extends StatelessWidget {
     Navigator.push(
     context,
     MaterialPageRoute(
-    builder: (context) => EditBook(notes:notes,docsid: docsid,)));
+    builder: (context) => EditBook(books:notes,docsid: docsid,)));
     },
                 child: Icon(Icons.edit)),
 

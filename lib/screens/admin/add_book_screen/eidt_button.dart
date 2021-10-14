@@ -15,9 +15,9 @@ import 'package:path/path.dart';
 
 class EditBook extends StatefulWidget {
   final docsid;
-  final notes;
+  final books;
 
-  EditBook ({required this.notes,required this.docsid});
+  EditBook ({required this.books,required this.docsid});
   @override
   State<EditBook> createState() => _EditBookState();
 }
@@ -32,23 +32,22 @@ class _EditBookState extends State<EditBook> {
   late File file;
   late Reference ref;
 
-  editNotes(context) async {
+  editBook(context) async {
     var formdata = _formKey.currentState;
     if (file == null){
       if (formdata!.validate()) {
         formdata.save();
         showLoading(context);
-
         await addbook.doc().update({
           "bookname": bookname,
           "authorname": authorname,
           "rownum": rownum,
           "columnnum": columnnum,
           "type": type,
-        });
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));
-      }
+        }).then((value) {Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));}).catchError((e){
+              print("$e");
+        });}
     }else{
       if (formdata!.validate()) {
         formdata.save();
@@ -62,9 +61,12 @@ class _EditBookState extends State<EditBook> {
           "columnnum": columnnum,
           "type": type,
           "imageurl": imageurl,
+        }).then((value) => (){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));
+        }).catchError((e){
+          print("$e");
         });
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));
       }
     };
 
@@ -91,7 +93,7 @@ class _EditBookState extends State<EditBook> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
-                  initialValue: widget.notes.data()['bookname'],
+                  initialValue: widget.books.data()['bookname'],
 
                   onSaved: (val) {
                     bookname = val;
@@ -123,15 +125,14 @@ class _EditBookState extends State<EditBook> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
-                  initialValue: widget.notes.data()['authorname'],
+                  initialValue: widget.books.data()['authorname'],
                   onSaved: (val) {
                     authorname = val;
                   },
-                  validator: (value) {
-                    authorname = value;
-                    if (value!.isEmpty) {
-                      return 'برجاءادخال اسم المؤلف ';
-                    }
+                  validator: (val) {
+                   if(val!.isEmpty){
+                     return 'برجاء ادخال اسم المؤلف';
+                   }
                   },
                   obscureText: false,
                   decoration: InputDecoration(
@@ -153,7 +154,7 @@ class _EditBookState extends State<EditBook> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
-                  initialValue: widget.notes.data()['type'],
+                  initialValue: widget.books.data()['type'],
 
                   onSaved: (val) {
                     type = val;
@@ -185,7 +186,7 @@ class _EditBookState extends State<EditBook> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
-                  initialValue: widget.notes.data()['columnnum'],
+                  initialValue: widget.books.data()['columnnum'],
 
                   onSaved: (val) {
                     columnnum = val;
@@ -217,7 +218,7 @@ class _EditBookState extends State<EditBook> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
-                  initialValue: widget.notes.data()['rownum'],
+                  initialValue: widget.books.data()['rownum'],
 
                   onSaved: (val) {
                     rownum = val;
@@ -272,7 +273,7 @@ class _EditBookState extends State<EditBook> {
                 ),
               ),
               Buton('اضافة', onTap: () async {
-                await editNotes(context);
+                await editBook(context);
               }),
             ],
           ),
