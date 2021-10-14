@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
-import 'package:librarydalel/screens/admin/book_details/view.dart';
+import 'package:librarydalel/screens/admin/add_book_screen/eidt_button.dart';
 
-import 'eidt_button.dart';
+import 'package:librarydalel/screens/user/profile_screen/edit_profile/edit_profile_button.dart';
+
 
 
 class DisplaybookItem extends StatelessWidget {
+   final notes;
+   final docsid;
+   DisplaybookItem({
+     required this.notes,
+     required this.docsid,
+});
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -24,7 +31,7 @@ class DisplaybookItem extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              'اسم الكتاب',
+             "${notes['bookname']}",
               style: appbarStyle,
             ),
             Expanded(
@@ -32,21 +39,32 @@ class DisplaybookItem extends StatelessWidget {
                 width: sizeFromWidth(context, 2),
               ),
             ),
+            // EditButton(
+            //
+            //     onTap: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => BookDetails(
+            //                 icon: Icons.edit,
+            //               )));
+            //     },
+            //     image: 'edit'),
             EditButton(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BookDetails(
-                            icon: Icons.edit,
-                          )));
-                },
-                image: 'edit'),
+              "edit",
+              onTap: () {
+                Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EditBook(notes:notes,docsid: docsid,)));
+              },
+            ),
             EditButton(
+                "delete",
                 onTap: () {
                   print('hhhh');
                 },
-                image: 'delete'),
+               ),
           ],
         ),
       ),

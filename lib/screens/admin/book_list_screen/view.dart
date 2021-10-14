@@ -34,7 +34,8 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
                     return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
-                      return DisplaybookItem();
+                      return DisplaybookItem(notes: snapshot.data!.docs[index],docsid: snapshot
+                          .data!.docs[index].id ,);
                     });
                   }
                   return Text('erooor');
@@ -56,8 +57,3 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
   }
 }
 
-// ListView.builder(
-// itemCount: 20,
-// itemBuilder: (context, index) {
-// return DisplaybookItem();
-// }),
