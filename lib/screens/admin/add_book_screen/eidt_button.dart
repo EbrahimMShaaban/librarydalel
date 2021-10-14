@@ -64,7 +64,7 @@ class _EditBookState extends State<EditBook> {
           "imageurl": imageurl,
         });
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DisplayBooksScreen()));
+            MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));
       }
     };
 
