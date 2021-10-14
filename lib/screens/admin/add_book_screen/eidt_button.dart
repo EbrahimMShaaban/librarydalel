@@ -47,7 +47,7 @@ class _EditBookState extends State<EditBook> {
           "type": type,
         });
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DisplayBooksScreen()));
+            MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));
       }
     }else{
       if (formdata!.validate()) {
@@ -91,7 +91,7 @@ class _EditBookState extends State<EditBook> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
-                  initialValue: widget.notes['bookname'],
+                  initialValue: widget.notes.data()['bookname'],
 
                   onSaved: (val) {
                     bookname = val;
@@ -123,7 +123,7 @@ class _EditBookState extends State<EditBook> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
-                  initialValue: widget.notes['authorname'],
+                  initialValue: widget.notes.data()['authorname'],
                   onSaved: (val) {
                     authorname = val;
                   },
@@ -153,7 +153,7 @@ class _EditBookState extends State<EditBook> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
-                  initialValue: widget.notes['type'],
+                  initialValue: widget.notes.data()['type'],
 
                   onSaved: (val) {
                     type = val;
@@ -185,7 +185,7 @@ class _EditBookState extends State<EditBook> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
-                  initialValue: widget.notes['columnnum'],
+                  initialValue: widget.notes.data()['columnnum'],
 
                   onSaved: (val) {
                     columnnum = val;
@@ -217,7 +217,7 @@ class _EditBookState extends State<EditBook> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
-                  initialValue: widget.notes['rownum'],
+                  initialValue: widget.notes.data()['rownum'],
 
                   onSaved: (val) {
                     rownum = val;

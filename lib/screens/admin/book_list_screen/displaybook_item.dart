@@ -31,7 +31,7 @@ class DisplaybookItem extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-             "${notes['bookname']}",
+             "${notes.data()['bookname']}",
               style: appbarStyle,
             ),
             Expanded(
@@ -40,15 +40,13 @@ class DisplaybookItem extends StatelessWidget {
               ),
             ),
 
-            EditButton(
-              "edit",
-              onTap: () {
-                Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EditBook(notes:notes,docsid: docsid,)));
-              },
-            ),
+            InkWell( onTap: () {
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context) => EditBook(notes:notes,docsid: docsid,)));
+    },
+                child: Icon(Icons.edit)),
 
           ],
         ),

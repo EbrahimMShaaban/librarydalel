@@ -14,6 +14,7 @@ class DisplayBooksScreen extends StatefulWidget {
 
 class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
   CollectionReference bookref = FirebaseFirestore.instance.collection('books');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,28 +25,36 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
             SizedBox(
               height: 60,
             ),
-            Text('جميع الكتب',style: labelStyle,),
+            Text(
+              'جميع الكتب',
+              style: labelStyle,
+            ),
             SizedBox(
-              height: MediaQuery.of(context).size.height-70,
+              height: MediaQuery.of(context).size.height - 70,
               child: FutureBuilder<QuerySnapshot>(
                 future: FirebaseFirestore.instance.collection('books').get(),
-                  builder: (context,snapshot){
-                  if(snapshot.hasData){
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
                     return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      return Dismissible(
-             onDismissed: (diretion)async{
-             await  bookref.doc(snapshot.data!.docs[index].id).delete();
-             },
-                        key: UniqueKey(),
-                        child: DisplaybookItem(notes: snapshot.data!.docs[index],docsid: snapshot
-                            .data!.docs[index].id,),
-                      );
-                    });
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          return Dismissible(
+                            onDismissed: (diretion) async {
+                              await bookref
+                                  .doc(snapshot.data!.docs[index].id)
+                                  .delete();
+                            },
+                            key: UniqueKey(),
+
+                            child: DisplaybookItem(
+                              notes: snapshot.data!.docs[index],
+                              docsid: snapshot.data!.docs[index].id,
+                            ),
+                          );
+                        });
                   }
                   return Text('erooor');
-                  },
+                },
               ),
             ),
           ],
@@ -55,11 +64,11 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: purple,
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddBookScreen()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddBookScreen()));
         },
         child: Icon(Icons.add),
       ),
     );
   }
 }
-
