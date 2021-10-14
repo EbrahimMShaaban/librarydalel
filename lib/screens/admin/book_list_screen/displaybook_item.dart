@@ -39,17 +39,7 @@ class DisplaybookItem extends StatelessWidget {
                 width: sizeFromWidth(context, 2),
               ),
             ),
-            // EditButton(
-            //
-            //     onTap: () {
-            //       Navigator.push(
-            //           context,
-            //           MaterialPageRoute(
-            //               builder: (context) => BookDetails(
-            //                 icon: Icons.edit,
-            //               )));
-            //     },
-            //     image: 'edit'),
+
             EditButton(
               "edit",
               onTap: () {
@@ -59,12 +49,7 @@ class DisplaybookItem extends StatelessWidget {
                                   builder: (context) => EditBook(notes:notes,docsid: docsid,)));
               },
             ),
-            EditButton(
-                "delete",
-                onTap: () {
-                  print('hhhh');
-                },
-               ),
+
           ],
         ),
       ),
