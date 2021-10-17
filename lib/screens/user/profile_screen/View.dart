@@ -48,8 +48,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(height: 50),
                     const SizedBox(height: 30),
-                    UserItem(" : البريد الألكترونى  ",
-                        textContainer: snapshot.data!.docs['username']),
+                    // UserItem(" : البريد الألكترونى  ",
+                    //     textContainer: snapshot.data!.docs['username']),
                     const SizedBox(height: 70),
                     EditButton("تعديل بياناتى", onTap: () {
                       Navigator.push(

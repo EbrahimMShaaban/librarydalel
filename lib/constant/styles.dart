@@ -11,7 +11,7 @@ const Color white2 = Color(0xfff1f1f1);
 const Color black = Color(0xFF09090a);
 
 TextStyle labelStyle = GoogleFonts.tajawal(
-    textStyle: const TextStyle(
+    textStyle: const  TextStyle(
         fontSize: 28, fontWeight: FontWeight.w600, color: gray, height: .2));
 TextStyle hintStyle = GoogleFonts.tajawal(
     textStyle: const TextStyle(
