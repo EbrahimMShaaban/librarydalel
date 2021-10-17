@@ -20,7 +20,7 @@ class _CategoryState extends State<Category> {
     return Scaffold(
       body: Column(
         children: [
-          appBar(),
+          myAppBar(),
           SizedBox(
             height: sizeFromHeight(context, 5),
           ),
@@ -30,7 +30,7 @@ class _CategoryState extends State<Category> {
             await Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => DisplayBooksScreen()));
+                      builder: (context) => const DisplayBooksScreen()));
             },
           ),
           CategoryItem(
@@ -39,7 +39,7 @@ class _CategoryState extends State<Category> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AddBookScreen()));
+                      builder: (context) => const AddBookScreen()));
             },
           ),
           CategoryItem(

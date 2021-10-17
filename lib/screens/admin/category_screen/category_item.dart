@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
+// ignore_for_file: use_key_in_widget_constructors
+
 class CategoryItem extends StatelessWidget {
  final String text;
  final Function onTap;
-CategoryItem({   required this.text,
+const CategoryItem({   required this.text,
   required this.onTap,}
     );
   @override
@@ -13,11 +15,11 @@ CategoryItem({   required this.text,
       child: Container(
         width: sizeFromWidth(context, 1.5),
         height: 60,
-        margin: EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: white,
-            boxShadow: [BoxShadow(
+            boxShadow: const[BoxShadow(
               color: purple,
               blurRadius: 3.5,
             )]

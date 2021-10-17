@@ -17,8 +17,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
   List <Widget> pages=[
     //ToDo
     SearchScreen(),
-    HomePageScren(),
-    ProfileScreen(),
+    const HomePageScreen(),
+    const ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             pageindex=value;
           });
           },
-          items: [
+          items: const [
         BottomNavigationBarItem(icon: Icon(Icons.search),label: ''),
         BottomNavigationBarItem(icon: Icon(Icons.home),label: ''),
         BottomNavigationBarItem(icon: Icon(Icons.person),label: ''),

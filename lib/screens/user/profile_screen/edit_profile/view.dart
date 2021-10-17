@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
@@ -13,7 +15,7 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   validateForm() {
     if (_formKey.currentState!.validate()) {
@@ -28,7 +30,7 @@ late String email;
     return Scaffold(
       body: ListView(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 70,
           ),
           Center(
@@ -37,7 +39,7 @@ late String email;
               style: labelStyle,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 60,
           ),
           Form(
@@ -60,7 +62,7 @@ late String email;
                 },
 
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               InputFieldRegist(
@@ -79,7 +81,7 @@ late String email;
                   }
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               InputFieldRegist(
@@ -100,7 +102,7 @@ late String email;
               ),
             ],
           )),
-          SizedBox(height: 80),
+          const SizedBox(height: 80),
           Buton(
             "تعديل",
             onTap: () {

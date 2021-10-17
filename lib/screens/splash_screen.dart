@@ -17,9 +17,9 @@ class _SplashScreenState extends State<SplashScreen> {
   final auth = FirebaseAuth.instance;
   @override
   void initState() {
-    Timer(Duration(seconds: 10), () {
+    Timer(const Duration(seconds: 10), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LogInScreen()));
+          context, MaterialPageRoute(builder: (context) => const LogInScreen()));
     });
 
     super.initState();
@@ -33,16 +33,16 @@ class _SplashScreenState extends State<SplashScreen> {
           width: sizeFromWidth(context, 2),
           height: sizeFromHeight(context, 2),
           decoration: BoxDecoration(
-              color: clear_gray,
+              color: clearGray,
               shape: BoxShape.circle,
-              border: Border.all(color: clear_gray, width: 1.5),
-              boxShadow: [BoxShadow(color: clear_gray, blurRadius: 3)]),
-          child: CircleAvatar(
+              border: Border.all(color: clearGray, width: 1.5),
+              boxShadow: const  [BoxShadow(color: clearGray, blurRadius: 3)]),
+          child:  const CircleAvatar(
               backgroundColor: white,
               radius: 45,
-              child: Image(
-                  image: AssetImage(
-                'assets/logo.png',
+              child:  Image(
+                  image:  AssetImage(
+                'assets/logo3.png',
               ))),
         ),
       ),

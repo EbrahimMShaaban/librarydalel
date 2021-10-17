@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/add_book_screen.dart';
@@ -22,7 +21,7 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
         textDirection: TextDirection.rtl,
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 60,
             ),
             Text(
@@ -47,13 +46,13 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
                             key: UniqueKey(),
 
                             child: DisplaybookItem(
-                              notes: snapshot.data!.docs[index],
+                              bookName: snapshot.data!.docs[index],
                               docsid: snapshot.data!.docs[index].id,
                             ),
                           );
                         });
                   }
-                  return Text('erooor');
+                  return const Text('erooor');
                 },
               ),
             ),
@@ -65,9 +64,9 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
         backgroundColor: purple,
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddBookScreen()));
+              MaterialPageRoute(builder: (context) => const AddBookScreen()));
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

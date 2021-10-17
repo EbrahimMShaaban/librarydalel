@@ -3,10 +3,11 @@ showLoading(context) {
   return showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          title: Text("Please Wait"),
+        return AlertDialog (
+          title: const Text("Please Wait"),
+          // ignore: sized_box_for_whitespace
           content: Container(
-              height: 50, child: Center(child: CircularProgressIndicator())),
+              height: 50, child: const Center(child: CircularProgressIndicator())),
         );
       });
 }

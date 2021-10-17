@@ -1,6 +1,7 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
-Widget appBar(){
+Widget myAppBar(){
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
     child: AppBar(
@@ -14,10 +15,10 @@ Widget appBar(){
             textDirection: TextDirection.rtl,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 10,
         ),
-        CircleAvatar(
+        const CircleAvatar(
           radius: 25,
           backgroundColor: white,
           backgroundImage: AssetImage('assets/logo.png'),

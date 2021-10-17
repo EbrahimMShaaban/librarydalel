@@ -7,22 +7,23 @@ import 'package:librarydalel/widgets/logo.dart';
 import 'books_box.dart';
 
 
-class HomePageScren extends StatelessWidget {
-  const HomePageScren({Key? key}) : super(key: key);
+class HomePageScreen extends StatelessWidget {
+  const HomePageScreen({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 50,
         ),
-        Center(
+        const Center(
             child: Logo(
           height: 100,
         )),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
         Center(
@@ -30,11 +31,11 @@ class HomePageScren extends StatelessWidget {
           'الصفحة الرئيسية ',
           style: labelStyle,
         )),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         SizedBox(
-          height: sizeFromHeight(context, 1.4),
+          height: MediaQuery.of(context).size.height/1.8,
           child: ListView(
             children: [
               Column(
@@ -47,7 +48,7 @@ class HomePageScren extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  BooksBox(4),
+                  const BooksBox(4),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -55,7 +56,7 @@ class HomePageScren extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  BooksBox(10),
+                  const BooksBox(10),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -63,7 +64,7 @@ class HomePageScren extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  BooksBox(10),
+                  const BooksBox(10),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -71,7 +72,7 @@ class HomePageScren extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  BooksBox(10),
+                  const BooksBox(10),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -79,7 +80,7 @@ class HomePageScren extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  BooksBox(10)
+                  const BooksBox(10)
                 ],
             ),
           ],

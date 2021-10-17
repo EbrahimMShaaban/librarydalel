@@ -1,29 +1,25 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/eidt_button.dart';
-
-import 'package:librarydalel/screens/user/profile_screen/edit_profile/edit_profile_button.dart';
-
-
-
 class DisplaybookItem extends StatelessWidget {
-   final notes;
+   final  bookName;
    final docsid;
-   DisplaybookItem({
-     required this.notes,
+   const DisplaybookItem({Key? key,
+     required this.bookName,
      required this.docsid,
-});
+}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
         height: 70,
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         decoration: BoxDecoration(
           color: white,
-          boxShadow: [BoxShadow(color: white, blurRadius: 6)],
+          boxShadow: const [BoxShadow(color: white, blurRadius: 6)],
           border: Border.all(color: purple, width: 1.5),
           borderRadius: BorderRadius.circular(15),
         ),
@@ -31,7 +27,7 @@ class DisplaybookItem extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-             "${notes.data()['bookname']}",
+             "${bookName.data()['bookname']}",
               style: appbarStyle,
             ),
             Expanded(
@@ -41,12 +37,12 @@ class DisplaybookItem extends StatelessWidget {
             ),
 
             InkWell( onTap: () {
-    Navigator.push(
-    context,
-    MaterialPageRoute(
-    builder: (context) => EditBook(books:notes,docsid: docsid,)));
-    },
-                child: Icon(Icons.edit)),
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+              builder: (context) => EditBook(books:bookName,docsid: docsid,)));
+              },
+                child: const Icon(Icons.edit)),
 
           ],
         ),

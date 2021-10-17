@@ -1,9 +1,10 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/button/textbuton.dart';
-import 'package:librarydalel/widgets/input_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'log_in_screen.dart';
@@ -45,16 +46,16 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
               height: sizeFromHeight(context, 13),
             ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12.5),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12.5),
           child: Directionality(
             textDirection: TextDirection.rtl,
             child: TextFormField(
               controller: editController,
               decoration: InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: purple, width: 2.5),
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide:  BorderSide(color: purple, width: 2.5),
                 ),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: purple, width: 2.5),
                 ),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -83,7 +84,7 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
                 children: [
                   Textbuton("تسجيل دخول", onTap: () {
                     Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => LogInScreen()));
+                        MaterialPageRoute(builder: (context) => const LogInScreen()));
                   }),
                 ],
               ),
@@ -95,7 +96,7 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
   }
 
   void resetPassword(BuildContext context) async {
-    if (editController.text.length == 0 || !editController.text.contains("@")) {
+    if (editController.text.isEmpty || !editController.text.contains("@")) {
       Fluttertoast.showToast(msg: "Enter valid email",backgroundColor: purple);
       return;
     }

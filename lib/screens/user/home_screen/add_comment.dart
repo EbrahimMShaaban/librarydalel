@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
+// ignore_for_file: use_key_in_widget_constructors
+
 
 class AddComment extends StatelessWidget {
   @override
@@ -16,7 +18,7 @@ class AddComment extends StatelessWidget {
           child: ListView(
 
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Directionality(
@@ -30,7 +32,7 @@ class AddComment extends StatelessWidget {
                   enableSuggestions: true,
 
                   decoration: InputDecoration(
-                    fillColor: clear_gray,
+                    fillColor: clearGray,
                     isDense: false,
 
                     enabledBorder: OutlineInputBorder(

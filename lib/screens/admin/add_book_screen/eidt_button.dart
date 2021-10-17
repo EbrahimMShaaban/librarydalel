@@ -1,6 +1,7 @@
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+
 import 'dart:io';
 import 'dart:math';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,14 +11,13 @@ import 'package:librarydalel/constant/alert.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/book_list_screen/view.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
-import 'package:librarydalel/widgets/input_field.dart';
 import 'package:path/path.dart';
 
 class EditBook extends StatefulWidget {
   final docsid;
   final books;
 
-  EditBook ({required this.books,required this.docsid});
+  const EditBook ({Key? key, required this.books,required this.docsid}) : super(key: key);
   @override
   State<EditBook> createState() => _EditBookState();
 }
@@ -25,7 +25,7 @@ class EditBook extends StatefulWidget {
 class _EditBookState extends State<EditBook> {
 
 
-  GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey =  GlobalKey<FormState>();
   CollectionReference addbook =
   FirebaseFirestore.instance.collection("books");
   var bookname, authorname, rownum, columnnum, type, imageurl;
@@ -68,10 +68,7 @@ class _EditBookState extends State<EditBook> {
           print("$e");
         });
       }
-    };
-
-
-
+    }
   }
 
   @override
@@ -83,13 +80,13 @@ class _EditBookState extends State<EditBook> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: ListView(
             children: [
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Center(
                   child: Text(
                     'إضافة كتاب',
                     style: labelStyle,
                   )),
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
@@ -106,11 +103,11 @@ class _EditBookState extends State<EditBook> {
                   },
                   obscureText: false,
                   decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: purple, width: 2.5),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide:  BorderSide(color: purple, width: 2.5),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
 
@@ -136,10 +133,10 @@ class _EditBookState extends State<EditBook> {
                   },
                   obscureText: false,
                   decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
-                    focusedBorder: UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -167,10 +164,10 @@ class _EditBookState extends State<EditBook> {
                   },
                   obscureText: false,
                   decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
-                    focusedBorder: UnderlineInputBorder(
+                    focusedBorder:const  UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -199,10 +196,10 @@ class _EditBookState extends State<EditBook> {
                   },
                   obscureText: false,
                   decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder:const  UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
-                    focusedBorder: UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -231,10 +228,10 @@ class _EditBookState extends State<EditBook> {
                   },
                   obscureText: false,
                   decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder:const  UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
-                    focusedBorder: UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -256,8 +253,8 @@ class _EditBookState extends State<EditBook> {
                   },
                   child: Container(
                     height: sizeFromHeight(context, 15),
-                    margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Center(
                         child: Text(
                           'إضافة صورة ',
@@ -287,12 +284,12 @@ class _EditBookState extends State<EditBook> {
         context: context,
         builder: (context) {
           return Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             height: 180,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Please Choose Image",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
@@ -306,15 +303,15 @@ class _EditBookState extends State<EditBook> {
                       var imagename = "$rang" + basename(picked.path);
                       ref = FirebaseStorage.instance
                           .ref("images")
-                          .child("${imagename}");
+                          .child(imagename);
                       Navigator.of(context).pop();
                     }
                   },
                   child: Container(
                       width: double.infinity,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Row(
-                        children: [
+                        children: const[
                           Icon(
                             Icons.photo_outlined,
                             size: 30,
@@ -337,15 +334,15 @@ class _EditBookState extends State<EditBook> {
                       var imagename = "$rang" + basename(picked.path);
                       ref = FirebaseStorage.instance
                           .ref("images")
-                          .child("${imagename}");
+                          .child(imagename);
                       Navigator.of(context).pop();
                     }
                   },
                   child: Container(
                       width: double.infinity,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Row(
-                        children: [
+                        children: const[
                           Icon(
                             Icons.camera,
                             size: 30,

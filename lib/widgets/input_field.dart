@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 
@@ -8,7 +10,7 @@ class InputField extends StatefulWidget {
   final Function onSaved;
   final Function validator;
 
-  InputField({
+  const InputField({
     required this.hint,
     required this.label,
     required this.scure,
@@ -24,7 +26,7 @@ class _InputFieldState extends State<InputField> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20,vertical: 12.5),
+      padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 12.5),
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: TextFormField(
@@ -32,11 +34,11 @@ class _InputFieldState extends State<InputField> {
            validator: widget.validator(),
           obscureText: widget.scure,
           decoration: InputDecoration(
-            enabledBorder: UnderlineInputBorder(
+            enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: purple,width: 2.5),
             ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: purple,width: 2.5),
+            focusedBorder: const UnderlineInputBorder(
+              borderSide:  BorderSide(color: purple,width: 2.5),
             ),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             labelText: widget.label,

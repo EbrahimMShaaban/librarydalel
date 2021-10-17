@@ -11,15 +11,15 @@ import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/button/textbuton.dart';
 import 'package:librarydalel/widgets/input_field_regeist.dart';
 import 'package:librarydalel/widgets/logo.dart';
-
 class LogInScreen extends StatefulWidget {
+  const LogInScreen({Key? key}) : super(key: key);
   @override
   _LogInScreenState createState() => _LogInScreenState();
 }
 
 class _LogInScreenState extends State<LogInScreen> {
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   signIn() async {
     var formdata = _formKey.currentState;
@@ -36,19 +36,19 @@ class _LogInScreenState extends State<LogInScreen> {
           AwesomeDialog(
               context: context,
               title: "Error",
-              body: Text("No user found for that email"))
-            ..show();
+              body: const Text("No user found for that email"))
+            .show();
         } else if (e.code == 'wrong-password') {
           Navigator.of(context).pop();
           AwesomeDialog(
               context: context,
               title: "Error",
-              body: Text("Wrong password provided for that user"))
-            ..show();
+              body: const Text("Wrong password provided for that user"))
+            .show();
         }
       }
     } else {
-      print("Not Vaild");
+      return "Not Valid";
     }
   }
   String email = '';
@@ -59,11 +59,11 @@ class _LogInScreenState extends State<LogInScreen> {
     return Scaffold(
       body: ListView(
           children: [
-          SizedBox(height: 35),
-            Logo(
+            const SizedBox(height: 35),
+            const Logo(
             height: 140,
           ),
-          SizedBox(
+            const SizedBox(
         height: 30,
       ),
       Center(
@@ -71,7 +71,7 @@ class _LogInScreenState extends State<LogInScreen> {
             'تسجيل الدخول',
             style: labelStyle,
           )),
-      SizedBox(
+            const SizedBox(
         height: 20,
       ),
       Form(
@@ -153,9 +153,13 @@ class _LogInScreenState extends State<LogInScreen> {
 
       Buton("تسجيل دخول", onTap: ()async {
         var user = await signIn();
-        if (user != null) {
+        if (user != null && email=='admin@admin1.com') {
           Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context)=>Category()));
+              .push(MaterialPageRoute(builder: (context)=>const Category()));
+        }
+        else{
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context)=>const NavigationScreen()));
         }
       },),
         ],
