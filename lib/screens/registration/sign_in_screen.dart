@@ -22,30 +22,6 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  // validateForm() async {
-  //   print('aa');
-  //   if (_formKey.currentState!.validate()) {
-  //     _formKey.currentState!.save();
-  //     try {
-  //       final newuser = await _auth.createUserWithEmailAndPassword(
-  //           email: email, password: password);
-  //       if (newuser != null) {
-  //         Navigator.push(context,
-  //             MaterialPageRoute(builder: (context) => NavigationScreen()));
-  //       }
-  //     } catch (e) {
-  //       print(e);
-  //       print("eroooooooooooooooooooooooooooooooooor");
-  //     }
-  //
-  //     print(email);
-  //     print(password);
-  //   } else {
-  //     return;
-  //   }
-  // }
-
   signUp() async {
     var formdata = _formKey.currentState;
     if (formdata!.validate()) {

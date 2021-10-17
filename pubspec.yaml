@@ -38,6 +38,8 @@ dependencies:
   awesome_dialog: ^2.1.1
   image_picker:
   path: ^1.8.0
+  provider: ^6.0.1
+
 
 
 

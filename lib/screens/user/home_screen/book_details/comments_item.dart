@@ -5,7 +5,8 @@ import 'input_text.dart';
 
 
 class CommentItem extends StatefulWidget {
-  const CommentItem({Key? key, }) : super(key: key);
+  final comment, date;
+  const CommentItem({Key? key, required this.comment ,required this.date}) : super(key: key);
 
   @override
   _CommentItemState createState() => _CommentItemState();
@@ -31,12 +32,12 @@ class _CommentItemState extends State<CommentItem> {
               SizedBox(
                 width: sizeFromWidth(context, 5),
               ),
-              Text('20/10/2021',style: hintStyle,),
+              Text(widget.date,style: hintStyle2,),
             ],
           ),
           Directionality(
             textDirection: TextDirection.rtl,
-              child: Text('معني ان الغايه هي الشكل وليس المحتوي \n ويستخدم في صناعات المطابع  ',style: hintStyle,textDirection: TextDirection.rtl,))
+              child: Text(widget.comment,style: hintStyle,textDirection: TextDirection.rtl,))
         ],
       ),
     );
