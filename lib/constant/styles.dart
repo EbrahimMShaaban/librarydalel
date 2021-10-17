@@ -30,7 +30,7 @@ TextStyle buttonTextStyle = GoogleFonts.tajawal(
         fontSize: 20, fontWeight: FontWeight.bold, color: purple, height: 1.5));
 TextStyle textstyles = GoogleFonts.tajawal(
     textStyle:const TextStyle(
-        fontSize: 15, fontWeight: FontWeight.w900, color: gray, height: 1.5));
+        fontSize: 15, fontWeight: FontWeight.bold, color: gray, height: 1.5));
 TextStyle hintStyle2 = GoogleFonts.tajawal(
     textStyle: const TextStyle(
         fontSize: 12,

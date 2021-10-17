@@ -48,7 +48,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(4),
+                  const BooksBox(type:'adab'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -56,7 +56,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(10),
+                  const BooksBox(type:'rawyat'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -64,7 +64,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(10),
+                  const BooksBox(type:'rawyat'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -72,7 +72,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(10),
+                  const BooksBox(type:'adab'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -80,7 +80,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(10)
+                  const BooksBox(type:'adab')
                 ],
             ),
           ],

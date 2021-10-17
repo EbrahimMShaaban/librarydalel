@@ -7,6 +7,7 @@ import 'package:librarydalel/constant/alert.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/category_screen/view.dart';
 import 'package:librarydalel/screens/registration/log_in_screen.dart';
+import 'package:librarydalel/screens/user/navigation.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/button/textbuton.dart';
 import 'package:librarydalel/widgets/input_field_regeist.dart';
@@ -179,9 +180,16 @@ class _SignInScreenState extends State<SignInScreen> {
               if (response != null) {
                 await FirebaseFirestore.instance
                     .collection("users")
-                    .add({"username": name, "email": email});
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context)=>const Category()));
+                    .add({"username": name, "email": email,"userid": FirebaseAuth.instance.currentUser!.uid,
+                });
+                   if(email=='admin@admin1.com'){
+                     Navigator.of(context)
+                         .push(MaterialPageRoute(builder: (context)=>const Category()));
+                   }
+                   else {
+                     Navigator.of(context)
+                         .push(MaterialPageRoute(builder: (context)=>const NavigationScreen()));
+                   }
               } else {
                 print("Sign Up Faild");
               }
