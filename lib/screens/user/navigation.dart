@@ -18,7 +18,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     //ToDo
     SearchScreen(),
     const HomePageScreen(),
-    const ProfileScreen(),
+     ProfileScreen(),
   ];
   @override
   Widget build(BuildContext context) {

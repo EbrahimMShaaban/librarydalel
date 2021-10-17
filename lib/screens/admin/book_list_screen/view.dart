@@ -31,6 +31,7 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
             SizedBox(
               height: MediaQuery.of(context).size.height - 70,
               child: FutureBuilder<QuerySnapshot>(
+
                 future: FirebaseFirestore.instance.collection('books').get(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {

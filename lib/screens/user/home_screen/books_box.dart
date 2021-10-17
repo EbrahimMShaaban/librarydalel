@@ -26,7 +26,7 @@ class _BooksBoxState extends State<BooksBox> {
           future: FirebaseFirestore.instance.collection('books').get(),
           builder: (context,snapshot){
             if(snapshot.hasData){
-              return SizedBox(
+               SizedBox(
                 height: sizeFromHeight(context, 4),
                 width: sizeFromWidth(context, 1),
                 child: ListView.builder(

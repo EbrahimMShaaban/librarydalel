@@ -7,7 +7,7 @@ class UserItem extends StatelessWidget {
   const UserItem(this.textaddress, {required this.textContainer});
 
   final String textaddress;
-  final String textContainer;
+  final textContainer;
 
   @override
   Widget build(BuildContext context) {
