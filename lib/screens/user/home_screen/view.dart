@@ -48,7 +48,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(type:'adab'),
+                  // const BooksBox(type:'adab'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(

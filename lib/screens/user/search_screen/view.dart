@@ -122,7 +122,7 @@ class _PastTripsViewState extends State<SearchScreen> {
                     left: 30.0, right: 30.0, bottom: 30.0),
                 child: TextField(
                   controller: _searchController,
-                  decoration: InputDecoration(prefixIcon: Icon(Icons.search)),
+                  decoration: const InputDecoration(prefixIcon: Icon(Icons.search)),
                 ),
               ),
               Expanded(
