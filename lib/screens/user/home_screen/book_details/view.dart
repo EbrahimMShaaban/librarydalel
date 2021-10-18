@@ -89,7 +89,7 @@ class _BookDetailsState extends State<BookDetails> {
                 height: sizeFromHeight(context, 1.7),
                 child: FutureBuilder<QuerySnapshot>(
                   future:
-                  FirebaseFirestore.instance.collection('comments').get(),
+                  FirebaseFirestore.instance.collection('books').doc('IPPFOg8b7Ie1jV4R3zFo').collection('comments').get(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return ListView.builder(
