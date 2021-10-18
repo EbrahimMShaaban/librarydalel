@@ -23,10 +23,7 @@ class _BooksBoxState extends State<BooksBox> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (context){
-      return Model();
-    },
-      child: Padding(
+    return Padding(
         padding: const EdgeInsets.only(right: 10, left: 10),
         child: Directionality(
           textDirection: TextDirection.rtl,
@@ -108,8 +105,7 @@ class _BooksBoxState extends State<BooksBox> {
               return const CircularProgressIndicator();
             },
           ),
-        ),
-      ),
+        )
     );
   }
 }

@@ -14,6 +14,7 @@ import 'package:librarydalel/constant/alert.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/book_list_screen/view.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
+import 'package:librarydalel/widgets/dropdown_list.dart';
 import 'package:path/path.dart';
 
 class AddBookScreen extends StatefulWidget {
@@ -29,6 +30,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
   var bookname, authorname, rownum, columnnum, type, imageurl;
   late File file;
   late Reference ref;
+
 
   addBook(context) async {
     var formdata = _formKey.currentState;
@@ -52,7 +54,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         "authorname": authorname,
         "rownum": rownum,
         "columnnum": columnnum,
-        "type": type,
+        "type": dropdownValue,
         "imageurl": imageurl,
         "userid": FirebaseAuth.instance.currentUser!.uid,
         "bookid":  Random().nextInt(100000),
@@ -152,62 +154,37 @@ class _AddBookScreenState extends State<AddBookScreen> {
                 ),
               ),
 
-              // InputField(
-              //   hint: 'ادخل اسم المؤلف',
-              //   label: 'المؤلف',
-              //   scure: false,
-              //   onSaved: (val) => authorname = val,
-              //   validator: (value) {
-              //     authorname = value;
-              //     if (value!.isEmpty) {
-              //       return 'برجاءادخال اسم المؤلف ';
-              //     }
-              //   },
-              // ),
               const SizedBox(height: 25),
-
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: TextFormField(
-                  onSaved: (val) {
-                    type = val;
-                  },
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'برجاءادخال النوع ';
-                    }
-                  },
-                  obscureText: false,
-                  decoration: InputDecoration(
-                    enabledBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: purple, width: 2.5),
-                    ),
-                    focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: purple, width: 2.5),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    labelText: 'النوع',
-                    hintText: 'ادخل النوع',
-                    labelStyle: labelStyle,
-                    hintStyle: hintStyle,
-                  ),
-                ),
-              ),
-
-              // InputField(
-              //   hint: 'ادخل النوع',
-              //   label: 'النوع',
-              //   scure: false,
-              //   onSaved: (value) {
-              //     type = value;
-              //   },
-              //   validator: (value) {
-              //     bookname = value;
-              //     if (value!.isEmpty) {
-              //       return 'برجاءادخال النوع ';
-              //     }
-              //   },
+              TypeList(),
+              // Directionality(
+              //   textDirection: TextDirection.rtl,
+              //   child: TextFormField(
+              //     onSaved: (val) {
+              //       type = val;
+              //     },
+              //     validator: (value) {
+              //       if (value!.isEmpty) {
+              //         return 'برجاءادخال النوع ';
+              //       }
+              //     },
+              //     obscureText: false,
+              //     decoration: InputDecoration(
+              //       enabledBorder: const UnderlineInputBorder(
+              //         borderSide: BorderSide(color: purple, width: 2.5),
+              //       ),
+              //       focusedBorder: const UnderlineInputBorder(
+              //         borderSide: BorderSide(color: purple, width: 2.5),
+              //       ),
+              //       floatingLabelBehavior: FloatingLabelBehavior.always,
+              //       labelText: 'النوع',
+              //       hintText: 'ادخل النوع',
+              //       labelStyle: labelStyle,
+              //       hintStyle: hintStyle,
+              //     ),
+              //   ),
               // ),
+
+
               const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
@@ -237,20 +214,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                 ),
               ),
 
-              // InputField(
-              //   hint: 'ادخل رقم العمود',
-              //   label: 'رقم العمود',
-              //   scure: false,
-              //   onSaved: (value) {
-              //     columnnum = value;
-              //   },
-              //   validator: (value) {
-              //     columnnum = value;
-              //     if (value!.isEmpty) {
-              //       return 'برجاءادخال رقم العمود ';
-              //     }
-              //   },
-              // ),
+
               const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
@@ -280,20 +244,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                 ),
               ),
 
-              // InputField(
-              //   hint: 'ادخل رقم الصف',
-              //   label: 'رقم الصف',
-              //   scure: false,
-              //   onSaved: (value) {
-              //     rownum = value;
-              //   },
-              //   validator: (value) {
-              //     rownum = value;
-              //     if (value!.isEmpty) {
-              //       return 'برجاءادخال رقم الصف ';
-              //     }
-              //   },
-              // ),
+
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),

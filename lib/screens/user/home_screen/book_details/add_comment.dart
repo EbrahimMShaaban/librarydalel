@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/alert.dart';
 import 'package:librarydalel/constant/styles.dart';
-import 'package:librarydalel/screens/user/home_screen/book_details/view.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 // ignore_for_file: use_key_in_widget_constructors
 
@@ -17,7 +16,7 @@ class AddComment extends StatefulWidget {
 class _AddCommentState extends State<AddComment> {
   final GlobalKey <FormState> _formKey = GlobalKey<FormState>();
   TextEditingController controller = TextEditingController();
-
+@override
   initState(){
     print((FirebaseAuth.instance.currentUser)!.email);
     super.initState();
@@ -121,6 +120,7 @@ class _AddCommentState extends State<AddComment> {
               ),
               Buton('إرسال', onTap: () async {
                 await validate(context);
+                print(widget.id);
               })
             ],
           ),
