@@ -40,17 +40,17 @@ class _AddCommentState extends State<AddComment> {
     }
   }
 
-  getName() async {
-    final user = FirebaseAuth.instance.currentUser!.displayName;
-    print(user);
-  }
+  // getName() async {
+  //   final user = FirebaseAuth.instance.currentUser!.displayName;
+  //   print(user);
+  // }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    getName();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   getName();
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {

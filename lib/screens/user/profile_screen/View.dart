@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
-import 'package:librarydalel/screens/user/profile_screen/user_item.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/logo.dart';
 
@@ -26,7 +25,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   getUserName() async {
     FirebaseFirestore.instance
         .collection('users')
-        .doc((await FirebaseAuth.instance.currentUser!).uid)
+        .doc(( FirebaseAuth.instance.currentUser!).uid)
         .get()
         .then((value) {
       setState(() {
