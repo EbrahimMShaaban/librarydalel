@@ -55,6 +55,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         "type": type,
         "imageurl": imageurl,
         "userid": FirebaseAuth.instance.currentUser!.uid,
+        "bookid":  Random().nextInt(100000),
       }).then((value) {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));

@@ -32,26 +32,32 @@ class SearchScreen extends StatefulWidget {
 
 class _PastTripsViewState extends State<SearchScreen> {
   TextEditingController _searchController = TextEditingController();
+  var allresult = FirebaseFirestore.instance.collection('books').get();
+  getresult(){
+    print(allresult);
+  }
 
-  // late Future resultsLoaded;
-  // List _allResults = [];
-  // List _resultsList = [];
+  late Future resultsLoaded;
+  List _allResults = [];
+  List _resultsList = [];
   @override
   void initState(){
     super.initState();
-    searchBooks();
+
+    print(allresult);
+    print('yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
   }
-  // // void initState() {
-  // //   super.initState();
-  // //   _searchController.addListener(_onSearchChanged);
-  // // }
-  //
+  // void initState() {
+  //   super.initState();
+  //   _searchController.addListener(_onSearchChanged);
+  // }
+
   // @override
-  // // void dispose() {
-  // //   _searchController.removeListener(_onSearchChanged);
-  // //   _searchController.dispose();
-  // //   super.dispose();
-  // // }
+  // void dispose() {
+  //   _searchController.removeListener(_onSearchChanged);
+  //   _searchController.dispose();
+  //   super.dispose();
+  // }
 
   // @override
   // void didChangeDependencies() {
@@ -62,7 +68,7 @@ class _PastTripsViewState extends State<SearchScreen> {
   // _onSearchChanged() {
   //   searchResultsList();
   // }
-
+  //
   // searchResultsList() {
   //   var showResults = [];
   //
@@ -93,13 +99,13 @@ class _PastTripsViewState extends State<SearchScreen> {
   //   return "complete";
   // }
 
-  searchBooks() async {
-    var result = await FirebaseFirestore.instance
-        .collection('books')
-        .where('bookname', isEqualTo: _searchController)
-        .get();
-    print(result);
-  }
+  // searchBooks() async {
+  //   var result = await FirebaseFirestore.instance
+  //       .collection('books')
+  //       .where('bookname', isEqualTo: _searchController)
+  //       .get();
+  //   print(result);
+  // }
 
   Widget build(BuildContext context) {
     return SafeArea(
