@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
+import 'package:librarydalel/screens/user/profile_screen/user_item.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/logo.dart';
 
@@ -23,16 +24,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final email = FirebaseAuth.instance.currentUser!.email;
 
   getUserName() async {
-    FirebaseFirestore.instance
+    //create instance from firebase firestore --> single tone
+     await FirebaseFirestore.instance
+     //go to (user) collection in fire store
         .collection('users')
-        .doc(( FirebaseAuth.instance.currentUser!).uid)
+     //get all docs and make for loop in it and get what i need ==> userid == my unique id
+        .where('userid', isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
+     // get it
         .get()
         .then((value) {
-      setState(() {
-        var _userName = value.data()!['username'];
-        print(_userName);
-        print('==========================');
-      });
+          //this return a list of query snapshot , but it include a one item - because the firebase uid is unique for each user -
+      print(value.docs[0]['email']);
     });
   }
 
@@ -46,10 +48,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FutureBuilder<DocumentSnapshot>(
+        body: FutureBuilder<QuerySnapshot>(
             future: FirebaseFirestore.instance
                 .collection('users')
-                .doc(( FirebaseAuth.instance.currentUser!).uid)
+                .where('userid',
+                    isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
                 .get(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -70,8 +73,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(height: 50),
                     const SizedBox(height: 30),
-                    // UserItem(" : البريد الألكترونى  ",
-                    //     textContainer: snapshot.data!['username'].toString()),
+                    UserItem(" : البريد الألكترونى  ",
+                        textContainer: snapshot.data!.docs[0]['username'].toString()),
                     const SizedBox(height: 70),
                     EditButton("تعديل بياناتى", onTap: () {
                       Navigator.push(
@@ -81,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }),
                     const SizedBox(height: 20),
                     Buton("تسجيل خروج", onTap: () {
-                      print(snapshot.data!['username']);
+                      print(snapshot.data!.docs[0]['username']);
                       // Navigator.pushReplacement(context,
                       //     MaterialPageRoute(builder: (context) => LogInScreen()));
                     }),
