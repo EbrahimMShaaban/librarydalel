@@ -7,7 +7,7 @@ class UserItem extends StatelessWidget {
   const UserItem(this.textaddress, {required this.textContainer});
 
   final String textaddress;
-  final textContainer;
+  final  textContainer;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class UserItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
-            textContainer,
+           " ${textContainer}",
             style: appbarStyle,
           ),
         ),
