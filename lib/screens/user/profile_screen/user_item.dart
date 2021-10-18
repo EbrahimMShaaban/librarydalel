@@ -1,14 +1,21 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 // ignore_for_file: use_key_in_widget_constructors
 
 
-class UserItem extends StatelessWidget {
+class UserItem extends StatefulWidget {
   const UserItem(this.textaddress, {required this.textContainer});
 
-  final String textaddress;
-  final  textContainer;
+  final  textaddress;
+  final textContainer;
 
+  @override
+  State<UserItem> createState() => _UserItemState();
+}
+
+class _UserItemState extends State<UserItem> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,7 +25,7 @@ class UserItem extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            textaddress,
+            widget.textaddress,
             style: appbarStyle,
           ),
         ),
@@ -34,7 +41,7 @@ class UserItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Text(
-           " ${textContainer}",
+            widget.textContainer,
             style: appbarStyle,
           ),
         ),
