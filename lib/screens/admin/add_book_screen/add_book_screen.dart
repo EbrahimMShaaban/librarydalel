@@ -14,7 +14,6 @@ import 'package:librarydalel/constant/alert.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/book_list_screen/view.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
-import 'package:librarydalel/widgets/dropdown_list.dart';
 import 'package:path/path.dart';
 
 class AddBookScreen extends StatefulWidget {
@@ -30,7 +29,9 @@ class _AddBookScreenState extends State<AddBookScreen> {
   var bookname, authorname, rownum, columnnum, type, imageurl;
   late File file;
   late Reference ref;
+  String? dropdownValue;
 
+  var undropValue = 'null';
 
   addBook(context) async {
     var formdata = _formKey.currentState;
@@ -57,10 +58,12 @@ class _AddBookScreenState extends State<AddBookScreen> {
         "type": dropdownValue,
         "imageurl": imageurl,
         "userid": FirebaseAuth.instance.currentUser!.uid,
-        "bookid":  Random().nextInt(100000),
+        "bookid": Random().nextInt(100000),
       }).then((value) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const DisplayBooksScreen()));
       }).catchError((e) {
         print("$e");
       });
@@ -110,22 +113,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   ),
                 ),
               ),
-              // InputField(
-              //   hint: 'ادخل اسم الكتاب',
-              //   label: 'اسم الكتاب',
-              //   scure: false,
-              //   onSaved: (value) {
-              //     bookname = value;
-              //   },
-              //   validator: (value) {
-              //     bookname = value;
-              //     if (value!.isEmpty) {
-              //       return 'برجاءادخال اسم الكتاب ';
-              //     }
-              //   },
-              // ),
               const SizedBox(height: 25),
-
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
@@ -139,10 +127,10 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   },
                   obscureText: false,
                   decoration: InputDecoration(
-                    enabledBorder:const UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
-                    focusedBorder:const UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -155,8 +143,55 @@ class _AddBookScreenState extends State<AddBookScreen> {
               ),
 
               const SizedBox(height: 25),
-              TypeList(),
-              // Directionality(
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'ادخل النوع ',
+                        style: labelStyle2,
+                      ),
+                      DropdownButton<String>(
+                        hint: Text(
+                          'برجاء ادخال النوع',
+                          style: hintStyle,
+                        ),
+                        value: dropdownValue,
+                        underline: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 1,
+                          decoration:
+                              const BoxDecoration(color: purple, boxShadow: [
+                            BoxShadow(
+                              color: purple,
+
+                            )
+                          ]),
+                        ),
+                        onChanged: (newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                          });
+                        },
+                        items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width -
+                                  65, // for example
+                              child: Text(value, textAlign: TextAlign.left),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                ),
+              ), // Directionality(
               //   textDirection: TextDirection.rtl,
               //   child: TextFormField(
               //     onSaved: (val) {
@@ -184,7 +219,6 @@ class _AddBookScreenState extends State<AddBookScreen> {
               //   ),
               // ),
 
-
               const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
@@ -202,7 +236,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                     enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
-                    focusedBorder:const  UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -213,7 +247,6 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   ),
                 ),
               ),
-
 
               const SizedBox(height: 25),
               Directionality(
@@ -244,7 +277,6 @@ class _AddBookScreenState extends State<AddBookScreen> {
                 ),
               ),
 
-
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -254,7 +286,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   },
                   child: Container(
                     height: sizeFromHeight(context, 15),
-                    margin:  const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Center(
                         child: Text(
@@ -289,10 +322,10 @@ class _AddBookScreenState extends State<AddBookScreen> {
             height: 180,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children:  [
+              children: [
                 const Text(
                   "Please Choose Image",
-                  style:  TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 InkWell(
                   onTap: () async {
@@ -312,7 +345,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(10),
                       child: Row(
-                        children: const[
+                        children: const [
                           Icon(
                             Icons.photo_outlined,
                             size: 30,
@@ -343,7 +376,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(10),
                       child: Row(
-                        children: const[
+                        children: const [
                           Icon(
                             Icons.camera,
                             size: 30,

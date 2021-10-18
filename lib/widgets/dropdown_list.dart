@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
-late final dropdownValue ;
 class TypeList extends StatefulWidget {
   const TypeList({Key? key}) : super(key: key);
-
   @override
   _TypeListState createState() => _TypeListState();
 }
 class _TypeListState extends State<TypeList> {
+  late final dropdownValue ;
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -15,10 +14,11 @@ class _TypeListState extends State<TypeList> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-           Text('ادخل النوع ',style: labelStyle,),
+           Text('ادخل النوع ',style: labelStyle2,),
           DropdownButton<String>(
             hint: Text('برجاء ادخال النوع',style: hintStyle,),
             value: dropdownValue,
+            elevation: 3,
             underline: Container(
               width: MediaQuery.of(context).size.width,
               height: 1,

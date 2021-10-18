@@ -56,7 +56,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(type:'rawyat'),
+                  const BooksBox(type:'الروايات'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -64,7 +64,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(type:'rawyat'),
+                  const BooksBox(type:'الادب'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -72,7 +72,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(type:'adab'),
+                  const BooksBox(type:'قدرات'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -80,7 +80,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(type:'adab')
+                  const BooksBox(type:'لغات')
                 ],
             ),
           ],

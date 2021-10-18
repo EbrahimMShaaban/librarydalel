@@ -153,15 +153,15 @@ class _LogInScreenState extends State<LogInScreen> {
 
       Buton("تسجيل دخول", onTap: ()async {
         var user = await signIn();
-        if (user != null && email=='admin@admin1.com') {
+        if (user != null) {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context)=>const Category()));
         }
-        else{
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context)=>const NavigationScreen()));
-        }
-      },),
+        if(user != null && FirebaseAuth.instance.currentUser!.uid == 'XkbioiW6D8RT3tQPIr0u68cKnaq2') {
+              await  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const NavigationScreen()));
+              }
+            },),
         ],
       ),
     );

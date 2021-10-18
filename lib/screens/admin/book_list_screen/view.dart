@@ -34,6 +34,9 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
 
                 future: FirebaseFirestore.instance.collection('books').get(),
                 builder: (context, snapshot) {
+                  if(snapshot.connectionState== ConnectionState.waiting){
+                    return const CircularProgressIndicator();
+                  }
                   if (snapshot.hasData) {
                     return ListView.builder(
                         itemCount: snapshot.data!.docs.length,
@@ -49,6 +52,13 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
                             child: DisplaybookItem(
                               bookName: snapshot.data!.docs[index],
                               docsid: snapshot.data!.docs[index].id,
+                              icon: Icons.add,
+                              authname: snapshot.data!.docs[index],
+                              colnum: snapshot.data!.docs[index],
+                              type: snapshot.data!.docs[index],
+                              image: snapshot.data!.docs[index],
+                              rownum: snapshot.data!.docs[index],
+
                             ),
                           );
                         });
@@ -60,15 +70,15 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: purple,
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddBookScreen()));
-        },
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: purple,
+      //   onPressed: () {
+      //     Navigator.push(context,
+      //         MaterialPageRoute(builder: (context) => const AddBookScreen()));
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }

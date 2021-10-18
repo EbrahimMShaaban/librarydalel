@@ -110,11 +110,22 @@ class _BookDetailsState extends State<BookDetails> {
                         return ListView.builder(
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
-                              return CommentItem(
-                                  comment: snapshot.data!.docs[index]
-                                      ['comment'],
-                                  date: snapshot.data!.docs[index]['date']
-                                      .toString(),
+                              return Dismissible(
+                                onDismissed: (diretion) async {
+                                  await  FirebaseFirestore.instance
+                                      .collection('books')
+                                      .doc(widget.id)
+                                      .collection('comments')
+                                      .doc(snapshot.data!.docs[index].id)
+                                      .delete();
+                                },
+                                key: UniqueKey(),
+                                child:CommentItem(
+                                    comment: snapshot.data!.docs[index]
+                                    ['comment'],
+                                    date: snapshot.data!.docs[index]['date']
+                                        .toString(),
+                              ),
 
                               );
                             });
