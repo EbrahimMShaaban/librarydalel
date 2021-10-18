@@ -42,6 +42,10 @@ class _BooksBoxState extends State<BooksBox> {
 
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
+                  for(var doc in snapshot.data!.docs)
+                    {
+                      print(doc.id);
+                    }
                   return SizedBox(
                     height: sizeFromHeight(context, 4),
                     width: sizeFromWidth(context, 1),
@@ -59,6 +63,7 @@ class _BooksBoxState extends State<BooksBox> {
                                 MaterialPageRoute(
                                     builder: (context) => BookDetails(
                                       icon: Icons.add,
+                                      id:snapshot.data!.docs[index].id,
                                       bookname: snapshot.data!.docs[index],
                                       authname: snapshot.data!.docs[index],
                                       colnum: snapshot.data!.docs[index],

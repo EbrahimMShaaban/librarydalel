@@ -3,17 +3,26 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/alert.dart';
 import 'package:librarydalel/constant/styles.dart';
+import 'package:librarydalel/screens/user/home_screen/book_details/view.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 // ignore_for_file: use_key_in_widget_constructors
 
 class AddComment extends StatefulWidget {
+  AddComment(this.id);
+  String id;
   @override
   State<AddComment> createState() => _AddCommentState();
 }
 
 class _AddCommentState extends State<AddComment> {
   final GlobalKey <FormState> _formKey = GlobalKey<FormState>();
-  late final comment;
+  TextEditingController controller = TextEditingController();
+
+  initState(){
+    print((FirebaseAuth.instance.currentUser)!.email);
+    super.initState();
+  }
+
 
   validate(context) async {
     var formdata = _formKey.currentState;
@@ -21,13 +30,14 @@ class _AddCommentState extends State<AddComment> {
       formdata.save();
       try {
         showLoading(context);
-        await FirebaseFirestore.instance.collection('books').doc('IPPFOg8b7Ie1jV4R3zFo').collection('comments').add(
+        await FirebaseFirestore.instance.collection('books').doc(widget.id).collection('comments').add(
             {
-              "comment": comment,
-              "userid": FirebaseAuth.instance.currentUser!.uid,
+              "comment": controller.text,
+              "userid": (FirebaseAuth.instance.currentUser)!.uid,
               "date": "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}",
             });
-        // Navigator.push(context, MaterialPageRoute(builder: (contect) => BookDetails(icon: icon, rownum: rownum, bookname: bookname, type: type, authname: authname, colnum: colnum, image: image)));
+        Navigator.pop(context);
+        Navigator.pop(context);
       } catch (e) {
         return const Text('erooooor');
       }
@@ -74,8 +84,9 @@ class _AddCommentState extends State<AddComment> {
                   key: _formKey,
                   child: TextFormField(
                     onSaved: (value) {
-                      comment = value;
+                      // controller = value;
                     },
+                    controller: controller,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'برجاء اضافة تعليق';

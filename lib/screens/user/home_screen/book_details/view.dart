@@ -11,16 +11,23 @@ import 'comments_item.dart';
 import 'input_text.dart';
 
 class BookDetails extends StatefulWidget {
-   final bookname, authname, colnum, rownum, type, image, icon;
+   final bookname, authname, colnum, rownum, type, image, icon,id;
 
   const BookDetails(
-      {required this.bookname, required this.icon, required this.type, required this.image, required this.rownum, required this.colnum, required this.authname});
+      {required this.bookname, required this.icon, required this.type, required this.image, required this.rownum, required this.colnum, required this.authname,required this.id});
 
   @override
   _BookDetailsState createState() => _BookDetailsState();
 }
 
 class _BookDetailsState extends State<BookDetails> {
+
+  @override
+  void initState() {
+    print(widget.id);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +120,7 @@ class _BookDetailsState extends State<BookDetails> {
         backgroundColor: purple,
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddComment()));
+              context, MaterialPageRoute(builder: (context) => AddComment(widget.id)));
         },
         child: Icon(widget.icon),
       ),
