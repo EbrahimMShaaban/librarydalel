@@ -72,9 +72,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     const SizedBox(height: 50),
+                    UserItem(" : الأسم  ",
+                        textContainer: snapshot.data!.docs[0]['username']
+                            .toString()),
                     const SizedBox(height: 30),
                     UserItem(" : البريد الألكترونى  ",
-                        textContainer: snapshot.data!.docs[0]['username'].toString()),
+                        textContainer: snapshot.data!.docs[0]['email'].toString()),
                     const SizedBox(height: 70),
                     EditButton("تعديل بياناتى", onTap: () {
                       Navigator.push(
@@ -84,7 +87,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }),
                     const SizedBox(height: 20),
                     Buton("تسجيل خروج", onTap: () {
-                      print(snapshot.data!.docs[0]['username']);
                       // Navigator.pushReplacement(context,
                       //     MaterialPageRoute(builder: (context) => LogInScreen()));
                     }),
