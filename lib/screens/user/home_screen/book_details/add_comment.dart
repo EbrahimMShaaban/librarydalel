@@ -21,17 +21,11 @@ class _AddCommentState extends State<AddComment> {
       formdata.save();
       try {
         showLoading(context);
-        await FirebaseFirestore.instance.collection('comments').add(
+        await FirebaseFirestore.instance.collection('books').doc('IPPFOg8b7Ie1jV4R3zFo').collection('comments').add(
             {
               "comment": comment,
               "userid": FirebaseAuth.instance.currentUser!.uid,
-              "date": "${DateTime
-                  .now()
-                  .day}-${DateTime
-                  .now()
-                  .month}-${DateTime
-                  .now()
-                  .year}",
+              "date": "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}",
             });
         // Navigator.push(context, MaterialPageRoute(builder: (contect) => BookDetails(icon: icon, rownum: rownum, bookname: bookname, type: type, authname: authname, colnum: colnum, image: image)));
       } catch (e) {
