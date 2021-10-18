@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/user/profile_screen/View.dart';
+import 'package:librarydalel/screens/user/search_screen/search.dart';
 import 'package:librarydalel/screens/user/search_screen/view.dart';
 
 import 'home_screen/view.dart';
@@ -16,7 +17,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   int pageindex = 1;
   List<Widget> pages = [
     //ToDo
-    SearchScreen(),
+    Seerch(),
     const HomePageScreen(),
     const ProfileScreen(),
   ];
