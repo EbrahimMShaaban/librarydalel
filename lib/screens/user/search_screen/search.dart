@@ -1,15 +1,19 @@
 import 'package:firestore_search/firestore_search.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
+import 'package:librarydalel/screens/user/home_screen/book_details/view.dart';
 
 import 'model.dart';
 
 class Seerch extends StatelessWidget {
   @override
+
   Widget build(BuildContext context) {
     return FirestoreSearchScaffold(
       firestoreCollectionName: 'books',
       searchBy: 'bookname',
+
+      appBarBackgroundColor: purple,
       scaffoldBody: const Center(child: Text('Firestore Search')),
       dataListFromSnapshot: DataModel().dataListFromSnapshot,
       builder: (context, snapshot) {
@@ -32,18 +36,22 @@ class Seerch extends StatelessWidget {
                           borderRadius: BorderRadius.circular(20)),
                       child: Center(
                         child: ListTile(
+                          // onTap: (){
+                          //   Navigator.push(context, MaterialPageRoute(builder: (context)=>  BookDetails(rownum: data.rownum, type: data.type, icon: null, bookname: data.name, id: data.id, colnum:data.colnum, image: data.imgurl, authname: data.authname,)));
+                          // },
                           title: Text(
                             '${data.name}',
                             style: buttonStyle,
                           ),
                           subtitle: Text(
-                            '${data.authname}',
+                            '',
                             style: hintStyle,
-                          ),
-                          trailing: CircleAvatar(
-                            radius: 35,
-                            backgroundImage: NetworkImage('${data.imgurl}'),
-                          ),
+                              // ${data.authname}
+                            ),
+                          // trailing: CircleAvatar(
+                          //   radius: 35,
+                          //   backgroundImage: NetworkImage('${data.imgurl}'),
+                          // ),
                         ),
                       ),
                     ),
