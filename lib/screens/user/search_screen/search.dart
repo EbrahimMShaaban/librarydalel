@@ -21,7 +21,7 @@ class Seerch extends StatelessWidget {
           return ListView.builder(
               itemCount: dataList?.length ?? 0,
               itemBuilder: (context, index) {
-                final DataModel data = dataList![index];
+                 var data = dataList![index];
 
                 return Padding(
                   padding:
@@ -40,14 +40,14 @@ class Seerch extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => BookDetails(
-                                          rownum: data.rownum,
-                                          type: data.type,
-                                          icon: null,
-                                          bookname: data.name,
-                                          id: data.id,
-                                          colnum: data.colnum,
-                                          image: data.imgurl,
-                                          authname: data.authname,
+                                          rownum: data.rownum  as dynamic,
+                                          type: data.type  as dynamic,
+                                          icon: null  as dynamic,
+                                          bookname: data.name  as dynamic,
+                                          id: data.id  as dynamic,
+                                          colnum: data.colnum  as dynamic,
+                                          image: data.imgurl  as dynamic,
+                                          authname: data.authname  as dynamic,
                                         )));
                           },
                           title: Text(

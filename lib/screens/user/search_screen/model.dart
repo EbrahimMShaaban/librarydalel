@@ -11,7 +11,8 @@ class DataModel {
       this.colnum,
       this.id,
       this.rownum,
-      this.type});
+      this.type
+      });
 
 
   //Create a method to convert QuerySnapshot from Cloud Firestore to a list of objects of this DataModel
