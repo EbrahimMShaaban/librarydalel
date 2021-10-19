@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/add_book_screen.dart';
 import 'package:librarydalel/screens/admin/book_list_screen/view.dart';
+import 'package:librarydalel/screens/registration/log_in_screen.dart';
 
 import 'category_item.dart';
 import 'custom_appBar.dart';
@@ -44,7 +46,13 @@ class _CategoryState extends State<Category> {
           ),
           CategoryItem(
             text: 'تسجيل خروج',
-            onTap: () {},
+
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const LogInScreen()));
+
+            },
           ),
         ],
       ),

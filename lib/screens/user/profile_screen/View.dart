@@ -5,12 +5,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
+import 'package:librarydalel/screens/registration/log_in_screen.dart';
 import 'package:librarydalel/screens/user/profile_screen/user_item.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/logo.dart';
 
 import 'edit_profile/edit_profile_button.dart';
-import 'edit_profile/view.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -25,15 +25,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   getUserName() async {
     //create instance from firebase firestore --> single tone
-     await FirebaseFirestore.instance
-     //go to (user) collection in fire store
+    await FirebaseFirestore.instance
+        //go to (user) collection in fire store
         .collection('users')
-     //get all docs and make for loop in it and get what i need ==> userid == my unique id
+        //get all docs and make for loop in it and get what i need ==> userid == my unique id
         .where('userid', isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
-     // get it
+        // get it
         .get()
         .then((value) {
-          //this return a list of query snapshot , but it include a one item - because the firebase uid is unique for each user -
+      //this return a list of query snapshot , but it include a one item - because the firebase uid is unique for each user -
       print(value.docs[0]['email']);
     });
   }
@@ -73,11 +73,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     const SizedBox(height: 50),
                     UserItem(" : الأسم  ",
-                        textContainer: snapshot.data!.docs[0]['username']
-                            .toString()),
+                        textContainer:
+                            snapshot.data!.docs[0]['username'].toString()),
                     const SizedBox(height: 30),
                     UserItem(" : البريد الألكترونى  ",
-                        textContainer: snapshot.data!.docs[0]['email'].toString()),
+                        textContainer:
+                            snapshot.data!.docs[0]['email'].toString()),
                     const SizedBox(height: 70),
                     EditButton("تعديل بياناتى", onTap: () {
                       // Navigator.push(
@@ -86,9 +87,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       //         builder: (context) => EditProfile()));
                     }),
                     const SizedBox(height: 20),
-                    Buton("تسجيل خروج", onTap: () {
-                      // Navigator.pushReplacement(context,
-                      //     MaterialPageRoute(builder: (context) => LogInScreen()));
+                    Buton("تسجيل خروج", onTap: () async {
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (context) => LogInScreen()));
                     }),
                   ],
                 );

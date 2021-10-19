@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +9,9 @@ import 'package:librarydalel/widgets/button/flatbuton.dart';
 // ignore_for_file: use_key_in_widget_constructors
 
 class AddComment extends StatefulWidget {
-  AddComment(this.id);
+  const AddComment(this.id);
 
-  String id;
+ final  String id;
 
   @override
   State<AddComment> createState() => _AddCommentState();

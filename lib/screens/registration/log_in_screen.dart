@@ -140,7 +140,7 @@ class _LogInScreenState extends State<LogInScreen> {
             },
           ),
           SizedBox(
-            height: sizeFromHeight(context, 12),
+            height: sizeFromHeight(context, 15),
           ),
           Text(
             'ليس لديك حساب ؟',
@@ -152,18 +152,23 @@ class _LogInScreenState extends State<LogInScreen> {
 
 
       Buton("تسجيل دخول", onTap: ()async {
-        var user = await signIn();
-        if (user != null && FirebaseAuth.instance.currentUser!.uid == 'XkbioiW6D8RT3tQPIr0u68cKnaq2') {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context)=>const Category()));
-        }
-        if(user != null  ) {
-              await  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const NavigationScreen()));
-              }
+             await loginNavigate(context);
             },),
         ],
       ),
     );
   }
+  loginNavigate(context)async{
+    var user = await signIn();
+    var uid= FirebaseAuth.instance.currentUser!.uid;
+    if(user!= null && uid == 'XkbioiW6D8RT3tQPIr0u68cKnaq2' ){
+      Navigator.of(context)
+          .pushReplacement(MaterialPageRoute(builder: (context)=>const Category()));
+    }
+    else if(user != null){
+      await  Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => const NavigationScreen()));
+    }
+  }
 }
+
