@@ -16,7 +16,7 @@ class Seerch extends StatelessWidget {
       dataListFromSnapshot: DataModel().dataListFromSnapshot,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final List<DataModel>? dataList = snapshot.data;
+           List<DataModel>? dataList = snapshot.data;
 
           return ListView.builder(
               itemCount: dataList?.length ?? 0,
@@ -36,18 +36,22 @@ class Seerch extends StatelessWidget {
                       child: Center(
                         child: ListTile(
                           onTap: () {
+                            print('================/====================');
+                            print((data.colnum as dynamic).runtimeType  );
+                            print('===============/=====================');
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => BookDetails(
-                                          rownum: data.rownum  as dynamic,
-                                          type: data.type  as dynamic,
-                                          icon: null  as dynamic,
-                                          bookname: data.name  as dynamic,
-                                          id: data.id  as dynamic,
-                                          colnum: data.colnum  as dynamic,
-                                          image: data.imgurl  as dynamic,
-                                          authname: data.authname  as dynamic,
+                                          rownum: data.rownum ,
+                                          type: data.type  ,
+                                          icon: null  ,
+                                          bookname: data.name  ,
+                                          id: data.id  ,
+                                          colnum: data.colnum  ,
+                                          image: data.imgurl ,
+                                          authname: data.authname  ,
                                         )));
                           },
                           title: Text(

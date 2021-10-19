@@ -27,21 +27,21 @@ class _AddBookScreenState extends State<AddBookScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   CollectionReference addbook = FirebaseFirestore.instance.collection("books");
   var bookname, authorname, rownum, columnnum, type, imageurl;
-   late File file;
+    late File file;
   late Reference ref;
   String? dropdownValue;
 
   var undropValue = 'null';
 
   addBook(context) async {
-    if (file == null) {
-      return AwesomeDialog(
-          context: context,
-          title: "هام",
-          body: const Text("please choose Image"),
-          dialogType: DialogType.ERROR)
-        ..show();
-    }
+    // if (file == null) {
+    //   return AwesomeDialog(
+    //       context: context,
+    //       title: "هام",
+    //       body: const Text("please choose Image"),
+    //       dialogType: DialogType.ERROR)
+    //     ..show();
+    // }
     var formdata = _formKey.currentState;
     if (formdata!.validate()) {
       print('==============');

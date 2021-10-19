@@ -11,9 +11,9 @@ import 'comments_item.dart';
 import 'input_text.dart';
 
 class BookDetails extends StatefulWidget {
-  final bookname, authname, colnum, rownum, type, image, icon, id;
+   var bookname, authname, colnum, rownum, type, image, icon, id;
 
-  const BookDetails(
+   BookDetails(
       {required this.bookname,
       required this.icon,
       required this.type,
@@ -26,6 +26,7 @@ class BookDetails extends StatefulWidget {
   @override
   _BookDetailsState createState() => _BookDetailsState();
 }
+
 
 class _BookDetailsState extends State<BookDetails> {
   @override
