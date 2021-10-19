@@ -30,7 +30,7 @@ TextStyle buttonStyle = GoogleFonts.tajawal(
         fontSize: 20, fontWeight: FontWeight.bold, color: white, height: 1.5));
 TextStyle appbarStyle = GoogleFonts.tajawal(
     textStyle:const TextStyle(
-        fontSize: 25, fontWeight: FontWeight.w600, color: gray,));
+        fontSize: 24, fontWeight: FontWeight.w600, color: gray,));
 TextStyle buttonTextStyle = GoogleFonts.tajawal(
     textStyle: const TextStyle(
         fontSize: 20, fontWeight: FontWeight.bold, color: purple, height: 1.5));

@@ -11,6 +11,7 @@ import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/logo.dart';
 
 import 'edit_profile/edit_profile_button.dart';
+import 'edit_profile/view.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -55,11 +56,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
                 .get(),
             builder: (context, snapshot) {
+              // if(snapshot.connectionState ==ConnectionState.waiting){
+              //   return const CircularProgressIndicator();
+              // }
               if (snapshot.hasData) {
                 return ListView(
                   children: [
                     const SizedBox(
-                      height: 25,
+                      height: 10,
                     ),
                     const Logo(
                       height: 100,
@@ -71,7 +75,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         style: labelStyle,
                       ),
                     ),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 20),
                     UserItem(" : الأسم  ",
                         textContainer:
                             snapshot.data!.docs[0]['username'].toString()),
@@ -79,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     UserItem(" : البريد الألكترونى  ",
                         textContainer:
                             snapshot.data!.docs[0]['email'].toString()),
-                    const SizedBox(height: 70),
+                    const SizedBox(height: 30),
                     EditButton("تعديل بياناتى", onTap: () {
                       Navigator.push(
                           context,
@@ -95,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ],
                 );
               } else {
-                return const Text("reeeeeeeeeeeee");
+                return const Text("Loading...");
               }
             }));
   }

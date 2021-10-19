@@ -58,82 +58,85 @@ class _BookDetailsState extends State<BookDetails> {
         textDirection: TextDirection.rtl,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InputText(
-                        text: 'اسم الكتاب',
-                        textDescribtion: widget.bookname.data()['bookname'],
-                      ),
-                      InputText(
-                        text: 'اسم المؤلف',
-                        textDescribtion: widget.authname.data()['authorname'],
-                      ),
-                      InputText(
-                        text: 'رقم العمود ',
-                        textDescribtion: widget.colnum.data()['columnnum'],
-                      ),
-                      InputText(
-                        text: 'رقم الصف ',
-                        textDescribtion: widget.rownum.data()['rownum'],
-                      ),
-                      InputText(
-                        text: 'نوع الكتاب ',
-                        textDescribtion: widget.type.data()['type'],
-                      ),
-                    ],
-                  ),
-                  BooKCover(
-                    image: widget.image.data()['imageurl'],
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                  height: sizeFromHeight(context, 1.7),
-                  child: FutureBuilder<QuerySnapshot>(
-                    future: FirebaseFirestore.instance
-                        .collection('books')
-                        .doc(widget.id)
-                        .collection('comments')
-                        .get(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                            itemCount: snapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              return Dismissible(
-                                onDismissed: (diretion) async {
-                                  await  FirebaseFirestore.instance
-                                      .collection('books')
-                                      .doc(widget.id)
-                                      .collection('comments')
-                                      .doc(snapshot.data!.docs[index].id)
-                                      .delete();
-                                },
-                                key: UniqueKey(),
-                                child:CommentItem(
-                                    comment: snapshot.data!.docs[index]
-                                    ['comment'],
-                                    date: snapshot.data!.docs[index]['date']
-                                        .toString(),
-                              ),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InputText(
+                          text: 'اسم الكتاب',
+                          textDescribtion: widget.bookname.data()['bookname'],
+                        ),
+                        InputText(
+                          text: 'اسم المؤلف',
+                          textDescribtion: widget.authname.data()['authorname'],
+                        ),
+                        InputText(
+                          text: 'رقم العمود ',
+                          textDescribtion: widget.colnum.data()['columnnum'],
+                        ),
+                        InputText(
+                          text: 'رقم الصف ',
+                          textDescribtion: widget.rownum.data()['rownum'],
+                        ),
+                        InputText(
+                          text: 'نوع الكتاب ',
+                          textDescribtion: widget.type.data()['type'],
+                        ),
+                      ],
+                    ),
+                    Expanded(child: SizedBox()),
+                    BooKCover(
+                      image: widget.image.data()['imageurl'],
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                    height: sizeFromHeight(context, 1.7),
+                    child: FutureBuilder<QuerySnapshot>(
+                      future: FirebaseFirestore.instance
+                          .collection('books')
+                          .doc(widget.id)
+                          .collection('comments')
+                          .get(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                              itemCount: snapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                return Dismissible(
+                                  onDismissed: (diretion) async {
+                                    await  FirebaseFirestore.instance
+                                        .collection('books')
+                                        .doc(widget.id)
+                                        .collection('comments')
+                                        .doc(snapshot.data!.docs[index].id)
+                                        .delete();
+                                  },
+                                  key: UniqueKey(),
+                                  child:CommentItem(
+                                      comment: snapshot.data!.docs[index]
+                                      ['comment'],
+                                      date: snapshot.data!.docs[index]['date']
+                                          .toString(),
+                                ),
 
-                              );
-                            });
-                      }
-                      return const CircularProgressIndicator();
-                    },
-                  )),
-            ],
+                                );
+                              });
+                        }
+                        return const CircularProgressIndicator();
+                      },
+                    )),
+              ],
+            ),
           ),
         ),
       ),

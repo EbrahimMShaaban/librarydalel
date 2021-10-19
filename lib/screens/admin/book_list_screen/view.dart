@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
+import 'package:librarydalel/screens/admin/add_book_screen/add_book_screen.dart';
 import 'displaybook_item.dart';
 
 class DisplayBooksScreen extends StatefulWidget {
@@ -69,15 +70,15 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
           ],
         ),
       ),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: purple,
-      //   onPressed: () {
-      //     Navigator.push(context,
-      //         MaterialPageRoute(builder: (context) => const AddBookScreen()));
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: purple,
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddBookScreen()));
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

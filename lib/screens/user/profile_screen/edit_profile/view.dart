@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
-import 'package:librarydalel/widgets/input_field_regeist.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -15,29 +14,21 @@ class _EditProfileState extends State<EditProfile> {
   var _formKey = GlobalKey<FormState>();
   String password = "";
   String newPassword = "";
+
   void _changePassword() async {
     var user = await FirebaseAuth.instance.currentUser!;
     var email = user.email;
-
-    //Create field for user to input old password
-
-    //pass the password here
-
-
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: '${email}',
         password: password,
       );
-      Navigator.pop(context);
-      Navigator.pop(context);
 
       user.updatePassword(newPassword).then((_) {
         print("Successfully changed password");
-      }
-
-      ).catchError((error) {
+        Navigator.pop(context);
+      }).catchError((error) {
         print("Password can't be changed" + error.toString());
         //This might happen, when the wrong password is in, the user isn't found, or if the user hasn't logged in recently.
       });
@@ -53,57 +44,106 @@ class _EditProfileState extends State<EditProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: white,
+        title: Text(
+          "تعديل الملف الشخصى",
+          style: appbarStyle,
+        ),
+        centerTitle: true,
+        elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back),color: purple,),
+      ),
       body: ListView(
         children: [
           const SizedBox(
-            height: 70,
+            height: 10,
           ),
-          Center(
-            child: Text(
-              "تعديل الملف الشخصى",
-              style: labelStyle,
-            ),
-          ),
-          const SizedBox(
-            height: 60,
-          ),
+          // Center(
+          //   child: Text(
+          //     "تعديل الملف الشخصى",
+          //     style: labelStyle,
+          //   ),
+          // ),
+          // const SizedBox(
+          //   height: 60,
+          // ),
           Form(
               key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(onChanged: (val) {
-                    password = val;
-                  },
-                    decoration: InputDecoration(
-
-                      hintText: 'ادخل كلمةالمرورالقديم',
-                      labelText: ' كلمة المرور القديم',
-                    ),
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        onChanged: (val) {
+                          password = val;
+                        },
+                        decoration: InputDecoration(
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: purple, width: 2.5),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: purple, width: 2.5),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: 'ادخل كلمة المرور القديمة',
+                          hintText: 'ادخل كلمة المرور القديمة',
+                          labelStyle: labelStyle,
+                          hintStyle: hintStyle,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        onChanged: (val) {
+                          newPassword = val;
+                        },
+                        decoration: InputDecoration(
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: purple, width: 2.5),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: purple, width: 2.5),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: ' كلمة المرور الجديدة',
+                          hintText: 'ادخل كلمة المرور الجديدة',
+                          labelStyle: labelStyle,
+                          hintStyle: hintStyle,
+                        ),
+                        obscureText: true,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: purple, width: 2.5),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: purple, width: 2.5),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelText: ' كلمة المرور الجديدة',
+                          hintText: 'ادخل كلمة المرور الجديدة',
+                          labelStyle: labelStyle,
+                          hintStyle: hintStyle,
+                        ),
+                        obscureText: true,
+                      )
+                    ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(onChanged: (val){
-                     newPassword =val;
-                  },
-                    decoration: InputDecoration(
-                        hintText: 'ادخل كلمة المرور الجديد',
-                        labelText: 'كلمة المرور الجديدة'),
-                    obscureText: true,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'تاكيد كلمة المرور الجديد',
-                      labelText: 'تاكيد كلمة المرور الجديد',
-                    ),
-                    obscureText: true,
-                  )
-                ],
+                ),
               )),
-          const SizedBox(height: 80),
+          const SizedBox(height: 50),
           Buton(
             "تعديل",
             onTap: () async {

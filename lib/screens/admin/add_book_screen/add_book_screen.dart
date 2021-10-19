@@ -27,14 +27,13 @@ class _AddBookScreenState extends State<AddBookScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   CollectionReference addbook = FirebaseFirestore.instance.collection("books");
   var bookname, authorname, rownum, columnnum, type, imageurl;
-  late File file;
+   late File file;
   late Reference ref;
   String? dropdownValue;
 
   var undropValue = 'null';
 
   addBook(context) async {
-    var formdata = _formKey.currentState;
     if (file == null) {
       return AwesomeDialog(
           context: context,
@@ -43,6 +42,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
           dialogType: DialogType.ERROR)
         ..show();
     }
+    var formdata = _formKey.currentState;
     if (formdata!.validate()) {
       print('==============');
       formdata.save();
@@ -192,33 +192,6 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   ),
                 ),
               ), // Directionality(
-              //   textDirection: TextDirection.rtl,
-              //   child: TextFormField(
-              //     onSaved: (val) {
-              //       type = val;
-              //     },
-              //     validator: (value) {
-              //       if (value!.isEmpty) {
-              //         return 'برجاءادخال النوع ';
-              //       }
-              //     },
-              //     obscureText: false,
-              //     decoration: InputDecoration(
-              //       enabledBorder: const UnderlineInputBorder(
-              //         borderSide: BorderSide(color: purple, width: 2.5),
-              //       ),
-              //       focusedBorder: const UnderlineInputBorder(
-              //         borderSide: BorderSide(color: purple, width: 2.5),
-              //       ),
-              //       floatingLabelBehavior: FloatingLabelBehavior.always,
-              //       labelText: 'النوع',
-              //       hintText: 'ادخل النوع',
-              //       labelStyle: labelStyle,
-              //       hintStyle: hintStyle,
-              //     ),
-              //   ),
-              // ),
-
               const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,

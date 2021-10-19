@@ -26,14 +26,17 @@ void main() async {
      Navigator.pushReplacement(
          context, MaterialPageRoute(builder: (context) => const LogInScreen()));
    }
-   else if(  islogin== true){
+   else if(  islogin== true && FirebaseAuth.instance.currentUser!.uid =='XkbioiW6D8RT3tQPIr0u68cKnaq2'){
+     Navigator.pushReplacement(
+         context, MaterialPageRoute(builder: (context) => const Category(
+
+     )));
+   }
+   else if(islogin== true){
      Navigator.pushReplacement(
          context, MaterialPageRoute(builder: (context) => const NavigationScreen()));
    }
-   else if(  islogin== true&& FirebaseAuth.instance.currentUser!.uid =='XkbioiW6D8RT3tQPIr0u68cKnaq2'){
-     Navigator.pushReplacement(
-         context, MaterialPageRoute(builder: (context) => const Category()));
-   }
+
  }
 
 class MyApp extends StatelessWidget {
