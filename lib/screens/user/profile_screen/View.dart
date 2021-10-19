@@ -11,6 +11,7 @@ import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/logo.dart';
 
 import 'edit_profile/edit_profile_button.dart';
+import 'edit_profile/view.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
