@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, use_key_in_widget_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
@@ -28,13 +30,35 @@ class BookUserDetails extends StatefulWidget {
 }
 
 class _BookDetailsState extends State<BookUserDetails> {
-  @override
-  void initState() {
-    print(widget.id);
-    super.initState();
-  }
 
-  @override
+
+var name =FirebaseAuth.instance.currentUser!.email;
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // getUserName();
+}
+//
+// getUserName() async {
+//   //create instance from firebase firestore --> single tone
+//   await FirebaseFirestore.instance
+//   //go to (user) collection in fire store
+//       .collection('users')
+//   //get all docs and make for loop in it and get what i need ==> userid == my unique id
+//       .where('userid', isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
+//   // get it
+//       .get()
+//       .then((value) {
+//     //this return a list of query snapshot , but it include a one item - because the firebase uid is unique for each user -
+//     print(value.docs[0]['username']);
+//     print("++///////=====================///////////////");
+//     return value.docs[0]['username'];
+//   });
+// }
+
+
+@override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
@@ -107,15 +131,15 @@ class _BookDetailsState extends State<BookUserDetails> {
                         .get(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
+
                         return ListView.builder(
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
                               return CommentItem(
-                                  comment: snapshot.data!.docs[index]
-                                      ['comment'],
-                                  date: snapshot.data!.docs[index]['date']
-                                      .toString(),
-
+                                comment: snapshot.data!.docs[index]['comment'],
+                                date: snapshot.data!.docs[index]['date']
+                                    .toString(),
+                                name: snapshot.data!.docs[index]['name'],
                               );
                             });
                       }

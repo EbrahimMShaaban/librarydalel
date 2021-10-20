@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/registration/log_in_screen.dart';
+import 'package:librarydalel/screens/user/profile_screen/edit_profile/view.dart';
 import 'package:librarydalel/screens/user/profile_screen/user_item.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/logo.dart';
@@ -35,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         .get()
         .then((value) {
       //this return a list of query snapshot , but it include a one item - because the firebase uid is unique for each user -
-      print(value.docs[0]['name']);
+      print(value.docs[0]['username']);
       print("++///////=====================///////////////");
     });
   }
@@ -57,9 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
                 .get(),
             builder: (context, snapshot) {
-              // if(snapshot.connectionState ==ConnectionState.waiting){
-              //   return const CircularProgressIndicator();
-              // }
+
               if (snapshot.hasData) {
                 return ListView(
                   children: [

@@ -14,14 +14,18 @@ import 'package:librarydalel/widgets/input_field_regeist.dart';
 import 'package:librarydalel/widgets/logo.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
-
 class SignInScreen extends StatefulWidget {
+  // const SignInScreen(this.id);
+  //
+  // final String id;
+
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
 
 class _SignInScreenState extends State<SignInScreen> {
- final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   signUp() async {
     var formdata = _formKey.currentState;
     if (formdata!.validate()) {
@@ -30,31 +34,32 @@ class _SignInScreenState extends State<SignInScreen> {
       try {
         showLoading(context);
         UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-            email: email, password: password);
+            .createUserWithEmailAndPassword(email: email, password: password);
         return userCredential;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           Navigator.of(context).pop();
           AwesomeDialog(
-              context: context,
-              title: "Error",
-              body: const Text("Password is to weak"))
-            .show();
+                  context: context,
+                  title: "Error",
+                  body: const Text("Password is to weak"))
+              .show();
         } else if (e.code == 'email-already-in-use') {
           Navigator.of(context).pop();
           AwesomeDialog(
-              context: context,
-              title: "Error",
-              body: const  Text("The account already exists for that email"))
-            .show();
+                  context: context,
+                  title: "Error",
+                  body: const Text("The account already exists for that email"))
+              .show();
         }
       } catch (e) {
         print(e);
       }
     } else {}
   }
-  var email, password ,name ;
+
+  var email, password, name;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,23 +154,30 @@ class _SignInScreenState extends State<SignInScreen> {
           const SizedBox(height: 20),
           Buton(
             'تسجيل',
-            onTap: ()  async {
+            onTap: () async {
               UserCredential response = await signUp();
               print("===================");
               // ignore: unnecessary_null_comparison
               if (response != null) {
-                await FirebaseFirestore.instance
-                    .collection("users")
-                    .add({"username": name, "email": email,"userid": FirebaseAuth.instance.currentUser!.uid,
+                await FirebaseFirestore.instance.collection("users").add({
+                  "username": name,
+                  "email": email,
+                  "userid": FirebaseAuth.instance.currentUser!.uid,
                 });
-                   if(email=='admin@admin1.com'){
-                     Navigator.of(context)
-                         .push(MaterialPageRoute(builder: (context)=>const Category()));
-                   }
-                   else {
-                     Navigator.of(context)
-                         .push(MaterialPageRoute(builder: (context)=>const NavigationScreen()));
-                   }
+                // await FirebaseFirestore.instance
+                //     .collection('books')
+                //     .doc(widget.id)
+                //     .collection('comments')
+                //     .add({
+                //   "username": name,
+                // });
+                if (email == 'admin@admin1.com') {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const Category()));
+                } else {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const NavigationScreen()));
+                }
               } else {
                 print("Sign Up Faild");
               }
@@ -176,7 +188,10 @@ class _SignInScreenState extends State<SignInScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Textbuton('سجل دخول', onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>const LogInScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LogInScreen()));
               }),
               Text(
                 'هل لديك حساب بالفعل ؟',

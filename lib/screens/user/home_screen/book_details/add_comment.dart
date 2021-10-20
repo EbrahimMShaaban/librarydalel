@@ -20,27 +20,24 @@ class AddComment extends StatefulWidget {
 class _AddCommentState extends State<AddComment> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController controller = TextEditingController();
-  var name;
+ var name;
 
-  getUserName() async {
-    //create instance from firebase firestore --> single tone
-    name = await FirebaseFirestore.instance
-        //go to (user) collection in fire store
+getUserName() async {
+ await FirebaseFirestore.instance
         .collection('users')
-        //get all docs and make for loop in it and get what i need ==> userid == my unique id
         .where('userid', isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
-        // get it
         .get()
         .then((value) {
-          name = value.docs[0]['email'];
-      //this return a list of query snapshot , but it include a one item - because the firebase uid is unique for each user -
+      print(value.docs[0]['username']);
+      print("++///////=====================///////////////");
+    name= value.docs[0]['username'];
+
     });
   }
-
   @override
   initState() {
-    print((FirebaseAuth.instance.currentUser)!.email);
-    print(name);
+ getUserName();
+
     super.initState();
   }
 
@@ -59,7 +56,7 @@ class _AddCommentState extends State<AddComment> {
           "userid": (FirebaseAuth.instance.currentUser)!.uid,
           "date":
               "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}",
-          "name": name,
+          "name":  name,
         });
         Navigator.pop(context);
         Navigator.pop(context);
