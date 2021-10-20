@@ -10,10 +10,10 @@ import 'book_cover.dart';
 import 'comments_item.dart';
 import 'input_text.dart';
 
-class BookDetails extends StatefulWidget {
+class BookUserDetails extends StatefulWidget {
   final bookname, authname, colnum, rownum, type, image, icon, id;
 
-  const BookDetails(
+  const BookUserDetails(
       {required this.bookname,
       required this.icon,
       required this.type,
@@ -27,7 +27,7 @@ class BookDetails extends StatefulWidget {
   _BookDetailsState createState() => _BookDetailsState();
 }
 
-class _BookDetailsState extends State<BookDetails> {
+class _BookDetailsState extends State<BookUserDetails> {
   @override
   void initState() {
     print(widget.id);

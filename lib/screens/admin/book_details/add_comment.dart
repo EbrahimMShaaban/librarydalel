@@ -9,7 +9,7 @@ import 'package:librarydalel/widgets/button/flatbuton.dart';
 // ignore_for_file: use_key_in_widget_constructors
 
 class AddComment extends StatefulWidget {
-  AddComment(this.id);
+  const AddComment(this.id);
 
  final String id;
 

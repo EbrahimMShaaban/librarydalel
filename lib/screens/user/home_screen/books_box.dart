@@ -56,7 +56,7 @@ class _BooksBoxState extends State<BooksBox> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => BookDetails(
+                                    builder: (context) => BookUserDetails(
                                       icon: Icons.add,
                                       id:snapshot.data!.docs[index].id,
                                       bookname: snapshot.data!.docs[index],

@@ -7,6 +7,7 @@ import 'package:librarydalel/screens/admin/book_details/book_cover.dart';
 import 'package:librarydalel/screens/admin/book_details/comments_item.dart';
 import 'package:librarydalel/screens/admin/book_details/input_text.dart';
 import 'package:librarydalel/screens/admin/book_details/view.dart';
+import 'package:librarydalel/screens/user/home_screen/book_details/view.dart';
 
 import 'model.dart';
 
@@ -80,85 +81,71 @@ class Seerch extends StatelessWidget {
                                         textDirection: TextDirection.rtl,
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                          child: SingleChildScrollView(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        InputText(
-                                                          text: 'اسم الكتاب',
-                                                          textDescribtion: data.name,
-                                                        ),
-                                                        InputText(
-                                                          text: 'اسم المؤلف',
-                                                          textDescribtion: data.authname,
-                                                        ),
-                                                        InputText(
-                                                          text: 'رقم العمود ',
-                                                          textDescribtion: data.colnum,
-                                                        ),
-                                                        InputText(
-                                                          text: 'رقم الصف ',
-                                                          textDescribtion:data.rownum,
-                                                        ),
-                                                        InputText(
-                                                          text: 'نوع الكتاب ',
-                                                          textDescribtion: data.type,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Expanded(child: SizedBox()),
-                                                    BooKCover(
-                                                      image: data.imgurl,
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  height: 20,
-                                                ),
-                                                SizedBox(
-                                                    height: sizeFromHeight(context, 1.7),
-                                                    child: FutureBuilder<QuerySnapshot>(
-                                                      future: FirebaseFirestore.instance
-                                                          .collection('books')
-                                                          .doc(data.id)
-                                                          .collection('comments')
-                                                          .get(),
-                                                      builder: (context, snapshot) {
-                                                        if (snapshot.hasData) {
-                                                          return ListView.builder(
-                                                              itemCount: snapshot.data!.docs.length,
-                                                              itemBuilder: (context, index) {
-                                                                return Dismissible(
-                                                                  onDismissed: (diretion) async {
-                                                                    await  FirebaseFirestore.instance
-                                                                        .collection('books')
-                                                                        .doc(data.id)
-                                                                        .collection('comments')
-                                                                        .doc(snapshot.data!.docs[index].id)
-                                                                        .delete();
-                                                                  },
-                                                                  key: UniqueKey(),
-                                                                  child:CommentItem(
-                                                                    comment: snapshot.data!.docs[index]
-                                                                    ['comment'],
-                                                                    date: snapshot.data!.docs[index]['date']
-                                                                        .toString(),
-                                                                  ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      InputText(
+                                                        text: 'اسم الكتاب',
+                                                        textDescribtion: data.name,
+                                                      ),
+                                                      InputText(
+                                                        text: 'اسم المؤلف',
+                                                        textDescribtion: data.authname,
+                                                      ),
+                                                      InputText(
+                                                        text: 'رقم العمود ',
+                                                        textDescribtion: data.colnum,
+                                                      ),
+                                                      InputText(
+                                                        text: 'رقم الصف ',
+                                                        textDescribtion: data.rownum,
+                                                      ),
+                                                      InputText(
+                                                        text: 'نوع الكتاب ',
+                                                        textDescribtion: data.type,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  BooKCover(
+                                                    image:data.imgurl,
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              SizedBox(
+                                                  height: sizeFromHeight(context, 1.7),
+                                                  child: FutureBuilder<QuerySnapshot>(
+                                                    future: FirebaseFirestore.instance
+                                                        .collection('books')
+                                                        .doc(data.id)
+                                                        .collection('comments')
+                                                        .get(),
+                                                    builder: (context, snapshot) {
+                                                      if (snapshot.hasData) {
+                                                        return ListView.builder(
+                                                            itemCount: snapshot.data!.docs.length,
+                                                            itemBuilder: (context, index) {
+                                                              return CommentItem(
+                                                                comment: snapshot.data!.docs[index]
+                                                                ['comment'],
+                                                                date: snapshot.data!.docs[index]['date']
+                                                                    .toString(),
 
-                                                                );
-                                                              });
-                                                        }
-                                                        return const CircularProgressIndicator();
-                                                      },
-                                                    )),
-                                              ],
-                                            ),
+                                                              );
+                                                            });
+                                                      }
+                                                      return const CircularProgressIndicator();
+                                                    },
+                                                  )),
+                                            ],
                                           ),
                                         ),
                                       ),
