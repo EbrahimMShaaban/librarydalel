@@ -1,17 +1,21 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_search/firestore_search.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
+import 'package:librarydalel/screens/admin/book_details/add_comment.dart';
+import 'package:librarydalel/screens/admin/book_details/book_cover.dart';
+import 'package:librarydalel/screens/admin/book_details/comments_item.dart';
+import 'package:librarydalel/screens/admin/book_details/input_text.dart';
 import 'package:librarydalel/screens/admin/book_details/view.dart';
 
 import 'model.dart';
 
 class Seerch extends StatelessWidget {
-  String? x = DataModel().name.toString() ;
+  String? x = DataModel().name.toString();
+
   @override
   Widget build(BuildContext context) {
     return FirestoreSearchScaffold(
-
       firestoreCollectionName: 'books',
       searchBy: 'bookname',
       appBarBackgroundColor: purple,
@@ -49,23 +53,128 @@ class Seerch extends StatelessWidget {
                             print('================/====================');
                             print((data.colnum as dynamic).runtimeType);
                             print('===============/=====================');
+                            print(data.runtimeType);
 
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => BookDetails(
-                                          rownum:  rownumber.toString(),
-                                          type: thetype.toString(),
-                                          icon: null,
-                                          bookname: name1.toString(),
-                                          id: id1.toString(),
-                                          colnum: columnnumber.toString(),
-                                          image: imageurl.toString(),
-                                          authname: authername.toString(),
-                                        )));
+                                    builder: (context) => Scaffold(
+                                      backgroundColor: white,
+                                      appBar: AppBar(
+                                        elevation: 0,
+                                        backgroundColor: white,
+                                        title: Text(
+                                          'عرض تفاصيل الكتاب',
+                                          style: appbarStyle,
+                                        ),
+                                        centerTitle: true,
+                                        leading: IconButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          icon: const Icon(Icons.arrow_back),
+                                          color: purple,
+                                        ),
+                                      ),
+                                      body: Directionality(
+                                        textDirection: TextDirection.rtl,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                          child: SingleChildScrollView(
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        InputText(
+                                                          text: 'اسم الكتاب',
+                                                          textDescribtion: data.name,
+                                                        ),
+                                                        InputText(
+                                                          text: 'اسم المؤلف',
+                                                          textDescribtion: data.authname,
+                                                        ),
+                                                        InputText(
+                                                          text: 'رقم العمود ',
+                                                          textDescribtion: data.colnum,
+                                                        ),
+                                                        InputText(
+                                                          text: 'رقم الصف ',
+                                                          textDescribtion:data.rownum,
+                                                        ),
+                                                        InputText(
+                                                          text: 'نوع الكتاب ',
+                                                          textDescribtion: data.type,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Expanded(child: SizedBox()),
+                                                    BooKCover(
+                                                      image: data.imgurl,
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
+                                                SizedBox(
+                                                    height: sizeFromHeight(context, 1.7),
+                                                    child: FutureBuilder<QuerySnapshot>(
+                                                      future: FirebaseFirestore.instance
+                                                          .collection('books')
+                                                          .doc(data.id)
+                                                          .collection('comments')
+                                                          .get(),
+                                                      builder: (context, snapshot) {
+                                                        if (snapshot.hasData) {
+                                                          return ListView.builder(
+                                                              itemCount: snapshot.data!.docs.length,
+                                                              itemBuilder: (context, index) {
+                                                                return Dismissible(
+                                                                  onDismissed: (diretion) async {
+                                                                    await  FirebaseFirestore.instance
+                                                                        .collection('books')
+                                                                        .doc(data.id)
+                                                                        .collection('comments')
+                                                                        .doc(snapshot.data!.docs[index].id)
+                                                                        .delete();
+                                                                  },
+                                                                  key: UniqueKey(),
+                                                                  child:CommentItem(
+                                                                    comment: snapshot.data!.docs[index]
+                                                                    ['comment'],
+                                                                    date: snapshot.data!.docs[index]['date']
+                                                                        .toString(),
+                                                                  ),
+
+                                                                );
+                                                              });
+                                                        }
+                                                        return const CircularProgressIndicator();
+                                                      },
+                                                    )),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+                                      floatingActionButton: FloatingActionButton(
+                                        backgroundColor: purple,
+                                        onPressed: () {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder: (context) => AddComment(id1)));
+                                        },
+                                        child: Icon(Icons.add),
+                                      ),
+                                    )));
                           },
                           title: Text(
-                            '${data.name }''$thetype' '$name1',
+                            '${data.name}' ,
                             style: labelStyle,
                           ),
                           subtitle: Text(
