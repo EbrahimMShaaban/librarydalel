@@ -4,15 +4,14 @@ class DataModel {
   final String? name, authname, imgurl, colnum, rownum, type, id;
 
   //   ,
-  DataModel(
-      {this.name,
-      this.authname,
-      this.imgurl,
-      this.colnum,
-      this.id,
-      this.rownum,
-      this.type
-      });
+  DataModel({this.name,
+    this.authname,
+    this.imgurl,
+    this.colnum,
+    this.id,
+    this.rownum,
+    this.type
+  });
 
 
   //Create a method to convert QuerySnapshot from Cloud Firestore to a list of objects of this DataModel
@@ -21,7 +20,7 @@ class DataModel {
   List<DataModel> dataListFromSnapshot(QuerySnapshot querySnapshot) {
     return querySnapshot.docs.map((snapshot) {
       final Map<String, dynamic> dataMap =
-          snapshot.data() as Map<String, dynamic>;
+      snapshot.data() as Map<String, dynamic>;
       print(dataMap['bookname']);
       print('============================================');
       return DataModel(

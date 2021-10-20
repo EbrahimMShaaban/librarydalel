@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:librarydalel/constant/styles.dart';
+import 'package:librarydalel/screens/user/home_screen/topfour.dart';
 import 'package:librarydalel/widgets/logo.dart';
 
 import 'books_box.dart';
@@ -48,6 +49,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
+                 TopFour(),
                   // const BooksBox(type:'adab'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
@@ -56,6 +58,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
+
                   const BooksBox(type:'الروايات'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),

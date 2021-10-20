@@ -1,12 +1,9 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:librarydalel/constant/model.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/user/home_screen/book_details/view.dart';
-import 'package:provider/provider.dart';
 
 class BooksBox extends StatefulWidget {
   final type;
@@ -19,7 +16,7 @@ class BooksBox extends StatefulWidget {
 
 class _BooksBoxState extends State<BooksBox> {
   final CollectionReference bookref =
-      FirebaseFirestore.instance.collection('books');
+      FirebaseFirestore.instance.collection('books').doc('iaPJphqRdGPR66uZ1mk0').collection('comments');
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +39,7 @@ class _BooksBoxState extends State<BooksBox> {
                   for(var doc in snapshot.data!.docs)
                     {
                       print(doc.id);
+
                     }
                   return SizedBox(
                     height: sizeFromHeight(context, 4),
