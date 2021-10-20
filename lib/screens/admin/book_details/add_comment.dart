@@ -11,7 +11,7 @@ import 'package:librarydalel/widgets/button/flatbuton.dart';
 class AddComment extends StatefulWidget {
   const AddComment(this.id);
 
- final String id;
+  final String id;
 
   @override
   State<AddComment> createState() => _AddCommentState();
@@ -32,7 +32,7 @@ class _AddCommentState extends State<AddComment> {
         // get it
         .get()
         .then((value) {
-          name = value.docs[0]['email'];
+      name = value.docs[0]['email'];
       //this return a list of query snapshot , but it include a one item - because the firebase uid is unique for each user -
     });
   }
