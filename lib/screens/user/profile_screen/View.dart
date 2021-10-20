@@ -35,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         .get()
         .then((value) {
       //this return a list of query snapshot , but it include a one item - because the firebase uid is unique for each user -
-      print(value.docs[0]['email']);
+      print(value.docs[0]['name']);
       print("++///////=====================///////////////");
     });
   }
