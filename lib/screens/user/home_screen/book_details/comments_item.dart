@@ -8,12 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'input_text.dart';
 
-
 class CommentItem extends StatefulWidget {
+  const CommentItem(
+      {Key? key,
+      required this.comment,
+      required this.date,
+      required this.name});
 
-  const CommentItem({Key? key, required this.comment ,required this.date,required this.name});
-
-  final comment, date,name;
+  final comment, date, name;
 
   @override
   _CommentItemState createState() => _CommentItemState();
@@ -26,7 +28,7 @@ class _CommentItemState extends State<CommentItem> {
       width: sizeFromWidth(context, 1),
       height: 150,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: white,
@@ -37,39 +39,47 @@ class _CommentItemState extends State<CommentItem> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-    Row(
-         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-         children: [ InputText(text:widget.name, textDescribtion: ''),
-           SizedBox(
-             width: sizeFromWidth(context, 5),
-           ),
-           Text(widget.date, style: textstyles,),
-         ],
-       ),
-   //        FutureBuilder<QuerySnapshot>(
-   //  future: FirebaseFirestore.instance
-   //      .collection('users')
-   //
-   //      .get(),
-   //  builder: (context, snapshot) {
-   // if (snapshot.hasData) {
-   //   return Row(
-   //      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-   //      children: [ InputText(text: snapshot.data!.docs[0]['username']
-   //          .toString(), textDescribtion: ''),
-   //        SizedBox(
-   //          width: sizeFromWidth(context, 5),
-   //        ),
-   //        Text(widget.date, style: textstyles,),
-   //      ],
-   //    );
-   //
-   //  } else {
-   //   return const Text("Loading...");
-   // }
-   //
-   //  }),
-    Text(widget.comment,style: hintStyle,textDirection: TextDirection.rtl,)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                InputText(text: widget.name, textDescribtion: ''),
+                SizedBox(
+                  width: sizeFromWidth(context, 5),
+                ),
+                Text(
+                  widget.date,
+                  style: textstyles,
+                ),
+              ],
+            ),
+            //        FutureBuilder<QuerySnapshot>(
+            //  future: FirebaseFirestore.instance
+            //      .collection('users')
+            //
+            //      .get(),
+            //  builder: (context, snapshot) {
+            // if (snapshot.hasData) {
+            //   return Row(
+            //      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //      children: [ InputText(text: snapshot.data!.docs[0]['username']
+            //          .toString(), textDescribtion: ''),
+            //        SizedBox(
+            //          width: sizeFromWidth(context, 5),
+            //        ),
+            //        Text(widget.date, style: textstyles,),
+            //      ],
+            //    );
+            //
+            //  } else {
+            //   return const Text("Loading...");
+            // }
+            //
+            //  }),
+            Text(
+              widget.comment,
+              style: hintStyle,
+              textDirection: TextDirection.rtl,
+            )
           ],
         ),
       ),

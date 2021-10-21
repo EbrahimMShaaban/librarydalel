@@ -16,8 +16,6 @@ class BooksBox extends StatefulWidget {
 }
 
 class _BooksBoxState extends State<BooksBox> {
-  final CollectionReference bookref =
-      FirebaseFirestore.instance.collection('books').doc('iaPJphqRdGPR66uZ1mk0').collection('comments');
 
   @override
   Widget build(BuildContext context) {

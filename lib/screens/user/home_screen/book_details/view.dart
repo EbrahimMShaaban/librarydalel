@@ -2,7 +2,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
@@ -13,7 +12,7 @@ import 'comments_item.dart';
 import 'input_text.dart';
 
 class BookUserDetails extends StatefulWidget {
-  final bookname, authname, colnum, rownum, type, image, icon, id;
+  final bookname, authname, colnum, rownum, type, image, icon,id;
 
   const BookUserDetails(
       {required this.bookname,
@@ -23,7 +22,8 @@ class BookUserDetails extends StatefulWidget {
       required this.rownum,
       required this.colnum,
       required this.authname,
-      required this.id});
+      required this.id
+      });
 
   @override
   _BookDetailsState createState() => _BookDetailsState();
@@ -35,27 +35,30 @@ class _BookDetailsState extends State<BookUserDetails> {
 var name =FirebaseAuth.instance.currentUser!.email;
 @override
   void initState() {
-    // TODO: implement initState
+    getUserName();
     super.initState();
     // getUserName();
 }
 //
-// getUserName() async {
-//   //create instance from firebase firestore --> single tone
-//   await FirebaseFirestore.instance
-//   //go to (user) collection in fire store
-//       .collection('users')
-//   //get all docs and make for loop in it and get what i need ==> userid == my unique id
-//       .where('userid', isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
-//   // get it
-//       .get()
-//       .then((value) {
-//     //this return a list of query snapshot , but it include a one item - because the firebase uid is unique for each user -
-//     print(value.docs[0]['username']);
-//     print("++///////=====================///////////////");
-//     return value.docs[0]['username'];
-//   });
-// }
+getUserName() async {
+  //create instance from firebase firestore --> single tone
+  await FirebaseFirestore.instance
+  //go to (user) collection in fire store
+      .collection('books').doc("iaPJphqRdGPR66uZ1mk0").collection('comments')
+  //get all docs and make for loop in it and get what i need ==> userid == my unique id
+  //     .where('userid', isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
+  // get it
+      .get()
+      .then((value) {
+    //this return a list of query snapshot , but it include a one item - because the firebase uid is unique for each user -
+    print(value.docs.length);
+
+
+
+    print("++///////=====================///////////////");
+    // return value.docs[0]['username'];
+  });
+}
 
 
 @override
@@ -130,6 +133,8 @@ var name =FirebaseAuth.instance.currentUser!.email;
                         .collection('comments')
                         .get(),
                     builder: (context, snapshot) {
+                      print(widget.id);
+                      print("====+++++==========+++++===========");
                       if (snapshot.hasData) {
 
                         return ListView.builder(

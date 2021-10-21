@@ -2,12 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_search/firestore_search.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
-import 'package:librarydalel/screens/admin/book_details/add_comment.dart';
 import 'package:librarydalel/screens/admin/book_details/book_cover.dart';
 import 'package:librarydalel/screens/admin/book_details/comments_item.dart';
 import 'package:librarydalel/screens/admin/book_details/input_text.dart';
-import 'package:librarydalel/screens/admin/book_details/view.dart';
-import 'package:librarydalel/screens/user/home_screen/book_details/view.dart';
+
 
 import 'model.dart';
 
@@ -123,12 +121,15 @@ class Seerch extends StatelessWidget {
                                               SizedBox(
                                                   height: sizeFromHeight(context, 1.7),
                                                   child: FutureBuilder<QuerySnapshot>(
+
                                                     future: FirebaseFirestore.instance
                                                         .collection('books')
                                                         .doc(data.id)
                                                         .collection('comments')
                                                         .get(),
                                                     builder: (context, snapshot) {
+                                                      print(data.id);
+                                                      print("=========/=/=/=/=/=/=/=/=/=============");
                                                       if (snapshot.hasData) {
                                                         return ListView.builder(
                                                             itemCount: snapshot.data!.docs.length,
@@ -136,6 +137,7 @@ class Seerch extends StatelessWidget {
                                                               return CommentItem(
                                                                 comment: snapshot.data!.docs[index]
                                                                 ['comment'],
+
                                                                 date: snapshot.data!.docs[index]['date']
                                                                     .toString(),
 
@@ -149,15 +151,15 @@ class Seerch extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-                                      floatingActionButton: FloatingActionButton(
-                                        backgroundColor: purple,
-                                        onPressed: () {
-                                          Navigator.push(context,
-                                              MaterialPageRoute(builder: (context) => AddComment(id1)));
-                                        },
-                                        child: Icon(Icons.add),
-                                      ),
+                                      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+                                      // floatingActionButton: FloatingActionButton(
+                                      //   backgroundColor: purple,
+                                      //   onPressed: () {
+                                      //     // Navigator.push(context,
+                                      //     //     MaterialPageRoute(builder: (context) => AddComment(id1)));
+                                      //   },
+                                      //  // child: Icon(Icons.add),
+                                      // ),
                                     )));
                           },
                           title: Text(
