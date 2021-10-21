@@ -9,10 +9,10 @@ import 'package:librarydalel/widgets/button/flatbuton.dart';
 // ignore_for_file: use_key_in_widget_constructors
 
 class AddComment extends StatefulWidget {
-  const AddComment(this.id);
+  const AddComment(this.id,);
 
  final  String id;
-
+// final int numcomment;
   @override
   State<AddComment> createState() => _AddCommentState();
 }
@@ -37,7 +37,8 @@ getUserName() async {
   @override
   initState() {
  getUserName();
-
+print(widget.id.length);
+ print("++///////===========/==========================================///////////////");
     super.initState();
   }
 
@@ -57,6 +58,11 @@ getUserName() async {
           "date":
               "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}",
           "name":  name,
+          'num': FirebaseFirestore.instance
+              .collection('books')
+              .doc(widget.id)
+              .collection('comments').doc()
+
         });
         Navigator.pop(context);
         Navigator.pop(context);

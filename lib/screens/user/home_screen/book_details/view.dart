@@ -155,7 +155,7 @@ var name =FirebaseAuth.instance.currentUser!.email;
         backgroundColor: purple,
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddComment(widget.id)));
+              MaterialPageRoute(builder: (context) => AddComment(widget.id,)));
         },
         child: Icon(widget.icon),
       ),
