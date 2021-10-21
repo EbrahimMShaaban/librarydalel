@@ -11,17 +11,33 @@ import 'input_text.dart';
 class CommentItem extends StatefulWidget {
   const CommentItem(
       {Key? key,
+      this.id,
       required this.comment,
       required this.date,
-      required this.name});
+      required this.name,
+      this.length});
 
-  final comment, date, name;
+  final comment, date, name, length, id;
 
   @override
   _CommentItemState createState() => _CommentItemState();
 }
 
 class _CommentItemState extends State<CommentItem> {
+  addLength() async {
+    await FirebaseFirestore.instance
+        .collection("books")
+        .doc(widget.id)
+        .update({"commentlength": widget.length});
+  }
+
+  @override
+  void initState() {
+    addLength();
+    print(widget.length);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,7 +58,7 @@ class _CommentItemState extends State<CommentItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InputText(text: widget.name, textDescribtion: ''),
+                InputText(text: 'اسم المستخدم', textDescribtion: widget.name),
                 SizedBox(
                   width: sizeFromWidth(context, 5),
                 ),
@@ -52,29 +68,7 @@ class _CommentItemState extends State<CommentItem> {
                 ),
               ],
             ),
-            //        FutureBuilder<QuerySnapshot>(
-            //  future: FirebaseFirestore.instance
-            //      .collection('users')
-            //
-            //      .get(),
-            //  builder: (context, snapshot) {
-            // if (snapshot.hasData) {
-            //   return Row(
-            //      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //      children: [ InputText(text: snapshot.data!.docs[0]['username']
-            //          .toString(), textDescribtion: ''),
-            //        SizedBox(
-            //          width: sizeFromWidth(context, 5),
-            //        ),
-            //        Text(widget.date, style: textstyles,),
-            //      ],
-            //    );
-            //
-            //  } else {
-            //   return const Text("Loading...");
-            // }
-            //
-            //  }),
+
             Text(
               widget.comment,
               style: hintStyle,

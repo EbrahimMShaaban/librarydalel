@@ -12,10 +12,9 @@ import 'comments_item.dart';
 import 'input_text.dart';
 
 class BookUserDetails extends StatefulWidget {
-  var x ;
-  final bookname, authname, colnum, rownum, type, image, icon,id;
+  final bookname, authname, colnum, rownum, type, image, icon, id;
 
-   BookUserDetails(
+  BookUserDetails(
       {required this.bookname,
       required this.icon,
       required this.type,
@@ -23,46 +22,16 @@ class BookUserDetails extends StatefulWidget {
       required this.rownum,
       required this.colnum,
       required this.authname,
-      required this.id
-      });
+      required this.id});
 
   @override
   _BookDetailsState createState() => _BookDetailsState();
 }
 
 class _BookDetailsState extends State<BookUserDetails> {
+  var name = FirebaseAuth.instance.currentUser!.email;
 
-
-var name =FirebaseAuth.instance.currentUser!.email;
-@override
-  void initState() {
-    getUserName();
-    super.initState();
-    // getUserName();
-}
-//
-getUserName() async {
-  //create instance from firebase firestore --> single tone
-  await FirebaseFirestore.instance
-  //go to (user) collection in fire store
-      .collection('books').doc("iaPJphqRdGPR66uZ1mk0").collection('comments')
-  //get all docs and make for loop in it and get what i need ==> userid == my unique id
-  //     .where('userid', isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
-  // get it
-      .get()
-      .then((value) {
-    //this return a list of query snapshot , but it include a one item - because the firebase uid is unique for each user -
-    print(value.docs.length);
-
-
-
-    print("++///////=====================///////////////");
-    // return value.docs[0]['username'];
-  });
-}
-
-
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: white,
@@ -134,16 +103,14 @@ getUserName() async {
                         .collection('comments')
                         .get(),
                     builder: (context, snapshot) {
-                      print(widget.id);
-                      print("====+++++==========+++++===========");
+
                       if (snapshot.hasData) {
-
-                        widget.x= snapshot.data!.docs.length;
                         return ListView.builder(
-
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
                               return CommentItem(
+                                id: widget.id,
+                                length: snapshot.data!.docs.length,
                                 comment: snapshot.data!.docs[index]['comment'],
                                 date: snapshot.data!.docs[index]['date']
                                     .toString(),
@@ -162,8 +129,12 @@ getUserName() async {
       floatingActionButton: FloatingActionButton(
         backgroundColor: purple,
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddComment(widget.id,)));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => AddComment(
+                        widget.id,
+                      )));
         },
         child: Icon(widget.icon),
       ),

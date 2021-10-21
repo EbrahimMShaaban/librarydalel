@@ -49,10 +49,6 @@ class Seerch extends StatelessWidget {
                       child: Center(
                         child: ListTile(
                           onTap: () {
-                            print('================/====================');
-                            print((data.colnum as dynamic).runtimeType);
-                            print('===============/=====================');
-                            print(data.runtimeType);
 
                             Navigator.push(
                                 context,
@@ -128,8 +124,7 @@ class Seerch extends StatelessWidget {
                                                         .collection('comments')
                                                         .get(),
                                                     builder: (context, snapshot) {
-                                                      print(data.id);
-                                                      print("=========/=/=/=/=/=/=/=/=/=============");
+
                                                       if (snapshot.hasData) {
                                                         return ListView.builder(
                                                             itemCount: snapshot.data!.docs.length,
@@ -151,15 +146,7 @@ class Seerch extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-                                      // floatingActionButton: FloatingActionButton(
-                                      //   backgroundColor: purple,
-                                      //   onPressed: () {
-                                      //     // Navigator.push(context,
-                                      //     //     MaterialPageRoute(builder: (context) => AddComment(id1)));
-                                      //   },
-                                      //  // child: Icon(Icons.add),
-                                      // ),
+
                                     )));
                           },
                           title: Text(

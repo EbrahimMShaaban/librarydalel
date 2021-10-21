@@ -4,18 +4,15 @@ import 'package:flutter/rendering.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/user/home_screen/topfour.dart';
 import 'package:librarydalel/widgets/logo.dart';
-
 import 'books_box.dart';
-
 
 class HomePageScreen extends StatelessWidget {
   const HomePageScreen({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+        body: Column(
       children: [
         const SizedBox(
           height: 50,
@@ -36,7 +33,7 @@ class HomePageScreen extends StatelessWidget {
           height: 10,
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height/1.8,
+          height: MediaQuery.of(context).size.height / 1.8,
           child: ListView(
             children: [
               Column(
@@ -49,8 +46,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                 TopFour(),
-             const BooksBox(type:''),
+                  TopFour(),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -58,8 +54,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-
-                  const BooksBox(type:'الروايات'),
+                  const BooksBox(type: 'الروايات'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -67,7 +62,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(type:'الادب'),
+                  const BooksBox(type: 'الادب'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -75,7 +70,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(type:'قدرات'),
+                  const BooksBox(type: 'قدرات'),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
@@ -83,14 +78,13 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  const BooksBox(type:'لغات')
+                  const BooksBox(type: 'لغات')
                 ],
-            ),
-          ],
+              ),
+            ],
           ),
         ),
-    ],
-      )
-    );
+      ],
+    ));
   }
 }

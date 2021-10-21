@@ -9,10 +9,12 @@ import 'package:librarydalel/widgets/button/flatbuton.dart';
 // ignore_for_file: use_key_in_widget_constructors
 
 class AddComment extends StatefulWidget {
-  const AddComment(this.id,);
+  const AddComment(
+    this.id,
+  );
 
- final  String id;
-// final int numcomment;
+  final String id;
+
   @override
   State<AddComment> createState() => _AddCommentState();
 }
@@ -20,25 +22,26 @@ class AddComment extends StatefulWidget {
 class _AddCommentState extends State<AddComment> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController controller = TextEditingController();
- var name;
+  var name;
 
-getUserName() async {
- await FirebaseFirestore.instance
+  getUserName() async {
+    await FirebaseFirestore.instance
         .collection('users')
         .where('userid', isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
         .get()
         .then((value) {
       print(value.docs[0]['username']);
       print("++///////=====================///////////////");
-    name= value.docs[0]['username'];
-
+      name = value.docs[0]['username'];
     });
   }
+
   @override
   initState() {
- getUserName();
-print(widget.id.length);
- print("++///////===========/==========================================///////////////");
+    getUserName();
+    print(widget.id.length);
+    print(
+        "++///////===========/==========================================///////////////");
     super.initState();
   }
 
@@ -57,12 +60,12 @@ print(widget.id.length);
           "userid": (FirebaseAuth.instance.currentUser)!.uid,
           "date":
               "${DateTime.now().day}-${DateTime.now().month}-${DateTime.now().year}",
-          "name":  name,
+          "name": name,
           'num': FirebaseFirestore.instance
               .collection('books')
               .doc(widget.id)
-              .collection('comments').doc()
-
+              .collection('comments')
+              .doc()
         });
         Navigator.pop(context);
         Navigator.pop(context);
@@ -71,18 +74,6 @@ print(widget.id.length);
       }
     }
   }
-
-  // getName() async {
-  //   final user = FirebaseAuth.instance.currentUser!.displayName;
-  //   print(user);
-  // }
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   getName();
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +142,7 @@ print(widget.id.length);
               ),
               Buton('إرسال', onTap: () async {
                 await validate(context);
-                print(widget.id);
+
               })
             ],
           ),

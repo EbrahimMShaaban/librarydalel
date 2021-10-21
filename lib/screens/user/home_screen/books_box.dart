@@ -35,11 +35,7 @@ class _BooksBoxState extends State<BooksBox> {
 
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  for(var doc in snapshot.data!.docs)
-                    {
-                      print(doc.id);
 
-                    }
                   return SizedBox(
                     height: sizeFromHeight(context, 4),
                     width: sizeFromWidth(context, 1),

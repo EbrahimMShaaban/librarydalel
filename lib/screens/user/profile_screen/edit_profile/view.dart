@@ -63,15 +63,7 @@ class _EditProfileState extends State<EditProfile> {
           const SizedBox(
             height: 10,
           ),
-          // Center(
-          //   child: Text(
-          //     "تعديل الملف الشخصى",
-          //     style: labelStyle,
-          //   ),
-          // ),
-          // const SizedBox(
-          //   height: 60,
-          // ),
+
           Form(
               key: _formKey,
               child: Directionality(
