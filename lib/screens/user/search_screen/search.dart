@@ -123,12 +123,15 @@ class Seerch extends StatelessWidget {
                                               SizedBox(
                                                   height: sizeFromHeight(context, 1.7),
                                                   child: FutureBuilder<QuerySnapshot>(
+
                                                     future: FirebaseFirestore.instance
                                                         .collection('books')
                                                         .doc(data.id)
                                                         .collection('comments')
                                                         .get(),
                                                     builder: (context, snapshot) {
+                                                      print(data.id);
+                                                      print("=========/=/=/=/=/=/=/=/=/=============");
                                                       if (snapshot.hasData) {
                                                         return ListView.builder(
                                                             itemCount: snapshot.data!.docs.length,
@@ -136,6 +139,7 @@ class Seerch extends StatelessWidget {
                                                               return CommentItem(
                                                                 comment: snapshot.data!.docs[index]
                                                                 ['comment'],
+
                                                                 date: snapshot.data!.docs[index]['date']
                                                                     .toString(),
 
@@ -153,10 +157,10 @@ class Seerch extends StatelessWidget {
                                       floatingActionButton: FloatingActionButton(
                                         backgroundColor: purple,
                                         onPressed: () {
-                                          Navigator.push(context,
-                                              MaterialPageRoute(builder: (context) => AddComment(id1)));
+                                          // Navigator.push(context,
+                                          //     MaterialPageRoute(builder: (context) => AddComment(id1)));
                                         },
-                                        child: Icon(Icons.add),
+                                       // child: Icon(Icons.add),
                                       ),
                                     )));
                           },
