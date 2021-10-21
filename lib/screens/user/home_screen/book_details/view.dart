@@ -12,9 +12,10 @@ import 'comments_item.dart';
 import 'input_text.dart';
 
 class BookUserDetails extends StatefulWidget {
+  var x ;
   final bookname, authname, colnum, rownum, type, image, icon,id;
 
-  const BookUserDetails(
+   BookUserDetails(
       {required this.bookname,
       required this.icon,
       required this.type,
@@ -137,7 +138,9 @@ getUserName() async {
                       print("====+++++==========+++++===========");
                       if (snapshot.hasData) {
 
+                        widget.x= snapshot.data!.docs.length;
                         return ListView.builder(
+
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
                               return CommentItem(
