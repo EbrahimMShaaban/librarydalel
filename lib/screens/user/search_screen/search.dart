@@ -2,12 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_search/firestore_search.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
-import 'package:librarydalel/screens/admin/book_details/add_comment.dart';
 import 'package:librarydalel/screens/admin/book_details/book_cover.dart';
 import 'package:librarydalel/screens/admin/book_details/comments_item.dart';
 import 'package:librarydalel/screens/admin/book_details/input_text.dart';
-import 'package:librarydalel/screens/admin/book_details/view.dart';
-import 'package:librarydalel/screens/user/home_screen/book_details/view.dart';
+
 
 import 'model.dart';
 
@@ -153,15 +151,15 @@ class Seerch extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-                                      floatingActionButton: FloatingActionButton(
-                                        backgroundColor: purple,
-                                        onPressed: () {
-                                          // Navigator.push(context,
-                                          //     MaterialPageRoute(builder: (context) => AddComment(id1)));
-                                        },
-                                       // child: Icon(Icons.add),
-                                      ),
+                                      // floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+                                      // floatingActionButton: FloatingActionButton(
+                                      //   backgroundColor: purple,
+                                      //   onPressed: () {
+                                      //     // Navigator.push(context,
+                                      //     //     MaterialPageRoute(builder: (context) => AddComment(id1)));
+                                      //   },
+                                      //  // child: Icon(Icons.add),
+                                      // ),
                                     )));
                           },
                           title: Text(
