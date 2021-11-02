@@ -18,8 +18,8 @@ class Seerch extends StatelessWidget {
       firestoreCollectionName: 'books',
       searchBy: 'bookname',
       appBarBackgroundColor: purple,
-      scaffoldBody: const Center(child: Text('Firestore Search')),
-      dataListFromSnapshot: DataModel().dataListFromSnapshot,
+      scaffoldBody:  Center(child: Text('لا توجد نتائج', style: labelStyle,)),
+      dataListFromSnapshot: DataModel().dataListFromSnapshot ,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<DataModel>? dataList = snapshot.data;
@@ -32,9 +32,9 @@ class Seerch extends StatelessWidget {
           dynamic id1 = dataList[0].id as String;
 
           return ListView.builder(
-              itemCount: dataList.length,
+              itemCount: dataList.length ,
               itemBuilder: (context, index) {
-                var data = dataList[index];
+                final DataModel data = dataList[index];
 
                 return Padding(
                   padding:

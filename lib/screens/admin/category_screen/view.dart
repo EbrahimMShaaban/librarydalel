@@ -4,6 +4,7 @@ import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/add_book_screen.dart';
 import 'package:librarydalel/screens/admin/book_list_screen/view.dart';
 import 'package:librarydalel/screens/registration/log_in_screen.dart';
+import 'package:librarydalel/screens/user/search_screen/search.dart';
 
 import 'category_item.dart';
 import 'custom_appBar.dart';
@@ -42,6 +43,15 @@ class _CategoryState extends State<Category> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>  const AddBookScreen()));
+            },
+          ),
+          CategoryItem(
+            text: 'بحث ',
+            onTap: () async{
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>  Seerch()));
             },
           ),
           CategoryItem(

@@ -47,7 +47,7 @@ class _EditProfileState extends State<EditProfile> {
       appBar: AppBar(
         backgroundColor: white,
         title: Text(
-          "تعديل الملف الشخصى",
+          "تعديل كلمة المرور",
           style: appbarStyle,
         ),
         centerTitle: true,
