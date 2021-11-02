@@ -59,28 +59,30 @@ class _BookDetailsState extends State<BookUserDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InputText(
+                      InputText(stl: labelStyle2,
                         text: 'اسم الكتاب',
                         textDescribtion: widget.bookname.data()['bookname'],
                       ),
-                      InputText(
+                      InputText(stl: labelStyle2,
                         text: 'اسم المؤلف',
                         textDescribtion: widget.authname.data()['authorname'],
                       ),
-                      InputText(
+                      InputText(stl: labelStyle2,
                         text: 'رقم العمود ',
                         textDescribtion: widget.colnum.data()['columnnum'],
                       ),
-                      InputText(
+                      InputText(stl: labelStyle2,
                         text: 'رقم الصف ',
                         textDescribtion: widget.rownum.data()['rownum'],
                       ),
                       InputText(
+                        stl: labelStyle2,
                         text: 'نوع الكتاب ',
                         textDescribtion: widget.type.data()['type'],
                       ),

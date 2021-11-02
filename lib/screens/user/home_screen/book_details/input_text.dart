@@ -6,12 +6,14 @@ import 'package:librarydalel/constant/styles.dart';
 class InputText extends StatelessWidget {
   final   text;
   final  textDescribtion;
-  const InputText({
+  TextStyle stl;
+   InputText({
     required this.text,
     required this.textDescribtion,
+    required this.stl
 });
   @override
   Widget build(BuildContext context) {
-    return Text('$text:$textDescribtion',style: textstyles,);
+    return Text('$text: $textDescribtion',style: stl,overflow: TextOverflow.ellipsis,);
   }
 }

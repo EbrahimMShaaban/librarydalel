@@ -58,7 +58,7 @@ class _CommentItemState extends State<CommentItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InputText(text: 'اسم المستخدم', textDescribtion: widget.name),
+                InputText(text: 'اسم المستخدم', textDescribtion: widget.name,stl: textstyles,),
                 SizedBox(
                   width: sizeFromWidth(context, 5),
                 ),
