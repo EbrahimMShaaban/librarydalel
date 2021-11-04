@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
+
 import 'input_text.dart';
 
 class CommentItem extends StatefulWidget {
@@ -44,7 +44,7 @@ class _CommentItemState extends State<CommentItem> {
       width: sizeFromWidth(context, 1),
       height: 150,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding:const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: white,
@@ -58,22 +58,28 @@ class _CommentItemState extends State<CommentItem> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InputText(text: 'اسم المستخدم', textDescribtion: widget.name,stl: textstyles,),
-                SizedBox(
-                  width: sizeFromWidth(context, 5),
+                Expanded(
+                  child: InputText(
+                    text: 'اسم المستخدم',
+                    textDescribtion: widget.name,
+                    stl: textstyles,
+                  ),
                 ),
+                // SizedBox(
+                //   width: sizeFromWidth(context, 5),
+                // ),
                 Text(
                   widget.date,
                   style: textstyles,
                 ),
               ],
             ),
-
             Text(
               widget.comment,
               style: hintStyle,
               textDirection: TextDirection.rtl,
             )
+
           ],
         ),
       ),

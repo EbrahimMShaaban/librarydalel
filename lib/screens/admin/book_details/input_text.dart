@@ -12,6 +12,6 @@ class InputText extends StatelessWidget {
 });
   @override
   Widget build(BuildContext context) {
-    return Text('$text:$textDescribtion',style: textstyles,);
+    return  Text('$text:$textDescribtion',style: textstyles,);
   }
 }

@@ -11,9 +11,9 @@ import 'comments_item.dart';
 import 'input_text.dart';
 
 class BookDetails extends StatefulWidget {
-   var bookname, authname, colnum, rownum, type, image, icon, id;
+  var bookname, authname, colnum, rownum, type, image, icon, id;
 
-   BookDetails(
+  BookDetails(
       {required this.bookname,
       required this.icon,
       required this.type,
@@ -26,7 +26,6 @@ class BookDetails extends StatefulWidget {
   @override
   _BookDetailsState createState() => _BookDetailsState();
 }
-
 
 class _BookDetailsState extends State<BookDetails> {
   @override
@@ -69,9 +68,11 @@ class _BookDetailsState extends State<BookDetails> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        InputText(
-                          text: 'اسم الكتاب',
-                          textDescribtion: widget.bookname.data()['bookname'],
+                        Expanded(
+                          child: InputText(
+                            text: 'اسم الكتاب',
+                            textDescribtion: widget.bookname.data()['bookname'],
+                          ),
                         ),
                         InputText(
                           text: 'اسم المؤلف',
@@ -91,7 +92,8 @@ class _BookDetailsState extends State<BookDetails> {
                         ),
                       ],
                     ),
-                    Expanded(child: SizedBox()),
+
+                    // Expanded(child: SizedBox()),
                     BooKCover(
                       image: widget.image.data()['imageurl'],
                     ),
@@ -115,7 +117,7 @@ class _BookDetailsState extends State<BookDetails> {
                               itemBuilder: (context, index) {
                                 return Dismissible(
                                   onDismissed: (diretion) async {
-                                    await  FirebaseFirestore.instance
+                                    await FirebaseFirestore.instance
                                         .collection('books')
                                         .doc(widget.id)
                                         .collection('comments')
@@ -123,13 +125,12 @@ class _BookDetailsState extends State<BookDetails> {
                                         .delete();
                                   },
                                   key: UniqueKey(),
-                                  child:CommentItem(
-                                      comment: snapshot.data!.docs[index]
-                                      ['comment'],
-                                      date: snapshot.data!.docs[index]['date']
-                                          .toString(),
-                                ),
-
+                                  child: CommentItem(
+                                    comment: snapshot.data!.docs[index]
+                                        ['comment'],
+                                    date: snapshot.data!.docs[index]['date']
+                                        .toString(),
+                                  ),
                                 );
                               });
                         }
