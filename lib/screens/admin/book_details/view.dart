@@ -63,37 +63,37 @@ class _BookDetailsState extends State<BookDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: InputText(
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          InputText(
                             text: 'اسم الكتاب',
                             textDescribtion: widget.bookname.data()['bookname'],
                           ),
-                        ),
-                        InputText(
-                          text: 'اسم المؤلف',
-                          textDescribtion: widget.authname.data()['authorname'],
-                        ),
-                        InputText(
-                          text: 'رقم العمود ',
-                          textDescribtion: widget.colnum.data()['columnnum'],
-                        ),
-                        InputText(
-                          text: 'رقم الصف ',
-                          textDescribtion: widget.rownum.data()['rownum'],
-                        ),
-                        InputText(
-                          text: 'نوع الكتاب ',
-                          textDescribtion: widget.type.data()['type'],
-                        ),
-                      ],
-                    ),
+                          InputText(
+                            text: 'اسم المؤلف',
+                            textDescribtion: widget.authname.data()['authorname'],
+                          ),
+                          InputText(
+                            text: 'رقم العمود ',
+                            textDescribtion: widget.colnum.data()['columnnum'],
+                          ),
+                          InputText(
+                            text: 'رقم الصف ',
+                            textDescribtion: widget.rownum.data()['rownum'],
+                          ),
+                          InputText(
 
-                    // Expanded(child: SizedBox()),
+                            text: 'نوع الكتاب ',
+                            textDescribtion: widget.type.data()['type'],
+                          ),
+                        ],
+                      ),
+                    ),
                     BooKCover(
                       image: widget.image.data()['imageurl'],
                     ),
