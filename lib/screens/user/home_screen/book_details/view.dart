@@ -62,31 +62,33 @@ class _BookDetailsState extends State<BookUserDetails> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InputText(stl: labelStyle2,
-                        text: 'اسم الكتاب',
-                        textDescribtion: widget.bookname.data()['bookname'],
-                      ),
-                      InputText(stl: labelStyle2,
-                        text: 'اسم المؤلف',
-                        textDescribtion: widget.authname.data()['authorname'],
-                      ),
-                      InputText(stl: labelStyle2,
-                        text: 'رقم العمود ',
-                        textDescribtion: widget.colnum.data()['columnnum'],
-                      ),
-                      InputText(stl: labelStyle2,
-                        text: 'رقم الصف ',
-                        textDescribtion: widget.rownum.data()['rownum'],
-                      ),
-                      InputText(
-                        stl: labelStyle2,
-                        text: 'نوع الكتاب ',
-                        textDescribtion: widget.type.data()['type'],
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InputText(stl: labelStyle2,
+                          text: 'اسم الكتاب',
+                          textDescribtion: widget.bookname.data()['bookname'],
+                        ),
+                        InputText(stl: labelStyle2,
+                          text: 'اسم المؤلف',
+                          textDescribtion: widget.authname.data()['authorname'],
+                        ),
+                        InputText(stl: labelStyle2,
+                          text: 'رقم العمود ',
+                          textDescribtion: widget.colnum.data()['columnnum'],
+                        ),
+                        InputText(stl: labelStyle2,
+                          text: 'رقم الصف ',
+                          textDescribtion: widget.rownum.data()['rownum'],
+                        ),
+                        InputText(
+                          stl: labelStyle2,
+                          text: 'نوع الكتاب ',
+                          textDescribtion: widget.type.data()['type'],
+                        ),
+                      ],
+                    ),
                   ),
                   BooKCover(
                     image: widget.image.data()['imageurl'],
@@ -96,8 +98,8 @@ class _BookDetailsState extends State<BookUserDetails> {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                  height: sizeFromHeight(context, 1.7),
+              Expanded(
+
                   child: FutureBuilder<QuerySnapshot>(
                     future: FirebaseFirestore.instance
                         .collection('books')

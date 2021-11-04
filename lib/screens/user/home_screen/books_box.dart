@@ -62,31 +62,37 @@ class _BooksBoxState extends State<BooksBox> {
                                       rownum: snapshot.data!.docs[index],
                                     )));
                           },
-                          child: Column(
-                            children: [
-                              Container(
-                                height: sizeFromHeight(context, 6),
-                                width: sizeFromWidth(context, 4.6),
-                                margin: const EdgeInsets.all(3),
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          snapshot.data!.docs[index]['imageurl']),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    color: gray,
-                                    borderRadius: BorderRadius.circular(23)),
-                              ),
-                              Text(
-                                snapshot.data!.docs[index]['bookname'],
-                                style: GoogleFonts.tajawal(
-                                    textStyle: const TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600,
-                                        color: gray,
-                                        height: 1.5)),
-                              ),
-                            ],
+                          child: Container(
+                            width: sizeFromWidth(context, 5),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: sizeFromHeight(context, 6),
+                                  width: sizeFromWidth(context, 4.6),
+                                  margin: const EdgeInsets.all(3),
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            snapshot.data!.docs[index]['imageurl']),
+                                        fit: BoxFit.cover,
+                                      ),
+                                      color: gray,
+                                      borderRadius: BorderRadius.circular(23)),
+                                ),
+                                Text(
+                                  snapshot.data!.docs[index]['bookname'],
+                                  maxLines: 2,
+                                  style: GoogleFonts.tajawal(
+                                      textStyle: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          overflow: TextOverflow.ellipsis,
+
+                                          color: gray,
+                                          height: 1.5)),
+                                ),
+                              ],
+                            ),
                           ),
                         );
 
