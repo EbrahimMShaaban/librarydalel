@@ -71,23 +71,24 @@ class _BookDetailsState extends State<BookDetails> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           InputText(
+                            stl: labelStyle2,
                             text: 'اسم الكتاب',
                             textDescribtion: widget.bookname.data()['bookname'],
                           ),
                           InputText(
-                            text: 'اسم المؤلف',
+                            stl: labelStyle2,                            text: 'اسم المؤلف',
                             textDescribtion: widget.authname.data()['authorname'],
                           ),
                           InputText(
-                            text: 'رقم العمود ',
+                            stl: labelStyle2,                            text: 'رقم العمود ',
                             textDescribtion: widget.colnum.data()['columnnum'],
                           ),
                           InputText(
-                            text: 'رقم الصف ',
+                            stl: labelStyle2,                            text: 'رقم الصف ',
                             textDescribtion: widget.rownum.data()['rownum'],
                           ),
                           InputText(
-
+                            stl: labelStyle2,
                             text: 'نوع الكتاب ',
                             textDescribtion: widget.type.data()['type'],
                           ),
@@ -130,6 +131,7 @@ class _BookDetailsState extends State<BookDetails> {
                                         ['comment'],
                                     date: snapshot.data!.docs[index]['date']
                                         .toString(),
+
                                   ),
                                 );
                               });

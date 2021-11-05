@@ -83,7 +83,7 @@ class _EditBookState extends State<EditBook> {
               const SizedBox(height: 50),
               Center(
                   child: Text(
-                    'إضافة كتاب',
+                    'تعديل كتاب',
                     style: labelStyle,
                   )),
               const SizedBox(height: 25),
@@ -98,7 +98,7 @@ class _EditBookState extends State<EditBook> {
                   validator: (value) {
                     bookname = value;
                     if (value!.isEmpty) {
-                      return 'برجاءادخال اسم الكتاب ';
+                      return 'الرجاءادخال اسم الكتاب ';
                     }
                   },
                   obscureText: false,
@@ -128,7 +128,7 @@ class _EditBookState extends State<EditBook> {
                   },
                   validator: (val) {
                    if(val!.isEmpty){
-                     return 'برجاء ادخال اسم المؤلف';
+                     return 'الرجاء ادخال اسم المؤلف';
                    }
                   },
                   obscureText: false,
@@ -159,7 +159,7 @@ class _EditBookState extends State<EditBook> {
                   validator: (value) {
                     type = value;
                     if (value!.isEmpty) {
-                      return 'برجاءادخال النوع ';
+                      return 'الرجاءادخال النوع ';
                     }
                   },
                   obscureText: false,
@@ -191,7 +191,7 @@ class _EditBookState extends State<EditBook> {
                   validator: (value) {
                     columnnum = value;
                     if (value!.isEmpty) {
-                      return 'برجاءادخالرقم العمود ';
+                      return 'الرجاءادخال رقم العمود ';
                     }
                   },
                   obscureText: false,
@@ -223,7 +223,7 @@ class _EditBookState extends State<EditBook> {
                   validator: (value) {
                     rownum = value;
                     if (value!.isEmpty) {
-                      return 'برجاءادخال رقم الصف ';
+                      return 'الرجاء ادخال رقم الصف ';
                     }
                   },
                   obscureText: false,
@@ -269,7 +269,7 @@ class _EditBookState extends State<EditBook> {
                   ),
                 ),
               ),
-              Buton('اضافة', onTap: () async {
+              Buton('حفظ', onTap: () async {
                 await editBook(context);
               }),
             ],

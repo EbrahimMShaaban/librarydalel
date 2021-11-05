@@ -10,14 +10,14 @@ class BooKCover extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: sizeFromHeight(context, 5),
-      width: sizeFromWidth(context, 3),
+      height: sizeFromHeight(context, 3.8),
+      width: sizeFromWidth(context, 2.9),
       margin: const EdgeInsets.all(3),
       decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
                 image),
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
           ),
           color: gray,
           borderRadius: BorderRadius.circular(23)),

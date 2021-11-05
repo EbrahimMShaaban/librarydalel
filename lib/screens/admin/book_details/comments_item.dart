@@ -34,7 +34,9 @@ class _CommentItemState extends State<CommentItem> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [const InputText(text: 'اسم المستخدم', textDescribtion: ''),
+              children: [ InputText(text: 'اسم المستخدم', textDescribtion: '',
+                stl: textstyles,
+              ),
                 SizedBox(
                   width: sizeFromWidth(context, 5),
                 ),

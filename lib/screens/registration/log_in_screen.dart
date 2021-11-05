@@ -35,15 +35,15 @@ class _LogInScreenState extends State<LogInScreen> {
           Navigator.of(context).pop();
           AwesomeDialog(
               context: context,
-              title: "Error",
-              body: const Text("No user found for that email"))
+              title: "خطأ",
+              body: const Text("لا يوجد حساب لهذا البريد الالكتروني"))
             .show();
         } else if (e.code == 'wrong-password') {
           Navigator.of(context).pop();
           AwesomeDialog(
               context: context,
-              title: "Error",
-              body: const Text("Wrong password provided for that user"))
+              title: "خطأ",
+              body: const Text("كلمة المرور خطأ"))
             .show();
         }
       }
@@ -88,7 +88,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 validator: (value) {
                   email = value;
                   if (value!.isEmpty) {
-                    return 'برجاء كتابه البريد الالكتروني بشكل صحيح';
+                    return 'الرجاء كتابه البريد الالكتروني بشكل صحيح';
                   }
                 },
 
@@ -103,9 +103,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 validator: (value) {
                   password = value;
                   if (value!.isEmpty) {
-                    return 'برجاء كتابه كلمة المرور بشكل صحيح';
-                  } else if (value.length < 5) {
-                    return 'يجب ان نكون كلمة المرور تحتوي علي الاقل من خمس ارقام';
+                    return 'الرجاء كتابه كلمة المرور بشكل صحيح';
                   }
                 },
 

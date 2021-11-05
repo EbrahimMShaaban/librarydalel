@@ -78,6 +78,21 @@ class DisplaybookItem extends StatelessWidget {
                                 )));
                   },
                   child: const Icon(Icons.edit)),
+              SizedBox(
+                width: sizeFromWidth(context, 25),
+              ),
+
+              InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditBook(
+                              books: bookName,
+                              docsid: docsid,
+                            )));
+                  },
+                  child: const Icon(Icons.delete))
             ],
           ),
         ),

@@ -4,7 +4,7 @@ showLoading(context) {
       context: context,
       builder: (context) {
         return AlertDialog (
-          title: const Text("Please Wait"),
+          title: const Text("يرجى الانتظار"),
           // ignore: sized_box_for_whitespace
           content: Container(
               height: 50, child: const Center(child: CircularProgressIndicator())),

@@ -85,22 +85,27 @@ class Seerch extends StatelessWidget {
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       InputText(
+                                                        stl: labelStyle,
                                                         text: 'اسم الكتاب',
                                                         textDescribtion: data.name,
                                                       ),
                                                       InputText(
+                                                        stl: labelStyle,
                                                         text: 'اسم المؤلف',
                                                         textDescribtion: data.authname,
                                                       ),
                                                       InputText(
+                                                        stl: labelStyle,
                                                         text: 'رقم العمود ',
                                                         textDescribtion: data.colnum,
                                                       ),
                                                       InputText(
+                                                        stl: labelStyle,
                                                         text: 'رقم الصف ',
                                                         textDescribtion: data.rownum,
                                                       ),
                                                       InputText(
+                                                        stl: labelStyle,
                                                         text: 'نوع الكتاب ',
                                                         textDescribtion: data.type,
                                                       ),

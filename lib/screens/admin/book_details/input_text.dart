@@ -4,14 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 
 class InputText extends StatelessWidget {
-  final   text;
-  final  textDescribtion;
-  const InputText({
+  final text;
+  final textDescribtion;
+  TextStyle stl;
+
+    InputText({
     required this.text,
     required this.textDescribtion,
-});
+    required this.stl
+  });
+
   @override
   Widget build(BuildContext context) {
-    return  Text('$text:$textDescribtion',style: textstyles,overflow: TextOverflow.ellipsis,maxLines: 1,);
+    return Text(
+      '$text:$textDescribtion',
+      style: stl,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 2,
+    );
   }
 }

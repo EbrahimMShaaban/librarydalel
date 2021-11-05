@@ -18,24 +18,27 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(appBar: AppBar(backgroundColor: purple ,
+      title: Text(
+        'جميع الكتب',
+        style: buttonStyle,
+      ),
+      centerTitle: true,
+      leading: IconButton(onPressed: () { Navigator.pop(context) ;}, icon:const Icon(Icons.arrow_back),),
+
+
+    ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Column(
           children: [
             const SizedBox(
-              height: 60,
+              height: 10,
             ),
 
-            Text(
-              'جميع الكتب',
-              style: labelStyle,
-            ),
+
             SizedBox(
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height - 70,
+              height: sizeFromHeight(context, 1.5),
               child: FutureBuilder<QuerySnapshot>(
 
                 future: FirebaseFirestore.instance.collection('books').get(),
