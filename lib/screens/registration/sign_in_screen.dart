@@ -96,8 +96,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'برجاءادخال الاسم';
-                    } else if (value.length < 5) {
-                      return 'برجاء كتابه الاسم بشكل صحيح';
+                    } else if (value.length < 3) {
+                      return 'يجب أن يتكون الاسم من 3 أحرف على الاقل';
                     }
                   },
                 ),
@@ -111,9 +111,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   validator: (value) {
                     email = value;
                     if (value!.isEmpty) {
-                      return 'برجاء كتابه البريد الالكتروني بشكل صحيح';
-                    } else if (value.length < 5) {
-                      return 'برجاء كتابه البريد الالكتروني بشكل صحيح';
+                      return 'الرجاء إدخال بريد الكتروني';
                     }
                   },
                 ),
@@ -127,9 +125,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   validator: (value) {
                     password = value;
                     if (value!.isEmpty) {
-                      return 'برجاء كتابه كلمة المرور بشكل صحيح';
-                    } else if (value.length < 5) {
-                      return 'برجاء كتابه البريد الالكتروني بشكل صحيح';
+                      return 'الرجاء إدخال كلمة مرور';
                     }
                   },
                 ),
@@ -142,9 +138,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   scure: true,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'برجاء كتابه كلمة المرور بشكل صحيح';
-                    } else if (value.length < 5) {
-                      return 'برجاء كتابه كلمة المرور بشكل صحيح';
+                      return" الرجاء إعادة كتابة كلمة المرور";
                     }
                   },
                 ),

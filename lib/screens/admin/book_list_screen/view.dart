@@ -18,16 +18,21 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(backgroundColor: purple ,
-      title: Text(
-        'جميع الكتب',
-        style: buttonStyle,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: purple,
+        title: Text(
+          'جميع الكتب',
+          style: buttonStyle,
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
-      centerTitle: true,
-      leading: IconButton(onPressed: () { Navigator.pop(context) ;}, icon:const Icon(Icons.arrow_back),),
-
-
-    ),
       body: Directionality(
         textDirection: TextDirection.rtl,
         child: Column(
@@ -35,20 +40,17 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
             const SizedBox(
               height: 10,
             ),
-
-
             SizedBox(
               height: sizeFromHeight(context, 1.5),
-              child: FutureBuilder<QuerySnapshot>(
-
-                future: FirebaseFirestore.instance.collection('books').get(),
-                builder: (context, snapshot) {
+              child: StreamBuilder(
+                stream:
+                    FirebaseFirestore.instance.collection('books').snapshots(),
+                builder: (context, AsyncSnapshot <QuerySnapshot>snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
                   }
                   if (snapshot.hasData) {
-                    for(var doc in snapshot.data!.docs)
-                    {
+                    for (var doc in snapshot.data!.docs) {
                       print('========================');
                       print(snapshot.data!.docs.length);
                     }
@@ -60,12 +62,12 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
                               await bookref
                                   .doc(snapshot.data!.docs[index].id)
                                   .delete();
-                              await FirebaseStorage.instance.refFromURL(
-                                  snapshot.data!.docs[index]['imageurl'])
+                              await FirebaseStorage.instance
+                                  .refFromURL(
+                                      snapshot.data!.docs[index]['imageurl'])
                                   .delete();
                             },
                             key: UniqueKey(),
-
                             child: DisplaybookItem(
                               bookName: snapshot.data!.docs[index],
                               docsid: snapshot.data!.docs[index].id,
@@ -75,7 +77,6 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
                               type: snapshot.data!.docs[index],
                               image: snapshot.data!.docs[index],
                               rownum: snapshot.data!.docs[index],
-
                             ),
                           );
                         });

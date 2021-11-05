@@ -10,6 +10,20 @@ const Color white = Color(0xFFfafafa);
 const Color white2 = Color(0xfff1f1f1);
 const Color black = Color(0xFF09090a);
 
+const LinearGradient blueGradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    stops: [.5, 1],
+    colors: [white2, purple]);
+
+
+
+const LinearGradient redGradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    stops: [.5, .9],
+    colors: [white2, Colors.red]);
+
 TextStyle labelStyle = GoogleFonts.tajawal(
     textStyle: const  TextStyle(
         fontSize: 28, fontWeight: FontWeight.w600, color: gray, height: .2));
