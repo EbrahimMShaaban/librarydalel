@@ -137,6 +137,9 @@ class Seerch extends StatelessWidget {
                                                               return CommentItem(
                                                                 comment: snapshot.data!.docs[index]
                                                                 ['comment'],
+                                                                name:snapshot.data!.docs[index]
+                                                                ['name'],
+
 
                                                                 date: snapshot.data!.docs[index]['date']
                                                                     .toString(),

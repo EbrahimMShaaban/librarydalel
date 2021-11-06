@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:librarydalel/screens/admin/add_book_screen/deletebook.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/eidt_book.dart';
 import 'package:librarydalel/screens/admin/book_details/view.dart';
 
-class DisplaybookItem extends StatelessWidget {
+class DisplaybookItem extends StatefulWidget {
   final bookName;
   final docsid;
   final authname, colnum, rownum, type, image, icon;
@@ -26,6 +27,11 @@ class DisplaybookItem extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<DisplaybookItem> createState() => _DisplaybookItemState();
+}
+
+class _DisplaybookItemState extends State<DisplaybookItem> {
+  @override
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.rtl,
@@ -35,14 +41,14 @@ class DisplaybookItem extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => BookDetails(
-                      bookname: bookName,
-                      icon: icon,
-                      type: type,
-                      image: image,
-                      rownum: rownum,
-                      colnum: colnum,
-                      authname: authname,
-                      id: docsid)));
+                      bookname: widget.bookName,
+                      icon: widget.icon,
+                      type: widget.type,
+                      image: widget.image,
+                      rownum: widget.rownum,
+                      colnum: widget.colnum,
+                      authname: widget.authname,
+                      id: widget.docsid)));
         },
         child: Container(
           height: 70,
@@ -59,10 +65,14 @@ class DisplaybookItem extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  "${bookName.data()['bookname']}",maxLines: 2,
+                  "${widget.bookName.data()['bookname']}",
+                  maxLines: 2,
                   style: GoogleFonts.tajawal(
-                      textStyle:const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.w600, color: gray,)),
+                      textStyle: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: gray,
+                  )),
                 ),
               ),
               Expanded(
@@ -76,28 +86,32 @@ class DisplaybookItem extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => EditBook(
-                                  books: bookName,
-                                  docsid: docsid,
+                                  books: widget.bookName,
+                                  docsid: widget.docsid,
                                 )));
                   },
                   child: const Icon(Icons.edit)),
               SizedBox(
                 width: sizeFromWidth(context, 25),
               ),
-
               InkWell(
                   onTap: () {
-                   showDialogWarning(context, text: 'هل أنت متأكد من حذف الكتاب؟', ontap:() async {
+                    showDialogWarning(context,
+                        text: 'هل أنت متأكد من حذف الكتاب؟', ontap: () async {
+                      await FirebaseFirestore.instance
+                          .collection('books')
+                          .doc(widget.docsid)
+                          .delete();
 
-                     await FirebaseFirestore.instance.collection('books').doc(docsid).delete();
-                     // await FirebaseStorage.instance
-                     //     .refFromURL(
-                     //     snapshot.data!.docs[index]['imageurl'])
-                     //     .delete();
-                     Navigator.pop(context);
-                     Navigator.pop(context);
-                   } );
-                   // Navigator.pop(context);
+                      Navigator.pop(context);
+                      AwesomeDialog(
+                              context: context,
+                              title: "هام",
+                              body: const Text("تمت عملية الحذف بنجاح"),
+                              dialogType: DialogType.SUCCES)
+                          .show();
+                    });
+
                   },
                   child: const Icon(Icons.delete))
             ],

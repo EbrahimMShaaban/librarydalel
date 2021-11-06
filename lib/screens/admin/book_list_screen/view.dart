@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/add_book_screen.dart';
+import 'package:librarydalel/screens/admin/category_screen/view.dart';
 import 'displaybook_item.dart';
 
 class DisplayBooksScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>Category()));
           },
           icon: const Icon(Icons.arrow_back),
         ),
@@ -45,7 +46,7 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
                     FirebaseFirestore.instance.collection('books').snapshots(),
                 builder: (context, AsyncSnapshot <QuerySnapshot>snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return const Text('');
                   }
                   if (snapshot.hasData) {
                     for (var doc in snapshot.data!.docs) {
@@ -55,27 +56,15 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
                     return ListView.builder(
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {
-                          return Dismissible(
-                            onDismissed: (diretion) async {
-                              await bookref
-                                  .doc(snapshot.data!.docs[index].id)
-                                  .delete();
-                              await FirebaseStorage.instance
-                                  .refFromURL(
-                                      snapshot.data!.docs[index]['imageurl'])
-                                  .delete();
-                            },
-                            key: UniqueKey(),
-                            child: DisplaybookItem(
-                              bookName: snapshot.data!.docs[index],
-                              docsid: snapshot.data!.docs[index].id,
-                              icon: Icons.add,
-                              authname: snapshot.data!.docs[index],
-                              colnum: snapshot.data!.docs[index],
-                              type: snapshot.data!.docs[index],
-                              image: snapshot.data!.docs[index],
-                              rownum: snapshot.data!.docs[index],
-                            ),
+                          return DisplaybookItem(
+                            bookName: snapshot.data!.docs[index],
+                            docsid: snapshot.data!.docs[index].id,
+                            icon: Icons.add,
+                            authname: snapshot.data!.docs[index],
+                            colnum: snapshot.data!.docs[index],
+                            type: snapshot.data!.docs[index],
+                            image: snapshot.data!.docs[index],
+                            rownum: snapshot.data!.docs[index],
                           );
                         });
                   }

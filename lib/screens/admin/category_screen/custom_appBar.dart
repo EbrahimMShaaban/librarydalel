@@ -21,7 +21,7 @@ Widget myAppBar(){
         const CircleAvatar(
           radius: 25,
           backgroundColor: white,
-          backgroundImage: AssetImage('assets/logo.png'),
+          backgroundImage: AssetImage('assets/logo3.png'),
         ),
       ],
       centerTitle: true,

@@ -76,15 +76,19 @@ class _BookDetailsState extends State<BookDetails> {
                             textDescribtion: widget.bookname.data()['bookname'],
                           ),
                           InputText(
-                            stl: labelStyle2,                            text: 'اسم المؤلف',
-                            textDescribtion: widget.authname.data()['authorname'],
+                            stl: labelStyle2,
+                            text: 'اسم المؤلف',
+                            textDescribtion:
+                                widget.authname.data()['authorname'],
                           ),
                           InputText(
-                            stl: labelStyle2,                            text: 'رقم العمود ',
+                            stl: labelStyle2,
+                            text: 'رقم العمود ',
                             textDescribtion: widget.colnum.data()['columnnum'],
                           ),
                           InputText(
-                            stl: labelStyle2,                            text: 'رقم الصف ',
+                            stl: labelStyle2,
+                            text: 'رقم الصف ',
                             textDescribtion: widget.rownum.data()['rownum'],
                           ),
                           InputText(
@@ -105,13 +109,18 @@ class _BookDetailsState extends State<BookDetails> {
                 ),
                 SizedBox(
                     height: sizeFromHeight(context, 1.7),
-                    child: FutureBuilder<QuerySnapshot>(
-                      future: FirebaseFirestore.instance
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
                           .collection('books')
                           .doc(widget.id)
                           .collection('comments')
-                          .get(),
-                      builder: (context, snapshot) {
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Text('');
+                        }
                         if (snapshot.hasData) {
                           return ListView.builder(
                               itemCount: snapshot.data!.docs.length,
@@ -131,7 +140,7 @@ class _BookDetailsState extends State<BookDetails> {
                                         ['comment'],
                                     date: snapshot.data!.docs[index]['date']
                                         .toString(),
-
+                                    name: snapshot.data!.docs[index]['name'],
                                   ),
                                 );
                               });

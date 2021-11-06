@@ -19,7 +19,6 @@ class BooKCover extends StatelessWidget {
                 image),
             fit: BoxFit.fill,
           ),
-          color: gray,
           borderRadius: BorderRadius.circular(23)),
     );
     

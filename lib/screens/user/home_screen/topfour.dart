@@ -15,11 +15,12 @@ class TopFour extends StatefulWidget {
 class _TopFourState extends State<TopFour> {
   @override
   Widget build(BuildContext context) {
-    var x =FirebaseFirestore.instance
+    var x = FirebaseFirestore.instance
         .collection('books')
         .orderBy("commentlength", descending: true)
         .limit(4)
-        .get();
+        .snapshots();
+
     CollectionReference res = FirebaseFirestore.instance
         .collection('books')
         .doc('iaPJphqRdGPR66uZ1mk0')
@@ -35,17 +36,22 @@ class _TopFourState extends State<TopFour> {
         padding: const EdgeInsets.only(right: 10, left: 10),
         child: Directionality(
           textDirection: TextDirection.rtl,
-          child: FutureBuilder<QuerySnapshot>(
-            future: x,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              }
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection('books')
+                .orderBy("commentlength", descending: true)
+                .limit(4)
+                .snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              // if (snapshot.connectionState == ConnectionState.waiting) {
+              //   return const CircularProgressIndicator();
+              // }
 
-              if (snapshot.connectionState == ConnectionState.done) {
+
                 if (snapshot.hasData) {
-                  if(x==0){return Text('لا توجد كتب مقترحة');
-              }else{
+                  if (x == 0) {
+                    return Text('لا توجد كتب مقترحة');
+                  } else {
                     return SizedBox(
                       height: sizeFromHeight(context, 4),
                       width: sizeFromWidth(context, 1),
@@ -61,15 +67,17 @@ class _TopFourState extends State<TopFour> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => BookUserDetails(
-                                        icon: Icons.add,
-                                        id: snapshot.data!.docs[index].id,
-                                        bookname: snapshot.data!.docs[index],
-                                        authname: snapshot.data!.docs[index],
-                                        colnum: snapshot.data!.docs[index],
-                                        type: snapshot.data!.docs[index],
-                                        image: snapshot.data!.docs[index],
-                                        rownum: snapshot.data!.docs[index],
-                                      )));
+                                            icon: Icons.add,
+                                            id: snapshot.data!.docs[index].id,
+                                            bookname:
+                                                snapshot.data!.docs[index],
+                                            authname:
+                                                snapshot.data!.docs[index],
+                                            colnum: snapshot.data!.docs[index],
+                                            type: snapshot.data!.docs[index],
+                                            image: snapshot.data!.docs[index],
+                                            rownum: snapshot.data!.docs[index],
+                                          )));
                             },
                             child: Container(
                               width: sizeFromWidth(context, 4),
@@ -86,12 +94,12 @@ class _TopFourState extends State<TopFour> {
                                           fit: BoxFit.cover,
                                         ),
                                         color: gray,
-                                        borderRadius: BorderRadius.circular(23)),
+                                        borderRadius:
+                                            BorderRadius.circular(23)),
                                   ),
                                   Text(
                                     snapshot.data!.docs[index]['bookname'],
                                     maxLines: 1,
-
                                     style: GoogleFonts.tajawal(
                                         textStyle: const TextStyle(
                                             fontSize: 15,
@@ -108,9 +116,8 @@ class _TopFourState extends State<TopFour> {
                       ),
                     );
                   }
-
                 }
-              }
+
               return const CircularProgressIndicator();
             },
           ),

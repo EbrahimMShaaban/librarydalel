@@ -63,7 +63,7 @@ class _BooksBoxState extends State<BooksBox> {
                                     )));
                           },
                           child: Container(
-                            width: sizeFromWidth(context, 5),
+                            width: sizeFromWidth(context, 4),
                             child: Column(
                               children: [
                                 Container(

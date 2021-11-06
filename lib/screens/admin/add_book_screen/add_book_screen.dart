@@ -3,6 +3,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -26,29 +27,29 @@ class _AddBookScreenState extends State<AddBookScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   CollectionReference addbook = FirebaseFirestore.instance.collection("books");
   var bookname, authorname, rownum, columnnum, type, imageurl;
-    late File file;
-  late Reference ref;
+  File ?file;
+   Reference ?ref;
   String? dropdownValue;
 
   var undropValue = 'null';
 
   addBook(context) async {
-    // if (file == null) {
-    //   return AwesomeDialog(
-    //       context: context,
-    //       title: "هام",
-    //       body: const Text("please choose Image"),
-    //       dialogType: DialogType.ERROR)
-    //     ..show();
-    // }
+    if (file == null) {
+      return AwesomeDialog(
+          context: context,
+          title: "هام",
+          body: const Text("برجاء اختيار صورة"),
+          dialogType: DialogType.ERROR)
+        ..show();
+    }
     var formdata = _formKey.currentState;
     if (formdata!.validate()) {
       print('==============');
       formdata.save();
       showLoading(context);
       print(context.hashCode);
-      await ref.putFile(file);
-      imageurl = await ref.getDownloadURL();
+      await ref!.putFile(file!);
+      imageurl = await ref!.getDownloadURL();
       await addbook.add({
         "bookname": bookname,
         "authorname": authorname,
@@ -59,6 +60,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         "userid": FirebaseAuth.instance.currentUser!.uid,
         "bookid": Random().nextInt(100000),
       }).then((value) {
+
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -67,23 +69,29 @@ class _AddBookScreenState extends State<AddBookScreen> {
         print("$e");
       });
     }
+
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: purple,
+        backgroundColor: white,
+        elevation: 0,
         title: Text(
           'إضافة كتاب',
-          style: buttonStyle,
+          style: buttonStyle2,
         ),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: gray,
+          ),
         ),
       ),
       body: Form(
@@ -94,7 +102,6 @@ class _AddBookScreenState extends State<AddBookScreen> {
             children: [
               const SizedBox(height: 20),
 
-              const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
@@ -103,7 +110,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   },
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'برجاءادخال اسم الكتاب ';
+                      return 'الرجاءادخال اسم الكتاب ';
                     }
                   },
                   obscureText: false,
@@ -131,7 +138,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   },
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'برجاءادخال اسم المؤلف ';
+                      return 'الرجاءادخال اسم المؤلف ';
                     }
                   },
                   obscureText: false,
@@ -165,7 +172,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                       ),
                       DropdownButton<String>(
                         hint: Text(
-                          'برجاء ادخال النوع',
+                          'الرجاء ادخال النوع',
                           style: hintStyle,
                         ),
                         value: dropdownValue,
@@ -176,7 +183,6 @@ class _AddBookScreenState extends State<AddBookScreen> {
                               const BoxDecoration(color: purple, boxShadow: [
                             BoxShadow(
                               color: purple,
-
                             )
                           ]),
                         ),
@@ -210,7 +216,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   },
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'برجاءادخالرقم العمود ';
+                      return 'الرجاءادخال رقم العمود ';
                     }
                   },
                   obscureText: false,
@@ -239,7 +245,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   },
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'برجاءادخال رقم الصف ';
+                      return 'الرجاءادخال رقم الصف ';
                     }
                   },
                   obscureText: false,
@@ -287,6 +293,14 @@ class _AddBookScreenState extends State<AddBookScreen> {
               ),
               Buton('اضافة', onTap: () async {
                 await addBook(context);
+                await AwesomeDialog(
+                    context: context,
+                    title: "هام",
+                    body: const Text("تمت عملية الاضافة بنجاح"),
+                    dialogType: DialogType.SUCCES)
+                    .show();
+
+
               }),
             ],
           ),

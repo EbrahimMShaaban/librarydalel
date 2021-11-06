@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
+import 'package:librarydalel/screens/admin/add_book_screen/deletebook.dart';
 import 'package:librarydalel/screens/registration/log_in_screen.dart';
 import 'package:librarydalel/screens/user/profile_screen/edit_profile/view.dart';
 import 'package:librarydalel/screens/user/profile_screen/user_item.dart';
@@ -51,14 +52,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: FutureBuilder<QuerySnapshot>(
-            future: FirebaseFirestore.instance
+        body: StreamBuilder(
+            stream: FirebaseFirestore.instance
                 .collection('users')
                 .where('userid',
                     isEqualTo: (FirebaseAuth.instance.currentUser!).uid)
-                .get(),
-            builder: (context, snapshot) {
-
+                .snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
               if (snapshot.hasData) {
                 return ListView(
                   children: [
@@ -92,14 +92,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }),
                     const SizedBox(height: 20),
                     Buton("تسجيل خروج", onTap: () async {
-                      await FirebaseAuth.instance.signOut();
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => LogInScreen()));
+                      showDialogWarning(context, text: 'هل انت متاكد من تسجيل الخروج', ontap: ()async{
+                        await FirebaseAuth.instance.signOut();
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => const LogInScreen()));
+                      });
                     }),
                   ],
                 );
               } else {
-                return const Text("Loading...");
+                return const Text("");
               }
             }));
   }

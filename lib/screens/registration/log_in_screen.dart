@@ -88,7 +88,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 validator: (value) {
                   email = value;
                   if (value!.isEmpty) {
-                    return 'الرجاء كتابه البريد الالكتروني بشكل صحيح';
+                    return 'الرجاءإدخال البريد الالكتروني ';
                   }
                 },
 
@@ -103,7 +103,7 @@ class _LogInScreenState extends State<LogInScreen> {
                 validator: (value) {
                   password = value;
                   if (value!.isEmpty) {
-                    return 'الرجاء كتابه كلمة المرور بشكل صحيح';
+                    return 'الرجاءإدخال كلمة المرور ';
                   }
                 },
 
@@ -159,7 +159,7 @@ class _LogInScreenState extends State<LogInScreen> {
   loginNavigate(context)async{
     var user = await signIn();
     var uid= FirebaseAuth.instance.currentUser!.uid;
-    if(user!= null && uid == 'XkbioiW6D8RT3tQPIr0u68cKnaq2' ){
+    if(user!= null && uid == 'DiSPLUCmVadcMDhjGsYJ5kvhvLQ2' ){
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context)=>const Category()));
     }

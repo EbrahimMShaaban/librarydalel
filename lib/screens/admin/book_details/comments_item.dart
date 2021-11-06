@@ -7,8 +7,8 @@ import 'input_text.dart';
 
 
 class CommentItem extends StatefulWidget {
-  final comment, date;
-  const CommentItem({Key? key, required this.comment ,required this.date}) : super(key: key);
+  final comment, date, name;
+  const CommentItem({Key? key, required this.comment ,required this.date, required this.name}) : super(key: key);
 
   @override
   _CommentItemState createState() => _CommentItemState();
@@ -34,12 +34,12 @@ class _CommentItemState extends State<CommentItem> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [ InputText(text: 'اسم المستخدم', textDescribtion: '',
-                stl: textstyles,
-              ),
-                SizedBox(
-                  width: sizeFromWidth(context, 5),
+              children: [ Expanded(
+                child: InputText(text: 'اسم المستخدم', textDescribtion: widget.name,
+                  stl: textstyles,
                 ),
+              ),
+
                 Text(widget.date,style: textstyles,),
               ],
             ),

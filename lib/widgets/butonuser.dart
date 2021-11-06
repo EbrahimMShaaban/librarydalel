@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 
 class ButtonUser extends StatefulWidget {
-  const ButtonUser({ required this.text, required this.color,required this.onTap});
+   ButtonUser({ required this.text,required this.color,required this.onTap});
   final String text;
-  final Gradient color;
+   Gradient? color;
   final Function onTap;
 
   @override
@@ -19,17 +19,18 @@ class _ButtonUserState extends State<ButtonUser> {
     return InkWell(
       onTap: () => widget.onTap(),
       child: Container(
+        alignment: Alignment.center,
         height: 35,
-        margin:const EdgeInsets.symmetric(horizontal: 15,vertical: 5),
+        margin:const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
         width: sizeFromWidth(context, 3.5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          gradient: widget.color,
+          gradient:widget.color ,
 
         ),
         child: Align(
             alignment: Alignment.center,
-            child: Text(widget.text, style: labelStyle)),
+            child: Text(widget.text, style: buttonStyle)),
       ),
     );
   }

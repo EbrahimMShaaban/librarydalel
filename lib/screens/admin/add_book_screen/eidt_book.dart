@@ -2,6 +2,8 @@
 
 import 'dart:io';
 import 'dart:math';
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,75 +19,110 @@ class EditBook extends StatefulWidget {
   final docsid;
   final books;
 
-  const EditBook ({Key? key, required this.books,required this.docsid}) : super(key: key);
+  const EditBook({Key? key, required this.books, required this.docsid})
+      : super(key: key);
+
   @override
   State<EditBook> createState() => _EditBookState();
 }
 
 class _EditBookState extends State<EditBook> {
-
-
-  final GlobalKey<FormState> _formKey =  GlobalKey<FormState>();
-  CollectionReference addbook =
-  FirebaseFirestore.instance.collection("books");
-  var bookname, authorname, rownum, columnnum, type, imageurl;
-  late File file;
-  late Reference ref;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  CollectionReference addbook = FirebaseFirestore.instance.collection("books");
+  String? bookname, authorname, rownum, columnnum, type, imageurl;
+  File? file;
+  Reference? ref;
 
   editBook(context) async {
     var formdata = _formKey.currentState;
-    if (file == null){
+    if (file == null) {
       if (formdata!.validate()) {
         formdata.save();
-        showLoading(context);
-        await addbook.doc().update({
-          "bookname": bookname,
-          "authorname": authorname,
-          "rownum": rownum,
-          "columnnum": columnnum,
-          "type": type,
-        }).then((value) {Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));}).catchError((e){
+        await addbook
+            .doc(widget.docsid)
+            .update({
+              "bookname": bookname,
+              "authorname": authorname,
+              "rownum": rownum,
+              "columnnum": columnnum,
+              "type": type,
+            })
+            .then((value) => () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const DisplayBooksScreen()));
+                })
+            .catchError((e) {
               print("$e");
-        });}
-    }else{
-      if (formdata!.validate()) {
-        formdata.save();
-        showLoading(context);
-        await ref.putFile(file);
-        imageurl = await ref.getDownloadURL();
-        await addbook.doc(widget.docsid).update({
-          "bookname": bookname,
-          "authorname": authorname,
-          "rownum": rownum,
-          "columnnum": columnnum,
-          "type": type,
-          "imageurl": imageurl,
-        }).then((value) => (){
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));
-        }).catchError((e){
-          print("$e");
-        });
+            });
+
+        // if (file == null){
+        //   // if (formdata!.validate()) {
+        //   //   formdata.save();
+        //   //   showLoading(context);
+        //   //   await addbook.doc().update({
+        //   //     "bookname": bookname,
+        //   //     "authorname": authorname,
+        //   //     "rownum": rownum,
+        //   //     "columnnum": columnnum,
+        //   //     "type": type,
+        //   //   }).then((value) {Navigator.push(context,
+        //   //       MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));}).catchError((e){
+        //   //         print("$e");
+        //   //   });}
+        // }else{
+        //
+        //   }
       }
     }
+    else { if (formdata!.validate()) {
+      showLoading(context);
+      formdata.save();
+      await ref!.putFile(file!);
+      imageurl = await ref!.getDownloadURL();
+      await addbook
+          .doc(widget.docsid)
+          .update({
+        "bookname": bookname,
+        "authorname": authorname,
+        "rownum": rownum,
+        "columnnum": columnnum,
+        "type": type,
+        'imageurl':imageurl,
+      })
+          .then((value) => () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const DisplayBooksScreen()));
+      })
+          .catchError((e) {
+        print("$e");
+      });
+    }
+  }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: purple,
+        backgroundColor: white,
+        elevation: 0,
         title: Text(
-          'جميع الكتب',
-          style: buttonStyle,
+          'تعديل كتاب',
+          style: buttonStyle2,
         ),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: gray,
+          ),
         ),
       ),
       body: Form(
@@ -94,18 +131,11 @@ class _EditBookState extends State<EditBook> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: ListView(
             children: [
-              const SizedBox(height: 50),
-              Center(
-                  child: Text(
-                    'تعديل كتاب',
-                    style: labelStyle,
-                  )),
               const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
                   initialValue: widget.books.data()['bookname'],
-
                   onSaved: (val) {
                     bookname = val;
                   },
@@ -121,10 +151,9 @@ class _EditBookState extends State<EditBook> {
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
                     focusedBorder: const UnderlineInputBorder(
-                      borderSide:  BorderSide(color: purple, width: 2.5),
+                      borderSide: BorderSide(color: purple, width: 2.5),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
-
                     labelText: 'اسم الكتاب',
                     hintText: 'ادخل اسم الكتاب',
                     labelStyle: labelStyle,
@@ -132,7 +161,7 @@ class _EditBookState extends State<EditBook> {
                   ),
                 ),
               ),
-
+              const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
@@ -141,9 +170,9 @@ class _EditBookState extends State<EditBook> {
                     authorname = val;
                   },
                   validator: (val) {
-                   if(val!.isEmpty){
-                     return 'الرجاء ادخال اسم المؤلف';
-                   }
+                    if (val!.isEmpty) {
+                      return 'الرجاء ادخال اسم المؤلف';
+                    }
                   },
                   obscureText: false,
                   decoration: InputDecoration(
@@ -161,12 +190,11 @@ class _EditBookState extends State<EditBook> {
                   ),
                 ),
               ),
-
+              const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
                   initialValue: widget.books.data()['type'],
-
                   onSaved: (val) {
                     type = val;
                   },
@@ -181,7 +209,7 @@ class _EditBookState extends State<EditBook> {
                     enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
-                    focusedBorder:const  UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -192,13 +220,11 @@ class _EditBookState extends State<EditBook> {
                   ),
                 ),
               ),
-
-
+              const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
                   initialValue: widget.books.data()['columnnum'],
-
                   onSaved: (val) {
                     columnnum = val;
                   },
@@ -210,7 +236,7 @@ class _EditBookState extends State<EditBook> {
                   },
                   obscureText: false,
                   decoration: InputDecoration(
-                    enabledBorder:const  UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
                     focusedBorder: const UnderlineInputBorder(
@@ -224,13 +250,11 @@ class _EditBookState extends State<EditBook> {
                   ),
                 ),
               ),
-
-
+              const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
                   initialValue: widget.books.data()['rownum'],
-
                   onSaved: (val) {
                     rownum = val;
                   },
@@ -242,7 +266,7 @@ class _EditBookState extends State<EditBook> {
                   },
                   obscureText: false,
                   decoration: InputDecoration(
-                    enabledBorder:const  UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(color: purple, width: 2.5),
                     ),
                     focusedBorder: const UnderlineInputBorder(
@@ -256,24 +280,24 @@ class _EditBookState extends State<EditBook> {
                   ),
                 ),
               ),
-
-
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: InkWell(
                   onTap: () {
                     showBottomSheet(context);
                   },
                   child: Container(
                     height: sizeFromHeight(context, 15),
-                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 10),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Center(
                         child: Text(
-                          'إضافة صورة ',
-                          style: hintStyle,
-                        )),
+                      'إضافة صورة ',
+                      style: hintStyle,
+                    )),
                     decoration: BoxDecoration(
                         color: white,
                         border: Border.all(
@@ -285,6 +309,14 @@ class _EditBookState extends State<EditBook> {
               ),
               Buton('حفظ', onTap: () async {
                 await editBook(context);
+               await AwesomeDialog(
+                    context: context,
+                    title: "هام",
+                    body: const Text("تمت عملية التعديل بنجاح"),
+                    dialogType: DialogType.SUCCES)
+                    .show();
+
+
               }),
             ],
           ),
@@ -325,7 +357,7 @@ class _EditBookState extends State<EditBook> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(10),
                       child: Row(
-                        children: const[
+                        children: const [
                           Icon(
                             Icons.photo_outlined,
                             size: 30,
@@ -356,7 +388,7 @@ class _EditBookState extends State<EditBook> {
                       width: double.infinity,
                       padding: const EdgeInsets.all(10),
                       child: Row(
-                        children: const[
+                        children: const [
                           Icon(
                             Icons.camera,
                             size: 30,

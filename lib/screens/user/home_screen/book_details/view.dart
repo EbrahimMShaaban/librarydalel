@@ -100,13 +100,13 @@ class _BookDetailsState extends State<BookUserDetails> {
               ),
               Expanded(
 
-                  child: FutureBuilder<QuerySnapshot>(
-                    future: FirebaseFirestore.instance
+                  child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
                         .collection('books')
                         .doc(widget.id)
                         .collection('comments')
-                        .get(),
-                    builder: (context, snapshot) {
+                        .snapshots(),
+                    builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
 
                       if (snapshot.hasData) {
                         return ListView.builder(
@@ -122,8 +122,9 @@ class _BookDetailsState extends State<BookUserDetails> {
                               );
                             });
                       }
-                      return const CircularProgressIndicator();
+                      return const Text('');
                     },
+
                   )),
             ],
           ),

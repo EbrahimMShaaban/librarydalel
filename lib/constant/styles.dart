@@ -9,20 +9,24 @@ const Color gray = Color(0xFF8a8989);
 const Color white = Color(0xFFfafafa);
 const Color white2 = Color(0xfff1f1f1);
 const Color black = Color(0xFF09090a);
-
-const LinearGradient blueGradient = LinearGradient(
-    begin: Alignment.centerLeft,
-    end: Alignment.centerRight,
-    stops: [.5, 1],
-    colors: [white2, purple]);
-
-
-
+const Color red= Color(0xffaf2e2e);
+const Color red2= Color(0xffcc6b6b);
 const LinearGradient redGradient = LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
     stops: [.5, .9],
-    colors: [white2, white]);
+    colors: [red, red2]);
+
+
+const LinearGradient blueGradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    stops: [.1, .9],
+    colors: [purple, purple]);
+
+
+
+
 
 TextStyle labelStyle = GoogleFonts.tajawal(
     textStyle: const  TextStyle(
@@ -42,6 +46,9 @@ TextStyle hintStyle = GoogleFonts.tajawal(
 TextStyle buttonStyle = GoogleFonts.tajawal(
     textStyle: const TextStyle(
         fontSize: 20, fontWeight: FontWeight.bold, color: white, height: 1.5));
+TextStyle buttonStyle2 = GoogleFonts.tajawal(
+    textStyle: const TextStyle(
+        fontSize: 20, fontWeight: FontWeight.bold, color: clearGray, height: 1.5));
 TextStyle appbarStyle = GoogleFonts.tajawal(
     textStyle:const TextStyle(
         fontSize: 24, fontWeight: FontWeight.w600, color: gray,));
