@@ -72,18 +72,28 @@ class _AddBookScreenState extends State<AddBookScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: purple,
+        title: Text(
+          'إضافة كتاب',
+          style: buttonStyle,
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
+      ),
       body: Form(
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: ListView(
             children: [
-              const SizedBox(height: 50),
-              Center(
-                  child: Text(
-                'إضافة كتاب',
-                style: labelStyle,
-              )),
+              const SizedBox(height: 20),
+
               const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,

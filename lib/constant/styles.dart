@@ -22,7 +22,7 @@ const LinearGradient redGradient = LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
     stops: [.5, .9],
-    colors: [white2, Colors.red]);
+    colors: [white2, white]);
 
 TextStyle labelStyle = GoogleFonts.tajawal(
     textStyle: const  TextStyle(

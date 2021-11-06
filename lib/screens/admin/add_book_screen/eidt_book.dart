@@ -74,6 +74,20 @@ class _EditBookState extends State<EditBook> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: purple,
+        title: Text(
+          'جميع الكتب',
+          style: buttonStyle,
+        ),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back),
+        ),
+      ),
       body: Form(
         key: _formKey,
         child: Padding(
