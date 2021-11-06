@@ -315,6 +315,10 @@ class _EditBookState extends State<EditBook> {
                     body: const Text("تمت عملية التعديل بنجاح"),
                     dialogType: DialogType.SUCCES)
                     .show();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DisplayBooksScreen()));
 
 
               }),

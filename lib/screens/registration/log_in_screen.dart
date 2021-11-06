@@ -90,6 +90,21 @@ class _LogInScreenState extends State<LogInScreen> {
                   if (value!.isEmpty) {
                     return 'الرجاءإدخال البريد الالكتروني ';
                   }
+                  if(!value.toString().contains('@')){
+                    return ' الرجاء ادخال البريد الالكتروني بشكل صحيح يجب ان يحتوي @';
+                  }
+                  else if(!value.toString().contains('.com')){
+                    return 'الرجاء ادخال البريد الالكتروني بشكل صحيح يجب ان مثل user@mail.com';
+                  }
+                 // else if(!value.toString().contains('gmail')){
+                 //    return 'الرجاء ادخال البريد الالكتروني بشكل صحيح يجب ان يحتوي  gmail or mail or yahoo';
+                 //  }
+                 //  else if(!value.toString().contains('yahoo')){
+                 //    return 'الرجاء ادخال البريد الالكتروني بشكل صحيح يجب ان يحتوي  gmail or mail or yahoo';
+                 //  }
+                 //  else if(!value.toString().contains('admin1')){
+                 //    return 'الرجاء ادخال البريد الالكتروني بشكل صحيح يجب ان يحتوي  gmail or mail or yahoo';
+                 //  }
                 },
 
               ),

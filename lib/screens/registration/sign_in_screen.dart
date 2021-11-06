@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, use_key_in_widget_constructors, prefer_typing_uninitialized_variables
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:librarydalel/widgets/button/textbuton.dart';
 import 'package:librarydalel/widgets/input_field_regeist.dart';
 import 'package:librarydalel/widgets/logo.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 
 class SignInScreen extends StatefulWidget {
   // const SignInScreen(this.id);
@@ -42,14 +42,20 @@ class _SignInScreenState extends State<SignInScreen> {
           AwesomeDialog(
                   context: context,
                   title: "Error",
-                  body: const Text("Password is to weak"))
+                  dialogType: DialogType.ERROR,
+                  body: const Directionality(
+                      textDirection: TextDirection.rtl,
+                      child: Text(
+                          "كلمة المرور ضعيفة يجب ان تتكون علي الاقل من ستة ارقام او حروف")))
               .show();
         } else if (e.code == 'email-already-in-use') {
           Navigator.of(context).pop();
           AwesomeDialog(
                   context: context,
                   title: "Error",
-                  body: const Text("The account already exists for that email"))
+                  dialogType: DialogType.ERROR,
+                  body: const Text(
+                      "البريد الالكتروني موجود بالفعل ، الرجاء ادخال بريد اخر"))
               .show();
         }
       } catch (e) {
@@ -58,7 +64,7 @@ class _SignInScreenState extends State<SignInScreen> {
     } else {}
   }
 
-  var email, password,password2, name;
+  var email, password, password2, name;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +118,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     email = value;
                     if (value!.isEmpty) {
                       return 'الرجاء إدخال بريد الكتروني';
-                    }else if(!value.toString().contains('@')){
+                    } else if (!value.toString().contains('@')) {
                       return 'يجب  أن يحتوي البريد الايكتروني على @';
                     }
                   },
@@ -129,6 +135,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     if (value!.isEmpty) {
                       return 'الرجاء إدخال كلمة مرور';
                     }
+
                   },
                 ),
                 InputFieldRegist(
@@ -140,9 +147,9 @@ class _SignInScreenState extends State<SignInScreen> {
                   scure: true,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return" الرجاء إعادة كتابة كلمة المرور";
-                    }else if(password2!=password){
-                      return'كلمة المرور غير متطابقة';
+                      return " الرجاء إعادة كتابة كلمة المرور";
+                    } else if (password2 != password) {
+                      return 'كلمة المرور غير متطابقة';
                     }
                   },
                 ),
