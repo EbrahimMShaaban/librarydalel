@@ -58,7 +58,7 @@ class _SignInScreenState extends State<SignInScreen> {
     } else {}
   }
 
-  var email, password, name;
+  var email, password,password2, name;
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +112,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     email = value;
                     if (value!.isEmpty) {
                       return 'الرجاء إدخال بريد الكتروني';
+                    }else if(!value.toString().contains('@')){
+                      return 'يجب  أن يحتوي البريد الايكتروني على @';
                     }
                   },
                 ),
@@ -131,7 +133,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 InputFieldRegist(
                   onChanged: (val) {
-                    password = val;
+                    password2 = val;
                   },
                   hint: "أكد كلمة مرورك",
                   label: "تأكيد كلمة المرور ",
@@ -139,6 +141,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return" الرجاء إعادة كتابة كلمة المرور";
+                    }else if(password2!=password){
+                      return'كلمة المرور غير متطابقة';
                     }
                   },
                 ),
