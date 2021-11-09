@@ -31,6 +31,7 @@ class _LogInScreenState extends State<LogInScreen> {
             .signInWithEmailAndPassword(email: email, password: password);
         return userCredential;
       } on FirebaseAuthException catch (e) {
+        print(e.code);
         if (e.code == 'user-not-found') {
           Navigator.of(context).pop();
           AwesomeDialog(
@@ -45,6 +46,14 @@ class _LogInScreenState extends State<LogInScreen> {
               title: "خطأ",
               body: const Text("كلمة المرور خطأ"))
             .show();
+        }
+        else if (e.code == 'invalid-email'){
+          Navigator.of(context).pop();
+          AwesomeDialog(
+              context: context,
+              title: "خطأ",
+              body: const Text("تم ادخال الايميل بشكل خاطيء"))
+              .show();
         }
       }
     } else {

@@ -13,6 +13,7 @@ import '../category_screen/view.dart';
 class CategorySearchAdmin extends StatefulWidget {
   CategorySearchAdmin({Key? key}) : super(key: key);
 
+
   @override
   State<CategorySearchAdmin> createState() => _CategorySearchAdminState();
 }
@@ -20,13 +21,14 @@ class CategorySearchAdmin extends StatefulWidget {
 class _CategorySearchAdminState extends State<CategorySearchAdmin> {
   String? dropdownValue;
   List<SearchModel> searchList = <SearchModel>[];
+  List<SearchModel> searchList2 = <SearchModel>[];
+
   TextEditingController searchController = TextEditingController();
   String? filter = '';
   var undropValue = 'null';
 
   @override
   void initState() {
-    getBook();
     searchController.addListener(() {
       filter = searchController.text;
       setState(() {});
@@ -35,11 +37,11 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
     super.initState();
   }
 
-  getBook() async {
+  Future getBook(String filter) async {
+    searchList.clear();
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('books')
+        .collection('books').where('type', isEqualTo: filter)
         .get();
-
     for (var doc in querySnapshot.docs) {
       searchList.add(SearchModel(
           bookid: doc['bookid'],
@@ -53,7 +55,7 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
           aboutBook: doc['aboutBook'],
           id: doc.id));
     }
-
+     print(searchList);
     setState(() {});
   }
 
@@ -105,13 +107,12 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
                         )
                       ]),
                     ),
-                    onChanged: (newValue) {
+                    onChanged: (newValue ) async{
                       setState(() {
-                        dropdownValue = newValue!;
-                        for(var x in searchList){
-                          if()
-                        }
+                        dropdownValue = newValue;
                       });
+                       await getBook(dropdownValue!);
+
                     },
                     items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
                         .map<DropdownMenuItem<String>>((String value) {
@@ -120,7 +121,7 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
                         child: SizedBox(
                           width: MediaQuery.of(context).size.width /
                               3.5, // for example
-                          child: Text(value, textAlign: TextAlign.right),
+                          child: Text(value, textAlign: TextAlign.right,),
                         ),
                       );
                     }).toList(),
@@ -130,19 +131,11 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
             )
           ],
         ),
-        body: ListView.builder(
-          itemCount: dropdownValue == null ? 1: searchList.length,
+        body: searchList.isEmpty? const SizedBox():ListView.builder(
+          itemCount:  searchList.length,
           itemBuilder: (context, index) {
             print(searchList.length);
-            return dropdownValue == null
-                ? const Center(
-                    child: Center(child: Text('اختار فئة للبحث')),
-                  )
-                : filter == null || filter == ""
-                    ? _buildBookBox(
-                        searchList[index],
-                      )
-                    : searchList[index]
+            return searchList[index]
                             .bookname!
                             .toLowerCase()
                             .contains(filter!.toLowerCase())
@@ -159,10 +152,6 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
       textDirection: TextDirection.rtl,
       child: InkWell(
         onTap: () {
-          // for(var x in searchList){
-          //   print(x);
-          // }
-
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -188,7 +177,6 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
             borderRadius: BorderRadius.circular(15),
           ),
           child: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Expanded(
                 child: Text(
@@ -263,17 +251,4 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
     );
   }
 }
-// ListView.builder(
-// itemCount: snapshot.data!.docs.length,
-// itemBuilder: (context, index) {
-// return DisplaybookItem(
-// bookName: snapshot.data!.docs[index],
-// docsid: snapshot.data!.docs[index].id,
-// icon: Icons.add,
-// authname: snapshot.data!.docs[index],
-// colnum: snapshot.data!.docs[index],
-// type: snapshot.data!.docs[index],
-// image: snapshot.data!.docs[index],
-// rownum: snapshot.data!.docs[index],
-// );
-// });
+
