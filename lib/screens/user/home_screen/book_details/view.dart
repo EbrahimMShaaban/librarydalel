@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/user/home_screen/book_details/add_comment.dart';
 
@@ -90,10 +91,22 @@ class _BookDetailsState extends State<BookUserDetails> {
                       ],
                     ),
                   ),
+
                   BooKCover(
                     image: widget.image.data()['imageurl'],
                   ),
                 ],
+              ),
+              Text(
+                'نبذة عن الكتاب:'+widget.type.data()['aboutBook'],
+                style: GoogleFonts.tajawal(
+                    textStyle: const TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                        color: gray,
+                        height: 1.5)),
+                overflow: TextOverflow.clip,
+                maxLines: 3,
               ),
               const SizedBox(
                 height: 20,

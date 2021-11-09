@@ -286,6 +286,8 @@ class _EditBookState extends State<EditBook> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
+                  initialValue: widget.books.data()['aboutBook'],
+
                   onSaved: (val) {
                     aboutBook = val;
                   },

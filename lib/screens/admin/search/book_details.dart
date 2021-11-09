@@ -5,30 +5,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:librarydalel/constant/styles.dart';
+import 'package:librarydalel/screens/admin/book_details/book_cover.dart';
+import 'package:librarydalel/screens/admin/book_details/comments_item.dart';
+import 'package:librarydalel/screens/admin/book_details/input_text.dart';
 import 'package:librarydalel/screens/user/home_screen/book_details/add_comment.dart';
+class BookDetailsSearch extends StatefulWidget {
+  String? bookname, authname, colnum, rownum, type, image,  id, aboutBook;
+  IconData ?icon;
 
-import 'book_cover.dart';
-import 'comments_item.dart';
-import 'input_text.dart';
-
-class BookDetails extends StatefulWidget {
-  var bookname, authname, colnum, rownum, type, image, icon, id;
-
-  BookDetails(
+  BookDetailsSearch(
       {required this.bookname,
-      required this.icon,
-      required this.type,
-      required this.image,
-      required this.rownum,
-      required this.colnum,
-      required this.authname,
-      required this.id});
+        required this.icon,
+        required this.type,
+        required this.image,
+        required this.rownum,
+        required this.colnum,
+        required this.authname,
+        required this.aboutBook,
+        required this.id});
 
   @override
-  _BookDetailsState createState() => _BookDetailsState();
+  _BookDetailsSearchState createState() => _BookDetailsSearchState();
 }
 
-class _BookDetailsState extends State<BookDetails> {
+class _BookDetailsSearchState extends State<BookDetailsSearch> {
   @override
   void initState() {
     print(widget.id);
@@ -73,29 +73,30 @@ class _BookDetailsState extends State<BookDetails> {
                         children: [
                           InputText(
                             stl: labelStyle2,
+
                             text: 'اسم الكتاب',
-                            textDescribtion: widget.bookname.data()['bookname'],
+                            textDescribtion: widget.bookname,
                           ),
                           InputText(
                             stl: labelStyle2,
                             text: 'اسم المؤلف',
                             textDescribtion:
-                                widget.authname.data()['authorname'],
+                            widget.authname,
                           ),
                           InputText(
                             stl: labelStyle2,
                             text: 'رقم العمود ',
-                            textDescribtion: widget.colnum.data()['columnnum'],
+                            textDescribtion: widget.colnum,
                           ),
                           InputText(
                             stl: labelStyle2,
                             text: 'رقم الصف ',
-                            textDescribtion: widget.rownum.data()['rownum'],
+                            textDescribtion: widget.rownum,
                           ),
                           InputText(
                             stl: labelStyle2,
                             text: 'نوع الكتاب ',
-                            textDescribtion: widget.type.data()['type'],
+                            textDescribtion: widget.type,
                           ),
                           // InputText(
                           //   stl: labelStyle2,
@@ -107,22 +108,22 @@ class _BookDetailsState extends State<BookDetails> {
                       ),
                     ),
                     BooKCover(
-                      image: widget.image.data()['imageurl'],
+                      image: widget.image,
                     ),
                   ],
                 ),
 
-              Text(
-                    'نبذة عن الكتاب:'+widget.type.data()['aboutBook'],
-                    style: GoogleFonts.tajawal(
-                        textStyle: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                            color: gray,
-                            height: 1.5)),
-                    overflow: TextOverflow.clip,
-                    maxLines: 3,
-                  ),
+                Text(
+                  'نبذة عن الكتاب:'+ widget.aboutBook!,
+                  style: GoogleFonts.tajawal(
+                      textStyle: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                          color: gray,
+                          height: 1.5)),
+                  overflow: TextOverflow.clip,
+                  maxLines: 3,
+                ),
 
                 const SizedBox(
                   height: 20,
@@ -157,7 +158,7 @@ class _BookDetailsState extends State<BookDetails> {
                                   key: UniqueKey(),
                                   child: CommentItem(
                                     comment: snapshot.data!.docs[index]
-                                        ['comment'],
+                                    ['comment'],
                                     date: snapshot.data!.docs[index]['date']
                                         .toString(),
                                     name: snapshot.data!.docs[index]['name'],
@@ -178,7 +179,7 @@ class _BookDetailsState extends State<BookDetails> {
         backgroundColor: purple,
         onPressed: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddComment(widget.id)));
+              MaterialPageRoute(builder: (context) => AddComment(widget.id!)));
         },
         child: Icon(widget.icon),
       ),

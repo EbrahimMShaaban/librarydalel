@@ -5,7 +5,6 @@ import 'dart:math';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,58 +15,110 @@ import 'package:librarydalel/screens/admin/book_list_screen/view.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:path/path.dart';
 
-class AddBookScreen extends StatefulWidget {
-  const AddBookScreen({Key? key}) : super(key: key);
+class EditBookSearch extends StatefulWidget {
+  String? bookname,
+      authorname,
+      rownum,
+      columnnum,
+      type,
+      imageurl,
+      aboutBook,
+      id;
+
+   EditBookSearch(
+      {Key? key,
+
+      required this.id,
+      required this.bookname,
+      required this.authorname,
+      required this.aboutBook,
+      required this.columnnum,
+      required this.imageurl,
+      required this.rownum,
+      required this.type})
+      : super(key: key);
 
   @override
-  State<AddBookScreen> createState() => _AddBookScreenState();
+  State<EditBookSearch> createState() => _EditBookSearchState();
 }
 
-class _AddBookScreenState extends State<AddBookScreen> {
+class _EditBookSearchState extends State<EditBookSearch> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   CollectionReference addbook = FirebaseFirestore.instance.collection("books");
-  var bookname, authorname, rownum, columnnum, type, imageurl,aboutBook;
+  String? bookname, authorname, rownum, columnnum, type, imageurl, aboutBook;
   File? file;
   Reference? ref;
-  String? dropdownValue;
 
-  var undropValue = 'null';
-
-  addBook(context) async {
-    if (file == null) {
-      return AwesomeDialog(
-          context: context,
-          title: "هام",
-          body: const Text("برجاء اختيار صورة"),
-          dialogType: DialogType.ERROR)
-        ..show();
-    }
+  editBook(context) async {
     var formdata = _formKey.currentState;
-    if (formdata!.validate()) {
-      print('==============');
-      formdata.save();
-      showLoading(context);
-      print(context.hashCode);
-      await ref!.putFile(file!);
-      imageurl = await ref!.getDownloadURL();
-      await addbook.add({
-        "bookname": bookname,
-        "authorname": authorname,
-        "rownum": rownum,
-        "columnnum": columnnum,
-        "type": dropdownValue,
-        "imageurl": imageurl,
-        "userid": FirebaseAuth.instance.currentUser!.uid,
-        'aboutBook': aboutBook,
-        "bookid": Random().nextInt(100000),
-      }).then((value) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const DisplayBooksScreen()));
-      }).catchError((e) {
-        print("$e");
-      });
+    if (file == null) {
+      if (formdata!.validate()) {
+        formdata.save();
+        await addbook
+            .doc(widget.id)
+            .update({
+              "bookname": bookname,
+              "authorname": authorname,
+              "rownum": rownum,
+              "columnnum": columnnum,
+              "type": type,
+              'aboutBook': aboutBook,
+            })
+            .then((value) => () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DisplayBooksScreen()));
+                })
+            .catchError((e) {
+              print("$e");
+            });
+
+        // if (file == null){
+        //   // if (formdata!.validate()) {
+        //   //   formdata.save();
+        //   //   showLoading(context);
+        //   //   await addbook.doc().update({
+        //   //     "bookname": bookname,
+        //   //     "authorname": authorname,
+        //   //     "rownum": rownum,
+        //   //     "columnnum": columnnum,
+        //   //     "type": type,
+        //   //   }).then((value) {Navigator.push(context,
+        //   //       MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));}).catchError((e){
+        //   //         print("$e");
+        //   //   });}
+        // }else{
+        //
+        //   }
+      }
+    } else {
+      if (formdata!.validate()) {
+        showLoading(context);
+        formdata.save();
+        await ref!.putFile(file!);
+        imageurl = await ref!.getDownloadURL();
+        await addbook
+            .doc(widget.id)
+            .update({
+              "bookname": bookname,
+              "authorname": authorname,
+              "rownum": rownum,
+              "columnnum": columnnum,
+              "type": type,
+              'imageurl': imageurl,
+              'aboutBook': aboutBook,
+            })
+            .then((value) => () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DisplayBooksScreen()));
+                })
+            .catchError((e) {
+              print("$e");
+            });
+      }
     }
   }
 
@@ -78,7 +129,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
         backgroundColor: white,
         elevation: 0,
         title: Text(
-          'إضافة كتاب',
+          'تعديل كتاب',
           style: buttonStyle2,
         ),
         centerTitle: true,
@@ -98,15 +149,16 @@ class _AddBookScreenState extends State<AddBookScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: ListView(
             children: [
-              const SizedBox(height: 20),
-
+              const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
+                  initialValue: widget.bookname,
                   onSaved: (val) {
                     bookname = val;
                   },
                   validator: (value) {
+                    bookname = value;
                     if (value!.isEmpty) {
                       return 'الرجاءادخال اسم الكتاب ';
                     }
@@ -131,12 +183,13 @@ class _AddBookScreenState extends State<AddBookScreen> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
+                  initialValue: widget.authorname,
                   onSaved: (val) {
                     authorname = val;
                   },
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'الرجاءادخال اسم المؤلف ';
+                  validator: (val) {
+                    if (val!.isEmpty) {
+                      return 'الرجاء ادخال اسم المؤلف';
                     }
                   },
                   obscureText: false,
@@ -155,64 +208,46 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   ),
                 ),
               ),
-
-              const SizedBox(height: 25),
-              Directionality(
-                textDirection: TextDirection.rtl,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'ادخل النوع ',
-                        style: labelStyle2,
-                      ),
-                      DropdownButton<String>(
-                        hint: Text(
-                          'الرجاء ادخال النوع',
-                          style: hintStyle,
-                        ),
-                        value: dropdownValue,
-                        underline: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 1,
-                          decoration:
-                              const BoxDecoration(color: purple, boxShadow: [
-                            BoxShadow(
-                              color: purple,
-                            )
-                          ]),
-                        ),
-                        onChanged: (newValue) {
-                          setState(() {
-                            dropdownValue = newValue!;
-                          });
-                        },
-                        items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width -
-                                  65, // for example
-                              child: Text(value, textAlign: TextAlign.left),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-                ),
-              ), // Directionality(
               const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
+                  initialValue: widget.type,
+                  onSaved: (val) {
+                    type = val;
+                  },
+                  validator: (value) {
+                    type = value;
+                    if (value!.isEmpty) {
+                      return 'الرجاءادخال النوع ';
+                    }
+                  },
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: purple, width: 2.5),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: purple, width: 2.5),
+                    ),
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: 'النوع',
+                    hintText: 'ادخل النوع',
+                    labelStyle: labelStyle,
+                    hintStyle: hintStyle,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 25),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: TextFormField(
+                  initialValue: widget.columnnum,
                   onSaved: (val) {
                     columnnum = val;
                   },
                   validator: (value) {
+                    columnnum = value;
                     if (value!.isEmpty) {
                       return 'الرجاءادخال رقم العمود ';
                     }
@@ -233,17 +268,18 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   ),
                 ),
               ),
-
               const SizedBox(height: 25),
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
+                  initialValue: widget.rownum,
                   onSaved: (val) {
                     rownum = val;
                   },
                   validator: (value) {
+                    rownum = value;
                     if (value!.isEmpty) {
-                      return 'الرجاءادخال رقم الصف ';
+                      return 'الرجاء ادخال رقم الصف ';
                     }
                   },
                   obscureText: false,
@@ -266,6 +302,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
               Directionality(
                 textDirection: TextDirection.rtl,
                 child: TextFormField(
+                  initialValue: widget.aboutBook,
                   onSaved: (val) {
                     aboutBook = val;
                   },
@@ -290,7 +327,6 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   ),
                 ),
               ),
-
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -302,7 +338,8 @@ class _AddBookScreenState extends State<AddBookScreen> {
                     height: sizeFromHeight(context, 15),
                     margin: const EdgeInsets.symmetric(
                         horizontal: 10, vertical: 10),
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     child: Center(
                         child: Text(
                       'إضافة صورة ',
@@ -317,14 +354,18 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   ),
                 ),
               ),
-              Buton('اضافة', onTap: () async {
-                await addBook(context);
-                // await AwesomeDialog(
-                //         context: context,
-                //         title: "هام",
-                //         body: const Text("تمت عملية الاضافة بنجاح"),
-                //         dialogType: DialogType.SUCCES)
-                //     .show();
+              Buton('حفظ', onTap: () async {
+                await editBook(context);
+                await AwesomeDialog(
+                        context: context,
+                        title: "هام",
+                        body: const Text("تمت عملية التعديل بنجاح"),
+                        dialogType: DialogType.SUCCES)
+                    .show();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DisplayBooksScreen()));
               }),
             ],
           ),

@@ -1,9 +1,14 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:librarydalel/constant/styles.dart';
+import 'package:librarydalel/screens/admin/add_book_screen/deletebook.dart';
+import 'package:librarydalel/screens/admin/add_book_screen/eidt_book.dart';
+import 'package:librarydalel/screens/admin/search/book_details.dart';
+import 'package:librarydalel/screens/admin/search/eidt_book.dart';
 import 'package:librarydalel/screens/admin/search/model.dart';
 
-import '../book_list_screen/displaybook_item.dart';
 import '../category_screen/view.dart';
 
 class CategorySearchAdmin extends StatefulWidget {
@@ -47,6 +52,7 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
           columnnum: doc['columnnum'],
           imageurl: doc['imageurl'],
           userid: doc['userid'],
+          aboutBook: doc['aboutBook'],
           id: doc.id));
     }
 
@@ -147,15 +153,111 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
   }
 
   Widget _buildBookBox(SearchModel searchModel) {
-    return DisplaybookItem(
-      bookName: searchModel.bookname,
-      docsid: searchModel.id,
-      icon: Icons.add,
-      authname: searchModel.authorname,
-      colnum: searchModel.columnnum,
-      type: searchModel.type,
-      image: searchModel.imageurl,
-      rownum: searchModel.rownum,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => BookDetailsSearch(
+                      bookname: searchModel.bookname,
+                      icon: Icons.add,
+                      type: searchModel.type,
+                      image: searchModel.imageurl,
+                      rownum: searchModel.rownum,
+                      colnum: searchModel.columnnum,
+                      authname: searchModel.authorname,
+                      aboutBook: searchModel.aboutBook,
+                      id: searchModel.id)));
+        },
+        child: Container(
+          height: 70,
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          decoration: BoxDecoration(
+            color: white,
+            boxShadow: const [BoxShadow(color: white, blurRadius: 6)],
+            border: Border.all(color: purple, width: 1.5),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Expanded(
+                child: Text(
+                  "${searchModel.bookname}",
+                  maxLines: 2,
+                  style: GoogleFonts.tajawal(
+                      textStyle: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w600,
+                    color: gray,
+                  )),
+                ),
+              ),
+              Expanded(
+                child: SizedBox(
+                  width: sizeFromWidth(context, 2),
+                ),
+              ),
+              InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EditBookSearch(
+                              aboutBook: searchModel.aboutBook,
+                              imageurl: searchModel.imageurl,
+                              columnnum: searchModel.columnnum,
+                              authorname: searchModel.authorname,
+                              bookname: searchModel.bookname,
+                              type: searchModel.type,
+                              rownum: searchModel.rownum,
+                              id: searchModel.id,
+
+
+
+
+                            )));
+                  },
+                  child: const Icon(Icons.edit)),
+              SizedBox(
+                width: sizeFromWidth(context, 25),
+              ),
+              InkWell(
+                  onTap: () {
+                    showDialogWarning(context,
+                        text: 'هل أنت متأكد من حذف الكتاب؟', ontap: () async {
+                      await FirebaseFirestore.instance
+                          .collection('books')
+                          .doc(searchModel.id)
+                          .delete();
+                      await FirebaseFirestore.instance
+                          .collection('books')
+                          .doc(searchModel.id)
+                          .collection('comments')
+                          .get()
+                          .then((snapshot) {
+                        for (DocumentSnapshot ds in snapshot.docs) {
+                          ds.reference.delete();
+                        }
+                      });
+
+                      Navigator.pop(context);
+                      AwesomeDialog(
+                              context: context,
+                              title: "هام",
+                              body: const Text("تمت عملية الحذف بنجاح"),
+                              dialogType: DialogType.SUCCES)
+                          .show();
+                    });
+                  },
+                  child: const Icon(Icons.delete))
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

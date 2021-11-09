@@ -1,5 +1,5 @@
 class SearchModel {
-  String? authorname, bookname, columnnum, imageurl, rownum, type, userid, id;
+  String? authorname, bookname, columnnum, imageurl, rownum, type, userid, id, aboutBook;
   int? bookid;
 
   SearchModel({
@@ -11,6 +11,7 @@ class SearchModel {
     this.bookname,
     this.columnnum,
     this.authorname,
+    this.aboutBook,
     this.id,
   });
 }

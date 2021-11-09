@@ -19,9 +19,11 @@ showDialogWarning(
             width: sizeFromWidth(context, 1),
             height: 30,
             // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-            child: Text(
-              text,
-              style: textstyles,
+            child: Center(
+              child: Text(
+                text,
+                style: textstyles,
+              ),
             )),
         actions: <Widget>[
           ButtonUser(
