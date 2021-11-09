@@ -7,7 +7,7 @@ import 'package:librarydalel/screens/admin/book_list_screen/view.dart';
 import 'package:librarydalel/screens/registration/log_in_screen.dart';
 import 'package:librarydalel/screens/user/search_screen/search.dart';
 
-import '../adminsearch.dart';
+import '../search/adminsearch.dart';
 import 'category_item.dart';
 import 'custom_appBar.dart';
 

@@ -29,7 +29,7 @@ class EditBook extends StatefulWidget {
 class _EditBookState extends State<EditBook> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   CollectionReference addbook = FirebaseFirestore.instance.collection("books");
-  String? bookname, authorname, rownum, columnnum, type, imageurl;
+  String? bookname, authorname, rownum, columnnum, type, imageurl, aboutBook;
   File? file;
   Reference? ref;
 
@@ -46,12 +46,13 @@ class _EditBookState extends State<EditBook> {
               "rownum": rownum,
               "columnnum": columnnum,
               "type": type,
+              'aboutBook': aboutBook,
             })
             .then((value) => () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const DisplayBooksScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DisplayBooksScreen()));
                 })
             .catchError((e) {
               print("$e");
@@ -75,33 +76,34 @@ class _EditBookState extends State<EditBook> {
         //
         //   }
       }
+    } else {
+      if (formdata!.validate()) {
+        showLoading(context);
+        formdata.save();
+        await ref!.putFile(file!);
+        imageurl = await ref!.getDownloadURL();
+        await addbook
+            .doc(widget.docsid)
+            .update({
+              "bookname": bookname,
+              "authorname": authorname,
+              "rownum": rownum,
+              "columnnum": columnnum,
+              "type": type,
+              'imageurl': imageurl,
+              'aboutBook': aboutBook,
+            })
+            .then((value) => () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DisplayBooksScreen()));
+                })
+            .catchError((e) {
+              print("$e");
+            });
+      }
     }
-    else { if (formdata!.validate()) {
-      showLoading(context);
-      formdata.save();
-      await ref!.putFile(file!);
-      imageurl = await ref!.getDownloadURL();
-      await addbook
-          .doc(widget.docsid)
-          .update({
-        "bookname": bookname,
-        "authorname": authorname,
-        "rownum": rownum,
-        "columnnum": columnnum,
-        "type": type,
-        'imageurl':imageurl,
-      })
-          .then((value) => () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const DisplayBooksScreen()));
-      })
-          .catchError((e) {
-        print("$e");
-      });
-    }
-  }
   }
 
   @override
@@ -280,6 +282,34 @@ class _EditBookState extends State<EditBook> {
                   ),
                 ),
               ),
+              const SizedBox(height: 25),
+              Directionality(
+                textDirection: TextDirection.rtl,
+                child: TextFormField(
+                  onSaved: (val) {
+                    aboutBook = val;
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'الرجاءادخال نبذة عن الكتاب ';
+                    }
+                  },
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: purple, width: 2.5),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: purple, width: 2.5),
+                    ),
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    labelText: ' نبذة عن الكتاب',
+                    hintText: 'ادخل نبدة عن الكتاب',
+                    labelStyle: labelStyle,
+                    hintStyle: hintStyle,
+                  ),
+                ),
+              ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -309,18 +339,16 @@ class _EditBookState extends State<EditBook> {
               ),
               Buton('حفظ', onTap: () async {
                 await editBook(context);
-               await AwesomeDialog(
-                    context: context,
-                    title: "هام",
-                    body: const Text("تمت عملية التعديل بنجاح"),
-                    dialogType: DialogType.SUCCES)
+                await AwesomeDialog(
+                        context: context,
+                        title: "هام",
+                        body: const Text("تمت عملية التعديل بنجاح"),
+                        dialogType: DialogType.SUCCES)
                     .show();
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const DisplayBooksScreen()));
-
-
               }),
             ],
           ),

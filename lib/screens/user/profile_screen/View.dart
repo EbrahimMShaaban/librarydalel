@@ -84,7 +84,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textContainer:
                             snapshot.data!.docs[0]['email'].toString()),
                     const SizedBox(height: 30),
-                    EditButton("تعديل بياناتى", onTap: () {
+                    EditButton("تعديل كلمة المرور", onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(

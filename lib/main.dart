@@ -26,7 +26,7 @@ void main() async {
      Navigator.pushReplacement(
          context, MaterialPageRoute(builder: (context) => const LogInScreen()));
    }
-   else if(  islogin== true && FirebaseAuth.instance.currentUser!.uid =='XkbioiW6D8RT3tQPIr0u68cKnaq2'){
+   else if(  islogin== true && FirebaseAuth.instance.currentUser!.uid =='DiSPLUCmVadcMDhjGsYJ5kvhvLQ2'){
      Navigator.pushReplacement(
          context, MaterialPageRoute(builder: (context) => const Category(
 
