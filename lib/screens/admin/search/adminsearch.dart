@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/deletebook.dart';
-import 'package:librarydalel/screens/admin/add_book_screen/eidt_book.dart';
 import 'package:librarydalel/screens/admin/search/book_details.dart';
 import 'package:librarydalel/screens/admin/search/eidt_book.dart';
 import 'package:librarydalel/screens/admin/search/model.dart';
@@ -39,7 +38,6 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
   getBook() async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('books')
-        .where('type', isEqualTo: dropdownValue)
         .get();
 
     for (var doc in querySnapshot.docs) {
@@ -110,6 +108,9 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
                     onChanged: (newValue) {
                       setState(() {
                         dropdownValue = newValue!;
+                        for(var x in searchList){
+                          if()
+                        }
                       });
                     },
                     items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
@@ -129,27 +130,28 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
             )
           ],
         ),
-        body: dropdownValue == null
-            ? const Center(
-                child: Center(child: Text('اختار فئة للبحث')),
-              )
-            : ListView.builder(
-                itemCount: searchList.length,
-                itemBuilder: (context, index) {
-                  return filter == null || filter == ""
-                      ? _buildBookBox(
-                          searchList[index],
-                        )
-                      : searchList[index]
-                              .bookname!
-                              .toLowerCase()
-                              .contains(filter!.toLowerCase())
-                          ? _buildBookBox(
-                              searchList[index],
-                            )
-                          : Container();
-                },
-              ));
+        body: ListView.builder(
+          itemCount: dropdownValue == null ? 1: searchList.length,
+          itemBuilder: (context, index) {
+            print(searchList.length);
+            return dropdownValue == null
+                ? const Center(
+                    child: Center(child: Text('اختار فئة للبحث')),
+                  )
+                : filter == null || filter == ""
+                    ? _buildBookBox(
+                        searchList[index],
+                      )
+                    : searchList[index]
+                            .bookname!
+                            .toLowerCase()
+                            .contains(filter!.toLowerCase())
+                        ? _buildBookBox(
+                            searchList[index],
+                          )
+                        : Container();
+          },
+        ));
   }
 
   Widget _buildBookBox(SearchModel searchModel) {
@@ -157,6 +159,10 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
       textDirection: TextDirection.rtl,
       child: InkWell(
         onTap: () {
+          // for(var x in searchList){
+          //   print(x);
+          // }
+
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -207,19 +213,15 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => EditBookSearch(
-                              aboutBook: searchModel.aboutBook,
-                              imageurl: searchModel.imageurl,
-                              columnnum: searchModel.columnnum,
-                              authorname: searchModel.authorname,
-                              bookname: searchModel.bookname,
-                              type: searchModel.type,
-                              rownum: searchModel.rownum,
-                              id: searchModel.id,
-
-
-
-
-                            )));
+                                  aboutBook: searchModel.aboutBook,
+                                  imageurl: searchModel.imageurl,
+                                  columnnum: searchModel.columnnum,
+                                  authorname: searchModel.authorname,
+                                  bookname: searchModel.bookname,
+                                  type: searchModel.type,
+                                  rownum: searchModel.rownum,
+                                  id: searchModel.id,
+                                )));
                   },
                   child: const Icon(Icons.edit)),
               SizedBox(
