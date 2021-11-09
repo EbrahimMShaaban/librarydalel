@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/user/profile_screen/View.dart';
 import 'package:librarydalel/screens/user/search_screen/categorysearch.dart';
-import 'package:librarydalel/screens/user/search_screen/search.dart';
+import 'package:librarydalel/screens/user/wishes/view.dart';
 
 import 'home_screen/view.dart';
 
@@ -20,6 +20,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
     CategorySearch(),
     const HomePageScreen(),
     const ProfileScreen(),
+    const WishesScreen(),
   ];
 
   @override
@@ -42,6 +43,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
             BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.star), label: ''),
           ]),
     );
   }

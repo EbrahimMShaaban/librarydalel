@@ -32,8 +32,7 @@ class HomePageScreen extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height / 1.8,
+        Expanded(
           child: ListView(
             children: [
               Column(

@@ -4,6 +4,7 @@ import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/add_book_screen.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/deletebook.dart';
 import 'package:librarydalel/screens/admin/book_list_screen/view.dart';
+import 'package:librarydalel/screens/admin/wishes_screen/view.dart';
 import 'package:librarydalel/screens/registration/log_in_screen.dart';
 import 'package:librarydalel/screens/user/search_screen/search.dart';
 
@@ -24,10 +25,11 @@ class _CategoryState extends State<Category> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+
         children: [
           myAppBar(),
           SizedBox(
-            height: sizeFromHeight(context, 5),
+            height: sizeFromHeight(context,12 ),
           ),
           CategoryItem(
             text: 'الكتب',
@@ -54,6 +56,15 @@ class _CategoryState extends State<Category> {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>  CategorySearchAdmin()));
+            },
+          ),
+          CategoryItem(
+            text: 'الامنيات ',
+            onTap: () async{
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>  Wishes()));
             },
           ),
           CategoryItem(

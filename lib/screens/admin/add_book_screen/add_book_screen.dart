@@ -26,9 +26,9 @@ class AddBookScreen extends StatefulWidget {
 class _AddBookScreenState extends State<AddBookScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   CollectionReference addbook = FirebaseFirestore.instance.collection("books");
-  var bookname, authorname, rownum, columnnum, type, imageurl,aboutBook;
-  File? file;
-  Reference? ref;
+  var bookname, authorname, rownum, columnnum, type, imageurl ,aboutBook;
+  File ?file;
+  Reference ?ref;
   String? dropdownValue;
 
   var undropValue = 'null';
@@ -42,33 +42,41 @@ class _AddBookScreenState extends State<AddBookScreen> {
           dialogType: DialogType.ERROR)
         ..show();
     }
-    var formdata = _formKey.currentState;
-    if (formdata!.validate()) {
-      print('==============');
-      formdata.save();
-      showLoading(context);
-      print(context.hashCode);
-      await ref!.putFile(file!);
-      imageurl = await ref!.getDownloadURL();
-      await addbook.add({
-        "bookname": bookname,
-        "authorname": authorname,
-        "rownum": rownum,
-        "columnnum": columnnum,
-        "type": dropdownValue,
-        "imageurl": imageurl,
-        "userid": FirebaseAuth.instance.currentUser!.uid,
-        'aboutBook': aboutBook,
-        "bookid": Random().nextInt(100000),
-      }).then((value) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const DisplayBooksScreen()));
-      }).catchError((e) {
-        print("$e");
-      });
+   else{
+      var formdata = _formKey.currentState;
+      if (formdata!.validate()) {
+        print('==============');
+        formdata.save();
+        showLoading(context);
+        print(context.hashCode);
+        await ref!.putFile(file!);
+        imageurl = await ref!.getDownloadURL();
+        await addbook.add({
+          "bookname": bookname,
+          "authorname": authorname,
+          "rownum": rownum,
+          "columnnum": columnnum,
+          "type": dropdownValue,
+          "imageurl": imageurl,
+          'aboutBook':aboutBook,
+          "userid": FirebaseAuth.instance.currentUser!.uid,
+          "bookid": Random().nextInt(100000),
+        }).then((value) {
+
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const DisplayBooksScreen()));
+        }).catchError((e) {
+          print("$e");
+        });
+      }
+
     }
+
+
+
   }
 
   @override
@@ -178,7 +186,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
                           width: MediaQuery.of(context).size.width,
                           height: 1,
                           decoration:
-                              const BoxDecoration(color: purple, boxShadow: [
+                          const BoxDecoration(color: purple, boxShadow: [
                             BoxShadow(
                               color: purple,
                             )
@@ -293,7 +301,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
 
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: InkWell(
                   onTap: () {
                     showBottomSheet(context);
@@ -305,9 +313,9 @@ class _AddBookScreenState extends State<AddBookScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Center(
                         child: Text(
-                      'إضافة صورة ',
-                      style: hintStyle,
-                    )),
+                          'إضافة صورة ',
+                          style: hintStyle,
+                        )),
                     decoration: BoxDecoration(
                         color: white,
                         border: Border.all(
@@ -319,12 +327,13 @@ class _AddBookScreenState extends State<AddBookScreen> {
               ),
               Buton('اضافة', onTap: () async {
                 await addBook(context);
-                // await AwesomeDialog(
-                //         context: context,
-                //         title: "هام",
-                //         body: const Text("تمت عملية الاضافة بنجاح"),
-                //         dialogType: DialogType.SUCCES)
-                //     .show();
+                await AwesomeDialog(
+                    context: context,
+                    title: "هام",
+                    body: const Text("تمت عملية الاضافة بنجاح"),
+                    dialogType: DialogType.SUCCES)
+                    .show();
+
               }),
             ],
           ),
@@ -415,3 +424,4 @@ class _AddBookScreenState extends State<AddBookScreen> {
         });
   }
 }
+
