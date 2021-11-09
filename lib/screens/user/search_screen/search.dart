@@ -9,7 +9,7 @@ import 'package:librarydalel/screens/admin/book_details/input_text.dart';
 
 import 'model.dart';
 
-class Seerch extends StatelessWidget {
+class Sech extends StatelessWidget {
   String? x = DataModel().name.toString();
 
   @override

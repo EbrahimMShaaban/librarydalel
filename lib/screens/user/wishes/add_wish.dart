@@ -62,10 +62,9 @@ var imageUrl;
           'comment':controller.text,
           'userId':FirebaseAuth.instance.currentUser!.uid,
         }). then((value) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const WishesScreen()));
+          Navigator.pop(context);
+          Navigator.pop(context);
+
         });
 
 
