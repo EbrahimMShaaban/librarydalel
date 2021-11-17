@@ -44,6 +44,7 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
                 stream:
                     FirebaseFirestore.instance.collection('books').snapshots(),
                 builder: (context, AsyncSnapshot <QuerySnapshot>snapshot) {
+
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Text('');
                   }

@@ -70,6 +70,7 @@ var imageUrl;
 
       }
     }
+
   }
 
   @override
