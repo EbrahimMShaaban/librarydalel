@@ -20,7 +20,7 @@ class _CategorySearchState extends State<CategorySearch> {
 
   TextEditingController searchController = TextEditingController();
   String? filter = '';
-  var undropValue = 'null';
+ // var undropValue = 'null';
 
   @override
   void initState() {
@@ -130,7 +130,9 @@ class _CategorySearchState extends State<CategorySearch> {
           // ],
         ),
         body: searchList.isEmpty
-            ? const SizedBox()
+            ? const Center(
+               child:  Text('لا يوجد كتب لعرضها'),
+              )
             : ListView.builder(
                 itemCount: searchList.length,
                 itemBuilder: (context, index) {

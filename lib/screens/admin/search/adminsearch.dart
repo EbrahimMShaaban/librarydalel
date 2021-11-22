@@ -13,7 +13,6 @@ import '../category_screen/view.dart';
 class CategorySearchAdmin extends StatefulWidget {
   CategorySearchAdmin({Key? key}) : super(key: key);
 
-
   @override
   State<CategorySearchAdmin> createState() => _CategorySearchAdminState();
 }
@@ -39,10 +38,9 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
   }
 
   getBook() async {
-   // searchList.clear();
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('books')
-        .get();
+    // searchList.clear();
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('books').get();
 
     for (var doc in querySnapshot.docs) {
       searchList.add(SearchModel(
@@ -57,7 +55,7 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
           aboutBook: doc['aboutBook'],
           id: doc.id));
     }
-     print(searchList);
+    print(searchList);
     setState(() {});
   }
 
@@ -80,7 +78,6 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
                 width: 300,
                 child: TextFormField(
                   controller: searchController,
-
                   decoration: InputDecoration(
                     hintText: 'ادخل اسم كتاب للبحث',
                     hintStyle: labelStyle2,
@@ -94,68 +91,75 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
               ),
             ),
 
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 10),
-                //   child: DropdownButton<String>(
-                //     hint: Text(
-                //       'بحث بالفئة',
-                //       textAlign: TextAlign.start,
-                //       style: buttonStyle,
-                //     ),
-                //     alignment: AlignmentDirectional.center,
-                //     value: dropdownValue,
-                //     underline: Container(
-                //       width: 150,
-                //       height: 1,
-                //       decoration:
-                //           const BoxDecoration(color: purple, boxShadow: [
-                //         BoxShadow(
-                //           color: purple,
-                //         )
-                //       ]),
-                //     ),
-                //     onChanged: (newValue ) async{
-                //       setState(() {
-                //         dropdownValue = newValue;
-                //       });
-                //        await getBook(dropdownValue!);
-                //
-                //     },
-                //     items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
-                //         .map<DropdownMenuItem<String>>((String value) {
-                //       return DropdownMenuItem<String>(
-                //         value: value,
-                //         child: SizedBox(
-                //           width: MediaQuery.of(context).size.width /
-                //               3.5, // for example
-                //           child: Text(value, textAlign: TextAlign.right,),
-                //         ),
-                //       );
-                //     }).toList(),
-                //   ),
-                // ),
-
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10),
+            //   child: DropdownButton<String>(
+            //     hint: Text(
+            //       'بحث بالفئة',
+            //       textAlign: TextAlign.start,
+            //       style: buttonStyle,
+            //     ),
+            //     alignment: AlignmentDirectional.center,
+            //     value: dropdownValue,
+            //     underline: Container(
+            //       width: 150,
+            //       height: 1,
+            //       decoration:
+            //           const BoxDecoration(color: purple, boxShadow: [
+            //         BoxShadow(
+            //           color: purple,
+            //         )
+            //       ]),
+            //     ),
+            //     onChanged: (newValue ) async{
+            //       setState(() {
+            //         dropdownValue = newValue;
+            //       });
+            //        await getBook(dropdownValue!);
+            //
+            //     },
+            //     items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
+            //         .map<DropdownMenuItem<String>>((String value) {
+            //       return DropdownMenuItem<String>(
+            //         value: value,
+            //         child: SizedBox(
+            //           width: MediaQuery.of(context).size.width /
+            //               3.5, // for example
+            //           child: Text(value, textAlign: TextAlign.right,),
+            //         ),
+            //       );
+            //     }).toList(),
+            //   ),
+            // ),
           ],
         ),
-        
-        body: searchList.isEmpty? const Center(child: Text('أدخل اسم كتاب للبحث'),):ListView.builder(
-          itemCount:  searchList.length,
-          itemBuilder: (context, index) {
-            print(searchList.length);
-            return filter == null || filter == ""
-                ? _buildBookBox(
-              searchList[index],
-            ) :
-              searchList[index]
-                            .bookname!
-                            .toLowerCase()
-                            .contains(filter!.toLowerCase())
-                        ? _buildBookBox(
-                            searchList[index],
-                          )
-                        : Container();
-          },
-        ));
+        body:  ListView.builder(
+                itemCount:   searchList.length,
+                itemBuilder: (context, index) {
+                  print(searchList.length);
+                  return filter == null ||
+                          filter == "" ||
+                          searchList[index]
+                              .bookname!
+                              .toLowerCase()
+                              .contains!(filter!.toLowerCase())
+                      ?
+                      // const Center(child:  Text('لا يوجد كتب لعرضها'),)
+                      _buildBookBox(
+                          searchList[index],
+                        )
+                      : searchList[index]
+                              .bookname!
+                              .toLowerCase()
+                              .contains(filter!.toLowerCase())
+                          ? _buildBookBox(
+                              searchList[index],
+                            )
+                          :const Center(
+                    child: Text('لا يوجد كتب لعرضها'),
+                  );
+                },
+              ));
   }
 
   Widget _buildBookBox(SearchModel searchModel) {
@@ -262,4 +266,3 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
     );
   }
 }
-
