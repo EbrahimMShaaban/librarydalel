@@ -110,7 +110,7 @@ class _WishesScreenState extends State<WishesScreen> {
                                                   .docs[index]['imageUrl']),
                                               fit: BoxFit.cover,
                                             ),
-                                            color: gray,
+                                            // color: gray,
                                             borderRadius:
                                                 BorderRadius.circular(23)),
                                       ),
@@ -163,7 +163,7 @@ class _WishesScreenState extends State<WishesScreen> {
         backgroundColor: purple,
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddWish()));
+              context, MaterialPageRoute(builder: (context) =>  AddWish()));
         },
         child: const Icon(Icons.add),
       ),

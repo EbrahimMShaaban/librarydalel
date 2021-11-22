@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:librarydalel/constant/styles.dart';
@@ -38,19 +40,21 @@ class _WishesDetailsState extends State<WishesDetails> {
       ),
       body: Column(
         children: [
-          Container(
-            height: sizeFromHeight(context, 3),
-            width: sizeFromWidth(context, 1.2),
-            margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                      widget.image!),
-                  fit: BoxFit.cover,
+          widget.image == 'null'
+              ? const SizedBox(height: 20,)
+              : Container(
+                  height: sizeFromHeight(context, 3),
+                  width: sizeFromWidth(context, 1.2),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(widget.image!),
+                        fit: BoxFit.cover,
+                      ),
+                      color: gray,
+                      borderRadius: BorderRadius.circular(23)),
                 ),
-                color: gray,
-                borderRadius: BorderRadius.circular(23)),
-          ),
           Container(
             width: sizeFromWidth(context, 1),
             height: 150,
@@ -63,23 +67,22 @@ class _WishesDetailsState extends State<WishesDetails> {
               boxShadow: const [BoxShadow(color: purple, blurRadius: 3)],
             ),
             child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: SingleChildScrollView(
-                child:  Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    InputText(
-                        text: 'اسم المستخدم ',
-                        textDescribtion: widget.name,
-                        stl: labelStyle2),
-                    Text(
-                      widget.comment!,
-                      style: hintStyle,
-                    ),
-                  ],
-                ),
-              )
-            ),
+                textDirection: TextDirection.rtl,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      InputText(
+                          text: 'اسم المستخدم ',
+                          textDescribtion: widget.name,
+                          stl: labelStyle2),
+                      Text(
+                        widget.comment!,
+                        style: hintStyle,
+                      ),
+                    ],
+                  ),
+                )),
           )
         ],
       ),

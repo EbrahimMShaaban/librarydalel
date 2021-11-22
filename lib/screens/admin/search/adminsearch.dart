@@ -25,6 +25,7 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
   TextEditingController searchController = TextEditingController();
   String? filter = '';
   var undropValue = 'null';
+  var indexed;
 
   @override
   void initState() {
@@ -133,33 +134,45 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
             // ),
           ],
         ),
-        body:  ListView.builder(
-                itemCount:   searchList.length,
-                itemBuilder: (context, index) {
-                  print(searchList.length);
-                  return filter == null ||
-                          filter == "" ||
-                          searchList[index]
-                              .bookname!
-                              .toLowerCase()
-                              .contains!(filter!.toLowerCase())
-                      ?
-                      // const Center(child:  Text('لا يوجد كتب لعرضها'),)
-                      _buildBookBox(
-                          searchList[index],
-                        )
-                      : searchList[index]
-                              .bookname!
-                              .toLowerCase()
-                              .contains(filter!.toLowerCase())
-                          ? _buildBookBox(
-                              searchList[index],
-                            )
-                          :const Center(
-                    child: Text('لا يوجد كتب لعرضها'),
-                  );
-                },
-              ));
+        body: ListView.builder(
+          itemCount: searchList.length,
+
+          itemBuilder: (context, index) {
+            indexed = index;
+            print(searchList.length);
+            print('++++');
+            print(indexed);
+            if(filter == null || filter == " "){
+              return _buildBookBox(
+                searchList[index],
+              );
+            }else {
+              if( searchList[index]
+                  .bookname!
+                  .toLowerCase()
+                  .contains(filter!.toLowerCase())){
+              return  _buildBookBox(
+                  searchList[index],
+                );
+              }
+              else{
+               return Container();
+              }
+            }
+            // return filter == null || filter == " "
+            //     ? _buildBookBox(
+            //         searchList[index],
+            //       )
+            //     : searchList[index]
+            //             .bookname!
+            //             .toLowerCase()
+            //             .contains(filter!.toLowerCase())
+            //         ? _buildBookBox(
+            //             searchList[index],
+            //           )
+            //         : Container();
+          },
+        ));
   }
 
   Widget _buildBookBox(SearchModel searchModel) {

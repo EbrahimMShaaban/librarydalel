@@ -41,12 +41,22 @@ var imageUrl;
 
   addWish(context) async {
     if (file == null) {
-      return AwesomeDialog(
-          context: context,
-          title: "هام",
-          body: const Text("برجاء اختيار صورة"),
-          dialogType: DialogType.ERROR)
-        ..show();
+      var formdata = _formKey.currentState;
+      if (formdata!.validate()) {
+        formdata.save();
+        showLoading(context);
+        await FirebaseFirestore.instance.collection('wishes').add({
+          'nameOfUser': name,
+          'imageUrl': 'null',
+          'comment':controller.text,
+          'userId':FirebaseAuth.instance.currentUser!.uid,
+        }). then((value) {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        });
+
+
+      }
     }
       else{
       var formdata = _formKey.currentState;

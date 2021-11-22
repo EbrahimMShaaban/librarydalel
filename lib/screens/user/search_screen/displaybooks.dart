@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:librarydalel/constant/styles.dart';
-import 'package:librarydalel/screens/admin/add_book_screen/deletebook.dart';
-import 'package:librarydalel/screens/admin/add_book_screen/eidt_book.dart';
 import 'package:librarydalel/screens/admin/book_details/view.dart';
 
 class DisplaybookItemSearch extends StatelessWidget {

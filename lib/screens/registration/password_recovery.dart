@@ -1,10 +1,9 @@
-// ignore_for_file: use_key_in_widget_constructors
+// ignore_for_file: use_key_in_widget_constructors, avoid_print
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/registration/user_model.dart';
 import 'package:librarydalel/widgets/button/flatbuton.dart';
@@ -63,7 +62,7 @@ class _PasswordRecoveryState extends State<PasswordRecovery> {
           //  SizedBox(
           //   height: 30,
           // ),
-          Logo(height: 100),
+          const Logo(height: 100),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 30),
             child: Center(

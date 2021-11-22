@@ -15,7 +15,7 @@ showDialogWarning(
         shape: const RoundedRectangleBorder(
             side: BorderSide(color: purple, width: 2),
             borderRadius: BorderRadius.all(Radius.circular(15))),
-        content: Container(
+        content: SizedBox(
             width: sizeFromWidth(context, 1),
             height: 30,
             // padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),

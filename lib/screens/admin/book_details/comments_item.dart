@@ -21,7 +21,7 @@ class _CommentItemState extends State<CommentItem> {
       width: sizeFromWidth(context, 1),
       height: 150,
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         color: white,

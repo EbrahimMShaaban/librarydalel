@@ -1,15 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/add_book_screen.dart';
 import 'package:librarydalel/screens/admin/add_book_screen/deletebook.dart';
 import 'package:librarydalel/screens/admin/book_list_screen/view.dart';
-import 'package:librarydalel/screens/admin/search/model.dart';
 import 'package:librarydalel/screens/admin/wishes_screen/view.dart';
 import 'package:librarydalel/screens/registration/log_in_screen.dart';
-import 'package:librarydalel/screens/user/search_screen/search.dart';
-
 import '../search/adminsearch.dart';
 import 'category_item.dart';
 import 'custom_appBar.dart';
@@ -58,7 +54,7 @@ class _CategoryState extends State<Category> {
               await Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>  CategorySearchAdmin()));
+                      builder: (context) =>   CategorySearchAdmin()));
             },
           ),
           CategoryItem(
@@ -67,7 +63,7 @@ class _CategoryState extends State<Category> {
               await Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>  Wishes()));
+                      builder: (context) =>  const Wishes()));
             },
           ),
           CategoryItem(

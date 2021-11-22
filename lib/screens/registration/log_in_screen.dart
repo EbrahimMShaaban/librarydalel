@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -184,10 +186,12 @@ class _LogInScreenState extends State<LogInScreen> {
     var user = await signIn();
     var uid= FirebaseAuth.instance.currentUser!.uid;
     if(user!= null && uid == 'DiSPLUCmVadcMDhjGsYJ5kvhvLQ2' ){
+      Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context)=>const Category()));
     }
     else if(user != null){
+      Navigator.of(context).popUntil((route) => route.isFirst);
       await  Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const NavigationScreen()));
     }

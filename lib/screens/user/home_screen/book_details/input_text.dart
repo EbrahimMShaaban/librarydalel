@@ -1,8 +1,5 @@
-// ignore_for_file: use_key_in_widget_constructors, prefer_typing_uninitialized_variables
-
+// ignore_for_file: use_key_in_widget_constructors, prefer_typing_uninitialized_variables, must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:librarydalel/constant/styles.dart';
-
 class InputText extends StatelessWidget {
   final   text;
   final  textDescribtion;

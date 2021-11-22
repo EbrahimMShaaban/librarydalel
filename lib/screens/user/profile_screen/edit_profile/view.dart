@@ -12,7 +12,7 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   String password = "";
   String newPassword = "";
   String newPasswordCheck='';
@@ -20,12 +20,12 @@ class _EditProfileState extends State<EditProfile> {
   void _changePassword() async {
     if(_formKey.currentState!.validate()){
       _formKey.currentState!.save();
-      var user = await FirebaseAuth.instance.currentUser!;
+      var user = FirebaseAuth.instance.currentUser!;
       var email = user.email;
       try {
         UserCredential userCredential =
         await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: '${email}',
+          email: '$email',
           password: password,
         );
 
@@ -35,7 +35,7 @@ class _EditProfileState extends State<EditProfile> {
               // title: "خطأ",
               dialogType: DialogType.SUCCES,
               aligment: Alignment.center,
-              body: Center(child:Text("تم تغيير كلمة المرور بنجاح")))
+              body: const Center(child:Text("تم تغيير كلمة المرور بنجاح")))
               .show();
           print("Successfully changed password");
         }).catchError((error) {
@@ -74,7 +74,7 @@ class _EditProfileState extends State<EditProfile> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back),color: purple,),
+            icon: const Icon(Icons.arrow_back),color: purple,),
       ),
       body: ListView(
         children: [

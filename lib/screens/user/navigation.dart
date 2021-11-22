@@ -17,7 +17,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   int pageindex = 1;
   List<Widget> pages = [
     //ToDo
-    CategorySearch(),
+     CategorySearch(),
     const HomePageScreen(),
     const ProfileScreen(),
     const WishesScreen(),

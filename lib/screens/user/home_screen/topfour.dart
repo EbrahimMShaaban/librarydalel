@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, unrelated_type_equality_checks
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -50,7 +52,7 @@ class _TopFourState extends State<TopFour> {
 
                 if (snapshot.hasData) {
                   if (x == 0) {
-                    return Text('لا توجد كتب مقترحة');
+                    return const Text('لا توجد كتب مقترحة');
                   } else {
                     return SizedBox(
                       height: sizeFromHeight(context, 4),
@@ -79,7 +81,7 @@ class _TopFourState extends State<TopFour> {
                                             rownum: snapshot.data!.docs[index],
                                           )));
                             },
-                            child: Container(
+                            child: SizedBox(
                               width: sizeFromWidth(context, 4),
                               child: Column(
                                 children: [

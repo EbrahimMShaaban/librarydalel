@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_search/firestore_search.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,8 @@ import 'model.dart';
 class Sech extends StatelessWidget {
   String? x = DataModel().name.toString();
 
+  Sech({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return FirestoreSearchScaffold(
@@ -23,16 +27,9 @@ class Sech extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<DataModel>? dataList = snapshot.data;
-          dynamic name1 = dataList![0].name as String;
-          dynamic columnnumber = dataList[0].colnum as String;
-          dynamic rownumber = dataList[0].rownum as String;
-          dynamic authername = dataList[0].authname as String;
-          dynamic imageurl = dataList[0].imgurl as String;
-          dynamic thetype = dataList[0].type as String;
-          dynamic id1 = dataList[0].id as String;
 
           return ListView.builder(
-              itemCount: dataList.length ,
+              itemCount: dataList!.length ,
               itemBuilder: (context, index) {
                 final DataModel data = dataList[index];
 

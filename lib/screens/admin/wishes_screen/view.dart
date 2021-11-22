@@ -136,7 +136,7 @@ class _WishesState extends State<Wishes> {
                                               .data!.docs[index]['imageUrl']),
                                           fit: BoxFit.cover,
                                         ),
-                                        color: gray,
+                                        // color: gray,
                                         borderRadius:
                                             BorderRadius.circular(23)),
                                   ),

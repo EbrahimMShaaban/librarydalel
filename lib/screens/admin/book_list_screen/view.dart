@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:librarydalel/constant/styles.dart';
@@ -27,7 +29,7 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>Category()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>const Category()));
           },
           icon: const Icon(Icons.arrow_back),
         ),

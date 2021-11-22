@@ -30,7 +30,6 @@ class _SignInScreenState extends State<SignInScreen> {
     var formdata = _formKey.currentState;
     if (formdata!.validate()) {
       formdata.save();
-
       try {
         showLoading(context);
         UserCredential userCredential = await FirebaseAuth.instance
@@ -177,9 +176,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 //   "username": name,
                 // });
                 if (email == 'admin@admin1.com') {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const Category()));
                 } else {
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const NavigationScreen()));
                 }

@@ -45,7 +45,7 @@ class HomePageScreen extends StatelessWidget {
                       style: appbarStyle,
                     ),
                   ),
-                  TopFour(),
+                  const TopFour(),
                   Padding(
                     padding: const EdgeInsets.only(right: 30),
                     child: Text(
