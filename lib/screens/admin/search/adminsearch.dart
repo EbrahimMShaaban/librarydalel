@@ -136,7 +136,6 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
         ),
         body: ListView.builder(
           itemCount: searchList.length,
-
           itemBuilder: (context, index) {
             indexed = index;
             print(searchList.length);
