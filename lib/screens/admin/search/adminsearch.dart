@@ -134,43 +134,42 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
             // ),
           ],
         ),
-        body: ListView.builder(
+        body: searchList
+            .isNotEmpty ?  const Text('000000000'):
+        ListView.builder(
           itemCount: searchList.length,
-
           itemBuilder: (context, index) {
-            indexed = index;
-            print(searchList.length);
-            print('++++');
-            print(indexed);
-            if(filter == null || filter == " "){
-              return _buildBookBox(
-                searchList[index],
-              );
-            }else {
-              if( searchList[index]
-                  .bookname!
-                  .toLowerCase()
-                  .contains(filter!.toLowerCase())){
-              return  _buildBookBox(
-                  searchList[index],
-                );
-              }
-              else{
-               return Container();
-              }
-            }
-            // return filter == null || filter == " "
-            //     ? _buildBookBox(
-            //         searchList[index],
-            //       )
-            //     : searchList[index]
-            //             .bookname!
-            //             .toLowerCase()
-            //             .contains(filter!.toLowerCase())
-            //         ? _buildBookBox(
-            //             searchList[index],
-            //           )
-            //         : Container();
+          indexed = index;
+            // print(searchList.length);
+            // print('++++');
+            // print(indexed);
+            // if (filter == null || filter == "") {
+            //   return _buildBookBox(
+            //     searchList[index],
+            //   );
+            // } else if (searchList[index]
+            //     .bookname!
+            //     .toLowerCase()
+            //     .contains(filter!.toLowerCase())) {
+            //   return _buildBookBox(
+            //     searchList[index],
+            //   );
+            // } else {
+            //   return Container(Text('vvvvvvvvv'););
+            // }
+
+            return filter == null || filter == " "
+                ? _buildBookBox(
+                    searchList[index],
+                  )
+                : searchList[index]
+                        .bookname!
+                        .toLowerCase()
+                        .contains(filter!.toLowerCase())
+                    ? _buildBookBox(
+                        searchList[index],
+                      )
+                    : Container();
           },
         ));
   }
