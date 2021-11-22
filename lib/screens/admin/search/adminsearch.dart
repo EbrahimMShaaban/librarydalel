@@ -44,7 +44,8 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
         await FirebaseFirestore.instance.collection('books').get();
 
     for (var doc in querySnapshot.docs) {
-      searchList.add(SearchModel(
+      searchList.add(
+          SearchModel(
           bookid: doc['bookid'],
           rownum: doc['rownum'],
           type: doc['type'],
@@ -92,50 +93,11 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
               ),
             ),
 
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 10),
-            //   child: DropdownButton<String>(
-            //     hint: Text(
-            //       'بحث بالفئة',
-            //       textAlign: TextAlign.start,
-            //       style: buttonStyle,
-            //     ),
-            //     alignment: AlignmentDirectional.center,
-            //     value: dropdownValue,
-            //     underline: Container(
-            //       width: 150,
-            //       height: 1,
-            //       decoration:
-            //           const BoxDecoration(color: purple, boxShadow: [
-            //         BoxShadow(
-            //           color: purple,
-            //         )
-            //       ]),
-            //     ),
-            //     onChanged: (newValue ) async{
-            //       setState(() {
-            //         dropdownValue = newValue;
-            //       });
-            //        await getBook(dropdownValue!);
-            //
-            //     },
-            //     items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
-            //         .map<DropdownMenuItem<String>>((String value) {
-            //       return DropdownMenuItem<String>(
-            //         value: value,
-            //         child: SizedBox(
-            //           width: MediaQuery.of(context).size.width /
-            //               3.5, // for example
-            //           child: Text(value, textAlign: TextAlign.right,),
-            //         ),
-            //       );
-            //     }).toList(),
-            //   ),
-            // ),
+
           ],
         ),
-        body: searchList
-            .isNotEmpty ?  const Text('000000000'):
+        body: filter!.toLowerCase().isNotEmpty
+      ?  const Center(child: Text('000000000')):
         ListView.builder(
           itemCount: searchList.length,
           itemBuilder: (context, index) {
@@ -169,7 +131,7 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
                     ? _buildBookBox(
                         searchList[index],
                       )
-                    : Container();
+                    : const SizedBox();
           },
         ));
   }
