@@ -29,6 +29,7 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
 
   @override
   void initState() {
+    getBook();
     searchController.addListener(() {
       filter = searchController.text;
       setState(() {});
@@ -37,11 +38,12 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
     super.initState();
   }
 
-  Future getBook(String filter) async {
-    searchList.clear();
+  getBook() async {
+   // searchList.clear();
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('books').where('type', isEqualTo: filter)
+        .collection('books')
         .get();
+
     for (var doc in querySnapshot.docs) {
       searchList.add(SearchModel(
           bookid: doc['bookid'],
@@ -72,70 +74,79 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
             icon: const Icon(Icons.arrow_back),
           ),
           actions: [
-            Row(
-              children: [
-                SizedBox(
-                  width: 200,
-                  child: TextFormField(
-                    controller: searchController,
-                    decoration: const InputDecoration(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: DropdownButton<String>(
-                    hint: Text(
-                      'بحث بالفئة',
-                      textAlign: TextAlign.start,
-                      style: buttonStyle,
-                    ),
-                    alignment: AlignmentDirectional.center,
-                    value: dropdownValue,
-                    underline: Container(
-                      width: 150,
-                      height: 1,
-                      decoration:
-                          const BoxDecoration(color: purple, boxShadow: [
-                        BoxShadow(
-                          color: purple,
-                        )
-                      ]),
-                    ),
-                    onChanged: (newValue ) async{
-                      setState(() {
-                        dropdownValue = newValue;
-                      });
-                       await getBook(dropdownValue!);
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: SizedBox(
+                width: 300,
+                child: TextFormField(
+                  controller: searchController,
 
-                    },
-                    items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width /
-                              3.5, // for example
-                          child: Text(value, textAlign: TextAlign.right,),
-                        ),
-                      );
-                    }).toList(),
+                  decoration: InputDecoration(
+                    hintText: 'ادخل اسم كتاب للبحث',
+                    hintStyle: labelStyle2,
+                    icon: const Icon(
+                      Icons.search,
+                      color: Colors.white,
+                      size: 20,
+                    ),
                   ),
                 ),
-              ],
-            )
+              ),
+            ),
+
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                //   child: DropdownButton<String>(
+                //     hint: Text(
+                //       'بحث بالفئة',
+                //       textAlign: TextAlign.start,
+                //       style: buttonStyle,
+                //     ),
+                //     alignment: AlignmentDirectional.center,
+                //     value: dropdownValue,
+                //     underline: Container(
+                //       width: 150,
+                //       height: 1,
+                //       decoration:
+                //           const BoxDecoration(color: purple, boxShadow: [
+                //         BoxShadow(
+                //           color: purple,
+                //         )
+                //       ]),
+                //     ),
+                //     onChanged: (newValue ) async{
+                //       setState(() {
+                //         dropdownValue = newValue;
+                //       });
+                //        await getBook(dropdownValue!);
+                //
+                //     },
+                //     items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
+                //         .map<DropdownMenuItem<String>>((String value) {
+                //       return DropdownMenuItem<String>(
+                //         value: value,
+                //         child: SizedBox(
+                //           width: MediaQuery.of(context).size.width /
+                //               3.5, // for example
+                //           child: Text(value, textAlign: TextAlign.right,),
+                //         ),
+                //       );
+                //     }).toList(),
+                //   ),
+                // ),
+
           ],
         ),
-        body: searchList.isEmpty? const SizedBox():ListView.builder(
+        
+        body: searchList.isEmpty? const Center(child: Text('أدخل اسم كتاب للبحث'),):ListView.builder(
           itemCount:  searchList.length,
           itemBuilder: (context, index) {
             print(searchList.length);
-            return searchList[index]
+            return filter == null || filter == ""
+                ? _buildBookBox(
+              searchList[index],
+            ) :
+              searchList[index]
                             .bookname!
                             .toLowerCase()
                             .contains(filter!.toLowerCase())

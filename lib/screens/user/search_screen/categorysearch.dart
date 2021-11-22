@@ -1,12 +1,9 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:librarydalel/constant/styles.dart';
-import 'package:librarydalel/screens/admin/add_book_screen/deletebook.dart';
 import 'package:librarydalel/screens/admin/search/book_details.dart';
-import 'package:librarydalel/screens/admin/search/eidt_book.dart';
 import 'package:librarydalel/screens/admin/search/model.dart';
 
 class CategorySearch extends StatefulWidget {
@@ -27,6 +24,7 @@ class _CategorySearchState extends State<CategorySearch> {
 
   @override
   void initState() {
+    getBook();
     searchController.addListener(() {
       filter = searchController.text;
       setState(() {});
@@ -35,11 +33,11 @@ class _CategorySearchState extends State<CategorySearch> {
     super.initState();
   }
 
-  Future getBook(String filter) async {
+  getBook() async {
     searchList.clear();
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection('books')
-        .where('type', isEqualTo: filter)
+        // .where('type', isEqualTo: filter)
         .get();
     for (var doc in querySnapshot.docs) {
       searchList.add(SearchModel(
@@ -63,68 +61,73 @@ class _CategorySearchState extends State<CategorySearch> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: purple,
-          title: TextFormField(
-            controller: searchController,
-            decoration: const InputDecoration(
-              icon: Icon(
-                Icons.search,
-                color: Colors.white,
-                size: 20,
+          title: Directionality(
+            textDirection: TextDirection.rtl,
+            child: TextFormField(
+              controller: searchController,
+              decoration:  InputDecoration(
+                hintText: 'ادخل اسم كتاب للبحث',
+                hintStyle: labelStyle2,
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                  size: 20,
+                ),
               ),
             ),
           ),
           leadingWidth: 1,
           automaticallyImplyLeading: false,
 
-          actions: [
-            Row(
-              children: [
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: DropdownButton<String>(
-                    hint: Text(
-                      'بحث بالفئة',
-                      textAlign: TextAlign.start,
-                      style: buttonStyle,
-                    ),
-                    alignment: AlignmentDirectional.center,
-                    value: dropdownValue,
-                    underline: Container(
-                      width: 150,
-                      height: 1,
-                      decoration:
-                          const BoxDecoration(color: purple, boxShadow: [
-                        BoxShadow(
-                          color: purple,
-                        )
-                      ]),
-                    ),
-                    onChanged: (newValue) async {
-                      setState(() {
-                        dropdownValue = newValue;
-                      });
-                      await getBook(dropdownValue!);
-                    },
-                    items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width /
-                              3.5, // for example
-                          child: Text(
-                            value,
-                            textAlign: TextAlign.right,
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ],
-            )
-          ],
+          // actions: [
+          //   Row(
+          //     children: [
+          //
+          //       // Padding(
+          //       //   padding: const EdgeInsets.symmetric(horizontal: 10),
+          //       //   child: DropdownButton<String>(
+          //       //     hint: Text(
+          //       //       'بحث بالفئة',
+          //       //       textAlign: TextAlign.start,
+          //       //       style: buttonStyle,
+          //       //     ),
+          //       //     alignment: AlignmentDirectional.center,
+          //       //     value: dropdownValue,
+          //       //     underline: Container(
+          //       //       width: 150,
+          //       //       height: 1,
+          //       //       decoration:
+          //       //           const BoxDecoration(color: purple, boxShadow: [
+          //       //         BoxShadow(
+          //       //           color: purple,
+          //       //         )
+          //       //       ]),
+          //       //     ),
+          //       //     onChanged: (newValue) async {
+          //       //       setState(() {
+          //       //         dropdownValue = newValue;
+          //       //       });
+          //       //       await getBook(dropdownValue!);
+          //       //     },
+          //       //     items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
+          //       //         .map<DropdownMenuItem<String>>((String value) {
+          //       //       return DropdownMenuItem<String>(
+          //       //         value: value,
+          //       //         child: SizedBox(
+          //       //           width: MediaQuery.of(context).size.width /
+          //       //               3.5, // for example
+          //       //           child: Text(
+          //       //             value,
+          //       //             textAlign: TextAlign.right,
+          //       //           ),
+          //       //         ),
+          //       //       );
+          //       //     }).toList(),
+          //       //   ),
+          //       // ),
+          //     ],
+          //   )
+          // ],
         ),
         body: searchList.isEmpty
             ? const SizedBox()

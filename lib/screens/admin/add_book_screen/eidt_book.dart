@@ -58,23 +58,7 @@ class _EditBookState extends State<EditBook> {
               print("$e");
             });
 
-        // if (file == null){
-        //   // if (formdata!.validate()) {
-        //   //   formdata.save();
-        //   //   showLoading(context);
-        //   //   await addbook.doc().update({
-        //   //     "bookname": bookname,
-        //   //     "authorname": authorname,
-        //   //     "rownum": rownum,
-        //   //     "columnnum": columnnum,
-        //   //     "type": type,
-        //   //   }).then((value) {Navigator.push(context,
-        //   //       MaterialPageRoute(builder: (context) => const DisplayBooksScreen()));}).catchError((e){
-        //   //         print("$e");
-        //   //   });}
-        // }else{
-        //
-        //   }
+
       }
     } else {
       if (formdata!.validate()) {
