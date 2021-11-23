@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,7 +9,7 @@ import 'package:librarydalel/screens/admin/search/book_details.dart';
 import 'package:librarydalel/screens/admin/search/model.dart';
 
 class CategorySearch extends StatefulWidget {
-  CategorySearch({Key? key}) : super(key: key);
+  const CategorySearch({Key? key}) : super(key: key);
 
   @override
   State<CategorySearch> createState() => _CategorySearchState();
@@ -162,7 +164,13 @@ class _CategorySearchState extends State<CategorySearch> {
                 },
               )
             : Center(
-                child: Text("Hi man"),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:   [
+                    Image(image: AssetImage('assets/booknot.png'),height: 200,),
+                    Text("هذا الكتاب غير متوفر",style: labelStyle2,),
+                  ],
+                ),
               ));
   }
 

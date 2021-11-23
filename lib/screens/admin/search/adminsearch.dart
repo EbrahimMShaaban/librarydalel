@@ -11,7 +11,7 @@ import 'package:librarydalel/screens/admin/search/model.dart';
 import '../category_screen/view.dart';
 
 class CategorySearchAdmin extends StatefulWidget {
-  CategorySearchAdmin({Key? key}) : super(key: key);
+  const CategorySearchAdmin({Key? key}) : super(key: key);
 
   @override
   State<CategorySearchAdmin> createState() => _CategorySearchAdminState();
@@ -124,9 +124,15 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
                           : const SizedBox();
                 },
               )
-            : Center(
-                child: Text("No Book Founded"),
-              ));
+            :  Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:   [
+              Image(image: AssetImage('assets/booknot.png'),height: 200,),
+              Text("هذا الكتاب غير متوفر",style: labelStyle2,),
+            ],
+          ),
+        ));
   }
 
   Widget _buildBookBox(SearchModel searchModel) {
