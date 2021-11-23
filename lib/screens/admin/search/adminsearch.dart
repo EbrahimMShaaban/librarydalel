@@ -237,3 +237,5 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
     );
   }
 }
+
+
