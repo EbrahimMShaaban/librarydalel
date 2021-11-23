@@ -20,13 +20,26 @@ class _CategorySearchState extends State<CategorySearch> {
 
   TextEditingController searchController = TextEditingController();
   String? filter = '';
- // var undropValue = 'null';
+  // var undropValue = 'null';
+  bool hasData = true;
 
   @override
   void initState() {
     getBook();
     searchController.addListener(() {
       filter = searchController.text;
+      bool foundData = false;
+      searchList.forEach((element) {
+        if (element.bookname!.contains(filter!)) {
+          hasData = true;
+          foundData = true;
+        }
+      });
+
+      if (foundData == false) {
+        hasData = false;
+      }
+
       setState(() {});
     });
 
@@ -65,7 +78,7 @@ class _CategorySearchState extends State<CategorySearch> {
             textDirection: TextDirection.rtl,
             child: TextFormField(
               controller: searchController,
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                 hintText: 'ادخل اسم كتاب للبحث',
                 hintStyle: labelStyle2,
                 icon: const Icon(
@@ -129,14 +142,15 @@ class _CategorySearchState extends State<CategorySearch> {
           //   )
           // ],
         ),
-        body: searchList.isEmpty
-            ? const Center(
-               child:  Text('لا يوجد كتب لعرضها'),
-              )
-            : ListView.builder(
+        body: hasData
+            ? ListView.builder(
                 itemCount: searchList.length,
                 itemBuilder: (context, index) {
-                  print(searchList.length);
+                  hasData = searchList[index]
+                      .bookname!
+                      .toLowerCase()
+                      .contains(filter!.toLowerCase());
+
                   return searchList[index]
                           .bookname!
                           .toLowerCase()
@@ -146,6 +160,9 @@ class _CategorySearchState extends State<CategorySearch> {
                         )
                       : Container();
                 },
+              )
+            : Center(
+                child: Text("Hi man"),
               ));
   }
 
