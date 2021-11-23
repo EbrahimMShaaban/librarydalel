@@ -30,29 +30,23 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
     getBook();
     searchController.addListener(() {
       filter = searchController.text;
-      print("================");
       print(hasData);
       bool foundData = false;
       searchList.forEach((element) {
-        if(element.bookname!.contains(filter!))
-          {
-            print('heeere');
-            hasData = true;
-            foundData = true;
-          }
+        if (element.bookname!.contains(filter!)) {
+          hasData = true;
+          foundData = true;
+        }
       });
 
-      if(foundData == false)
-        {
-          hasData = false;
-
-        }
+      if (foundData == false) {
+        hasData = false;
+      }
       setState(() {});
     });
 
     super.initState();
   }
-
 
   getBook() async {
     QuerySnapshot querySnapshot =
@@ -108,14 +102,15 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
             ),
           ],
         ),
-        body:hasData? ListView.builder(
+        body: hasData
+            ? ListView.builder(
                 itemCount: searchList.length,
                 itemBuilder: (context, index) {
-                  hasData= searchList[index]
+                  hasData = searchList[index]
                       .bookname!
                       .toLowerCase()
                       .contains(filter!.toLowerCase());
-                  return  filter == null || filter == " "
+                  return filter == null || filter == " "
                       ? _buildBookBox(
                           searchList[index],
                         )
@@ -128,9 +123,10 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
                             )
                           : const SizedBox();
                 },
-              ):Center(
-          child: Text("No Book Founded"),
-        ));
+              )
+            : Center(
+                child: Text("No Book Founded"),
+              ));
   }
 
   Widget _buildBookBox(SearchModel searchModel) {
@@ -237,5 +233,3 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
     );
   }
 }
-
-
