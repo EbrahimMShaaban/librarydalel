@@ -87,8 +87,7 @@ class _BooksBoxState extends State<BooksBox> {
                                       textStyle: const TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w600,
-                                          overflow: TextOverflow.ellipsis,
-
+                                          // overflow: TextOverflow.ellipsis,
                                           color: gray,
                                           height: 1.5)),
                                 ),
