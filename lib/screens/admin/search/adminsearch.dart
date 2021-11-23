@@ -30,12 +30,12 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
     getBook();
     searchController.addListener(() {
       filter = searchController.text;
-
       setState(() {});
     });
 
     super.initState();
   }
+
 
   getBook() async {
     QuerySnapshot querySnapshot =
@@ -91,30 +91,27 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
             ),
           ],
         ),
-        body: ListView.builder(
-          itemCount: searchList.length,
-          itemBuilder: (context, index) {
-            hasData = searchList[index]
-                .bookname!
-                .toLowerCase()
-                .contains(filter!.toLowerCase());
-            print(hasData);
-            return filter == null || filter == " "
-                ? _buildBookBox(
-                    searchList[index],
-                  )
-                : Visibility(
-                    visible: searchList[index]
-                            .bookname!
-                            .toLowerCase()
-                            .contains(filter!.toLowerCase())
-                        ? true
-                        : false,
-                    child: _buildBookBox(
-                      searchList[index],
-                    ));
-          },
-        ));
+        body:hasData? ListView.builder(
+                itemCount: searchList.length,
+                itemBuilder: (context, index) {
+                  hasData= searchList[index]
+                      .bookname!
+                      .toLowerCase()
+                      .contains(filter!.toLowerCase());
+                  return  filter == null || filter == " "
+                      ? _buildBookBox(
+                          searchList[index],
+                        )
+                      : searchList[index]
+                              .bookname!
+                              .toLowerCase()
+                              .contains(filter!.toLowerCase())
+                          ? _buildBookBox(
+                              searchList[index],
+                            )
+                          : const SizedBox();
+                },
+              ):const Text("jjjj"));
   }
 
   Widget _buildBookBox(SearchModel searchModel) {
