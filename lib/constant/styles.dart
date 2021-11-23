@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const Color purple = Color(0xFFb39ddb);
+const Color purple = Color(0xffb39ddb);
 const Color clearGray = Color(0xffc4c4c4);
 const Color gray = Color(0xFF8a8989);
 const Color white = Color(0xFFfafafa);
