@@ -20,12 +20,10 @@ class CategorySearchAdmin extends StatefulWidget {
 class _CategorySearchAdminState extends State<CategorySearchAdmin> {
   String? dropdownValue;
   List<SearchModel> searchList = <SearchModel>[];
-  List<SearchModel> searchList2 = <SearchModel>[];
 
   TextEditingController searchController = TextEditingController();
   String? filter = '';
-  var undropValue = 'null';
-  var indexed;
+  bool hasData = true;
 
   @override
   void initState() {
@@ -38,8 +36,8 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
     super.initState();
   }
 
+
   getBook() async {
-    // searchList.clear();
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('books').get();
 
@@ -91,87 +89,29 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
                 ),
               ),
             ),
-
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 10),
-            //   child: DropdownButton<String>(
-            //     hint: Text(
-            //       'بحث بالفئة',
-            //       textAlign: TextAlign.start,
-            //       style: buttonStyle,
-            //     ),
-            //     alignment: AlignmentDirectional.center,
-            //     value: dropdownValue,
-            //     underline: Container(
-            //       width: 150,
-            //       height: 1,
-            //       decoration:
-            //           const BoxDecoration(color: purple, boxShadow: [
-            //         BoxShadow(
-            //           color: purple,
-            //         )
-            //       ]),
-            //     ),
-            //     onChanged: (newValue ) async{
-            //       setState(() {
-            //         dropdownValue = newValue;
-            //       });
-            //        await getBook(dropdownValue!);
-            //
-            //     },
-            //     items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
-            //         .map<DropdownMenuItem<String>>((String value) {
-            //       return DropdownMenuItem<String>(
-            //         value: value,
-            //         child: SizedBox(
-            //           width: MediaQuery.of(context).size.width /
-            //               3.5, // for example
-            //           child: Text(value, textAlign: TextAlign.right,),
-            //         ),
-            //       );
-            //     }).toList(),
-            //   ),
-            // ),
           ],
         ),
-        body: searchList
-            .isNotEmpty ?  const Text('000000000'):
-        ListView.builder(
-          itemCount: searchList.length,
-          itemBuilder: (context, index) {
-          indexed = index;
-            // print(searchList.length);
-            // print('++++');
-            // print(indexed);
-            // if (filter == null || filter == "") {
-            //   return _buildBookBox(
-            //     searchList[index],
-            //   );
-            // } else if (searchList[index]
-            //     .bookname!
-            //     .toLowerCase()
-            //     .contains(filter!.toLowerCase())) {
-            //   return _buildBookBox(
-            //     searchList[index],
-            //   );
-            // } else {
-            //   return Container(Text('vvvvvvvvv'););
-            // }
-
-            return filter == null || filter == " "
-                ? _buildBookBox(
-                    searchList[index],
-                  )
-                : searchList[index]
-                        .bookname!
-                        .toLowerCase()
-                        .contains(filter!.toLowerCase())
-                    ? _buildBookBox(
-                        searchList[index],
-                      )
-                    : Container();
-          },
-        ));
+        body:hasData? ListView.builder(
+                itemCount: searchList.length,
+                itemBuilder: (context, index) {
+                  hasData= searchList[index]
+                      .bookname!
+                      .toLowerCase()
+                      .contains(filter!.toLowerCase());
+                  return  filter == null || filter == " "
+                      ? _buildBookBox(
+                          searchList[index],
+                        )
+                      : searchList[index]
+                              .bookname!
+                              .toLowerCase()
+                              .contains(filter!.toLowerCase())
+                          ? _buildBookBox(
+                              searchList[index],
+                            )
+                          : const SizedBox();
+                },
+              ):const Text("jjjj"));
   }
 
   Widget _buildBookBox(SearchModel searchModel) {
