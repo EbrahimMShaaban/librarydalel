@@ -20,18 +20,17 @@ class CategorySearchAdmin extends StatefulWidget {
 class _CategorySearchAdminState extends State<CategorySearchAdmin> {
   String? dropdownValue;
   List<SearchModel> searchList = <SearchModel>[];
-  List<SearchModel> searchList2 = <SearchModel>[];
 
   TextEditingController searchController = TextEditingController();
   String? filter = '';
-  var undropValue = 'null';
-  var indexed;
+  bool hasData = true;
 
   @override
   void initState() {
     getBook();
     searchController.addListener(() {
       filter = searchController.text;
+
       setState(() {});
     });
 
@@ -39,13 +38,11 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
   }
 
   getBook() async {
-    // searchList.clear();
     QuerySnapshot querySnapshot =
         await FirebaseFirestore.instance.collection('books').get();
 
     for (var doc in querySnapshot.docs) {
-      searchList.add(
-          SearchModel(
+      searchList.add(SearchModel(
           bookid: doc['bookid'],
           rownum: doc['rownum'],
           type: doc['type'],
@@ -92,46 +89,30 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
                 ),
               ),
             ),
-
-
           ],
         ),
-        body: filter!.toLowerCase().isNotEmpty
-      ?  const Center(child: Text('000000000')):
-        ListView.builder(
+        body: ListView.builder(
           itemCount: searchList.length,
           itemBuilder: (context, index) {
-          indexed = index;
-            // print(searchList.length);
-            // print('++++');
-            // print(indexed);
-            // if (filter == null || filter == "") {
-            //   return _buildBookBox(
-            //     searchList[index],
-            //   );
-            // } else if (searchList[index]
-            //     .bookname!
-            //     .toLowerCase()
-            //     .contains(filter!.toLowerCase())) {
-            //   return _buildBookBox(
-            //     searchList[index],
-            //   );
-            // } else {
-            //   return Container(Text('vvvvvvvvv'););
-            // }
-
+            hasData = searchList[index]
+                .bookname!
+                .toLowerCase()
+                .contains(filter!.toLowerCase());
+            print(hasData);
             return filter == null || filter == " "
                 ? _buildBookBox(
                     searchList[index],
                   )
-                : searchList[index]
-                        .bookname!
-                        .toLowerCase()
-                        .contains(filter!.toLowerCase())
-                    ? _buildBookBox(
-                        searchList[index],
-                      )
-                    : const SizedBox();
+                : Visibility(
+                    visible: searchList[index]
+                            .bookname!
+                            .toLowerCase()
+                            .contains(filter!.toLowerCase())
+                        ? true
+                        : false,
+                    child: _buildBookBox(
+                      searchList[index],
+                    ));
           },
         ));
   }
