@@ -105,7 +105,7 @@ class _TopFourState extends State<TopFour> {
                                     style: GoogleFonts.tajawal(
                                         textStyle: const TextStyle(
                                             fontSize: 15,
-                                            overflow: TextOverflow.ellipsis,
+                                            // overflow: TextOverflow.ellipsis,
                                             fontWeight: FontWeight.w600,
                                             color: gray,
                                             height: 1.5)),

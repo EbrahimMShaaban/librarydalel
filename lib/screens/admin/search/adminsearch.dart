@@ -30,6 +30,23 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
     getBook();
     searchController.addListener(() {
       filter = searchController.text;
+      print("================");
+      print(hasData);
+      bool foundData = false;
+      searchList.forEach((element) {
+        if(element.bookname!.contains(filter!))
+          {
+            print('heeere');
+            hasData = true;
+            foundData = true;
+          }
+      });
+
+      if(foundData == false)
+        {
+          hasData = false;
+
+        }
       setState(() {});
     });
 
@@ -111,7 +128,9 @@ class _CategorySearchAdminState extends State<CategorySearchAdmin> {
                             )
                           : const SizedBox();
                 },
-              ):const Text("jjjj"));
+              ):Center(
+          child: Text("No Book Founded"),
+        ));
   }
 
   Widget _buildBookBox(SearchModel searchModel) {
