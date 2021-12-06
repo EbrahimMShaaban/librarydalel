@@ -94,55 +94,6 @@ class _CategorySearchState extends State<CategorySearch> {
           leadingWidth: 1,
           automaticallyImplyLeading: false,
 
-          // actions: [
-          //   Row(
-          //     children: [
-          //
-          //       // Padding(
-          //       //   padding: const EdgeInsets.symmetric(horizontal: 10),
-          //       //   child: DropdownButton<String>(
-          //       //     hint: Text(
-          //       //       'بحث بالفئة',
-          //       //       textAlign: TextAlign.start,
-          //       //       style: buttonStyle,
-          //       //     ),
-          //       //     alignment: AlignmentDirectional.center,
-          //       //     value: dropdownValue,
-          //       //     underline: Container(
-          //       //       width: 150,
-          //       //       height: 1,
-          //       //       decoration:
-          //       //           const BoxDecoration(color: purple, boxShadow: [
-          //       //         BoxShadow(
-          //       //           color: purple,
-          //       //         )
-          //       //       ]),
-          //       //     ),
-          //       //     onChanged: (newValue) async {
-          //       //       setState(() {
-          //       //         dropdownValue = newValue;
-          //       //       });
-          //       //       await getBook(dropdownValue!);
-          //       //     },
-          //       //     items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
-          //       //         .map<DropdownMenuItem<String>>((String value) {
-          //       //       return DropdownMenuItem<String>(
-          //       //         value: value,
-          //       //         child: SizedBox(
-          //       //           width: MediaQuery.of(context).size.width /
-          //       //               3.5, // for example
-          //       //           child: Text(
-          //       //             value,
-          //       //             textAlign: TextAlign.right,
-          //       //           ),
-          //       //         ),
-          //       //       );
-          //       //     }).toList(),
-          //       //   ),
-          //       // ),
-          //     ],
-          //   )
-          // ],
         ),
         body: hasData
             ? ListView.builder(
@@ -167,7 +118,7 @@ class _CategorySearchState extends State<CategorySearch> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:   [
-                    Image(image: AssetImage('assets/booknot.png'),height: 200,),
+                    const Image(image:  AssetImage('assets/booknot.png'),height: 200,),
                     Text("هذا الكتاب غير متوفر",style: labelStyle2,),
                   ],
                 ),
