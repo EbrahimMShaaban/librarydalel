@@ -94,6 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Buton("تسجيل خروج", onTap: () async {
                       showDialogWarning(context, text: 'هل انت متاكد من تسجيل الخروج', ontap: ()async{
                         await FirebaseAuth.instance.signOut();
+                        Navigator.of(context).popUntil((route) => route.isFirst);
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                             builder: (context) => const LogInScreen()));
                       });

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,7 +9,7 @@ import 'package:librarydalel/screens/admin/search/book_details.dart';
 import 'package:librarydalel/screens/admin/search/model.dart';
 
 class CategorySearch extends StatefulWidget {
-  CategorySearch({Key? key}) : super(key: key);
+  const CategorySearch({Key? key}) : super(key: key);
 
   @override
   State<CategorySearch> createState() => _CategorySearchState();
@@ -92,55 +94,6 @@ class _CategorySearchState extends State<CategorySearch> {
           leadingWidth: 1,
           automaticallyImplyLeading: false,
 
-          // actions: [
-          //   Row(
-          //     children: [
-          //
-          //       // Padding(
-          //       //   padding: const EdgeInsets.symmetric(horizontal: 10),
-          //       //   child: DropdownButton<String>(
-          //       //     hint: Text(
-          //       //       'بحث بالفئة',
-          //       //       textAlign: TextAlign.start,
-          //       //       style: buttonStyle,
-          //       //     ),
-          //       //     alignment: AlignmentDirectional.center,
-          //       //     value: dropdownValue,
-          //       //     underline: Container(
-          //       //       width: 150,
-          //       //       height: 1,
-          //       //       decoration:
-          //       //           const BoxDecoration(color: purple, boxShadow: [
-          //       //         BoxShadow(
-          //       //           color: purple,
-          //       //         )
-          //       //       ]),
-          //       //     ),
-          //       //     onChanged: (newValue) async {
-          //       //       setState(() {
-          //       //         dropdownValue = newValue;
-          //       //       });
-          //       //       await getBook(dropdownValue!);
-          //       //     },
-          //       //     items: <String>['الروايات', 'الادب', 'قدرات', 'لغات']
-          //       //         .map<DropdownMenuItem<String>>((String value) {
-          //       //       return DropdownMenuItem<String>(
-          //       //         value: value,
-          //       //         child: SizedBox(
-          //       //           width: MediaQuery.of(context).size.width /
-          //       //               3.5, // for example
-          //       //           child: Text(
-          //       //             value,
-          //       //             textAlign: TextAlign.right,
-          //       //           ),
-          //       //         ),
-          //       //       );
-          //       //     }).toList(),
-          //       //   ),
-          //       // ),
-          //     ],
-          //   )
-          // ],
         ),
         body: hasData
             ? ListView.builder(
@@ -162,7 +115,13 @@ class _CategorySearchState extends State<CategorySearch> {
                 },
               )
             : Center(
-                child: Text("Hi man"),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:   [
+                    const Image(image:  AssetImage('assets/booknot.png'),height: 200,),
+                    Text("هذا الكتاب غير متوفر",style: labelStyle2,),
+                  ],
+                ),
               ));
   }
 

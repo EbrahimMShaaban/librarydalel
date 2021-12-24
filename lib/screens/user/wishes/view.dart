@@ -163,7 +163,7 @@ class _WishesScreenState extends State<WishesScreen> {
         backgroundColor: purple,
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) =>  AddWish()));
+              context, MaterialPageRoute(builder: (context) =>  const AddWish()));
         },
         child: const Icon(Icons.add),
       ),

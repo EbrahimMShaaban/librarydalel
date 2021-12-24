@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+
 import 'dart:io';
 import 'dart:math';
 
@@ -13,7 +15,7 @@ import 'package:librarydalel/widgets/button/flatbuton.dart';
 import 'package:path/path.dart';
 
 class AddWish extends StatefulWidget {
-  AddWish({Key? key}) : super(key: key);
+  const AddWish({Key? key}) : super(key: key);
 
   @override
   _AddWishState createState() => _AddWishState();

@@ -54,7 +54,7 @@ class _CategoryState extends State<Category> {
               await Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>   CategorySearchAdmin()));
+                      builder: (context) =>    CategorySearchAdmin()));
             },
           ),
           CategoryItem(
@@ -72,6 +72,7 @@ class _CategoryState extends State<Category> {
               onTap: () async {
               showDialogWarning(context, text: 'هل انت متاكد من تسجيل الخروج', ontap: ()async{
                 await FirebaseAuth.instance.signOut();
+                Navigator.of(context).popUntil((route) => route.isFirst);
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => const LogInScreen()));
               });
