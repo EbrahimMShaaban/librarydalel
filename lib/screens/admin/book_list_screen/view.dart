@@ -51,10 +51,6 @@ class _DisplayBooksScreenState extends State<DisplayBooksScreen> {
                     return const Text('');
                   }
                   if (snapshot.hasData) {
-                    for (var doc in snapshot.data!.docs) {
-                      print('========================');
-                      print(snapshot.data!.docs.length);
-                    }
                     return ListView.builder(
                         itemCount: snapshot.data!.docs.length,
                         itemBuilder: (context, index) {

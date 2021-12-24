@@ -48,11 +48,14 @@ class _WishesDetailsState extends State<WishesDetails> {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   decoration: BoxDecoration(
+
                       image: DecorationImage(
+
                         image: NetworkImage(widget.image!),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
+
                       ),
-                      color: gray,
+                      color: white,
                       borderRadius: BorderRadius.circular(23)),
                 ),
           Container(
@@ -78,7 +81,7 @@ class _WishesDetailsState extends State<WishesDetails> {
                           stl: labelStyle2),
                       Text(
                         widget.comment!,
-                        style: hintStyle,
+                        style: buttonTextStyle,
                       ),
                     ],
                   ),

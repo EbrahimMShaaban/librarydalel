@@ -53,7 +53,7 @@ class _WishesState extends State<Wishes> {
                         },
                         child: Container(
                           width: sizeFromWidth(context, 1),
-                          height: 150,
+                          height: sizeFromHeight(context, 4),
                           margin: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),
                           padding: const EdgeInsets.symmetric(
@@ -86,7 +86,7 @@ class _WishesState extends State<Wishes> {
                                                 textStyle: const TextStyle(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.bold,
-                                                    color: gray,
+                                                    color: purple,
                                                     height: 1.5)),
                                           ),
                                           Text(
@@ -94,7 +94,7 @@ class _WishesState extends State<Wishes> {
                                                 ['nameOfUser'],
                                             style: GoogleFonts.tajawal(
                                                 textStyle: const TextStyle(
-                                                    fontSize: 16,
+                                                    fontSize: 20,
                                                     fontWeight: FontWeight.bold,
                                                     color: gray,
                                                     height: 1.5)),
@@ -107,15 +107,17 @@ class _WishesState extends State<Wishes> {
                                                 textStyle: const TextStyle(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.bold,
-                                                    color: gray,
+                                                    color: purple,
+
                                                     height: 1.5)),
+                                            maxLines: 2,
                                           ),
                                           Text(
                                             snapshot.data!.docs[index]
                                                 ['comment'],
                                             style: GoogleFonts.tajawal(
                                                 textStyle: const TextStyle(
-                                                    fontSize: 16,
+                                                    fontSize: 20,
                                                     fontWeight: FontWeight.bold,
                                                     color: gray,
                                                     height: 1.5)),
