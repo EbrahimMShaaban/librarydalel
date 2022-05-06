@@ -14,11 +14,51 @@ import 'package:librarydalel/widgets/button/textbuton.dart';
 import 'package:librarydalel/widgets/input_field_regeist.dart';
 import 'package:librarydalel/widgets/logo.dart';
 
+class NameValidator{
+  static String? nameVal(String value){
+       if (value.isEmpty) {
+        return 'برجاءادخال الاسم';
+      } else if (value.length < 3) {
+        return 'يجب أن يتكون الاسم من 3 أحرف على الاقل';
+      }
+       return null;
+  }
+}class EmailValidator{
+  static String? emailVal(String value){
+    if (value.isEmpty) {
+      return 'الرجاء إدخال بريد الكتروني';
+    } else if (!value.toString().contains('@')) {
+      return 'يجب  أن يحتوي البريد الايكتروني على @';
+    }
+       return null;
+  }
+}
+class PasswordValidator{
+  static String? passVal(String value){
+    if (value.isEmpty) {
+      return 'الرجاء إدخال كلمة مرور';
+    }
+  }
+}
+class RePasswordValidator{
+  var sign= SignInScreen();
+   String? nameVal(String value){
+    if (value.isEmpty) {
+      return " الرجاء إعادة كتابة كلمة المرور";
+    }
+    // else if (value != sign.password) {
+    //   return 'كلمة المرور غير متطابقة';
+    // }
+    //todo: dosen't work😢
+    return null;
+  }
+}
+
 class SignInScreen extends StatefulWidget {
   // const SignInScreen(this.id);
   //
   // final String id;
-
+  var email, password, password2, name;
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
@@ -33,7 +73,7 @@ class _SignInScreenState extends State<SignInScreen> {
       try {
         showLoading(context);
         UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
+            .createUserWithEmailAndPassword(email: widget.email, password: widget.password);
         return userCredential;
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
@@ -63,7 +103,7 @@ class _SignInScreenState extends State<SignInScreen> {
     } else {}
   }
 
-  var email, password, password2, name;
+
 
   @override
   Widget build(BuildContext context) {
@@ -93,63 +133,63 @@ class _SignInScreenState extends State<SignInScreen> {
               children: [
                 InputFieldRegist(
                   onChanged: (val) {
-                    name = val;
+                    widget.name = val;
                   },
                   hint: "ادخل اسمك",
                   label: " الاسم ",
                   scure: false,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'برجاءادخال الاسم';
-                    } else if (value.length < 3) {
-                      return 'يجب أن يتكون الاسم من 3 أحرف على الاقل';
-                    }
-                  },
+                  validator: (value){
+                    widget.name = value;
+                   return NameValidator.nameVal(value);
+                  }
+
+                  //     (value) {
+                  //   if (value!.isEmpty) {
+                  //     return 'برجاءادخال الاسم';
+                  //   } else if (value.length < 3) {
+                  //     return 'يجب أن يتكون الاسم من 3 أحرف على الاقل';
+                  //   }
+                  // },
                 ),
                 InputFieldRegist(
                   onChanged: (val) {
-                    email = val;
+                    widget.email = val;
                   },
                   hint: "ادخل البريد الالكتروني....",
                   label: "البريد الالكتروني ",
                   scure: false,
                   validator: (value) {
-                    email = value;
-                    if (value!.isEmpty) {
-                      return 'الرجاء إدخال بريد الكتروني';
-                    } else if (!value.toString().contains('@')) {
-                      return 'يجب  أن يحتوي البريد الايكتروني على @';
-                    }
-                  },
-                ),
-                InputFieldRegist(
-                  onChanged: (val) {
-                    password = val;
-                  },
-                  hint: "ادخل كلمة مرور",
-                  label: "كلمة المرور ",
-                  scure: true,
-                  validator: (value) {
-                    password = value;
-                    if (value!.isEmpty) {
-                      return 'الرجاء إدخال كلمة مرور';
-                    }
+                    widget.email = value;
+                  return  EmailValidator.emailVal(value);
+                   // return null;
 
                   },
                 ),
                 InputFieldRegist(
                   onChanged: (val) {
-                    password2 = val;
+                    widget.password = val;
+                  },
+                  hint: "ادخل كلمة مرور",
+                  label: "كلمة المرور ",
+                  scure: true,
+                  validator: (value) {
+                    widget.password = value;
+                    return PasswordValidator.passVal(value);
+
+                  },
+                ),
+                InputFieldRegist(
+                  onChanged: (val) {
+                    widget.password2 = val;
                   },
                   hint: "أكد كلمة مرورك",
                   label: "تأكيد كلمة المرور ",
                   scure: true,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return " الرجاء إعادة كتابة كلمة المرور";
-                    } else if (password2 != password) {
-                      return 'كلمة المرور غير متطابقة';
-                    }
+                  validator:
+                      (value) {
+                        widget.password2 = value;
+                   return RePasswordValidator().nameVal(value);
+
                   },
                 ),
               ],
@@ -159,13 +199,22 @@ class _SignInScreenState extends State<SignInScreen> {
           Buton(
             'تسجيل',
             onTap: () async {
-              UserCredential response = await signUp();
+              print(widget.name);
+              print(widget.email);
+              print(widget.password);
+              print(widget.password2);
+              UserCredential? response = await signUp();
+              print("===================");
+              print(widget.name);
+              print(widget.email);
+              print(widget.password);
+              print(widget.password2);
               print("===================");
               // ignore: unnecessary_null_comparison
               if (response != null) {
                 await FirebaseFirestore.instance.collection("users").add({
-                  "username": name,
-                  "email": email,
+                  "username": widget.name,
+                  "email": widget.email,
                   "userid": FirebaseAuth.instance.currentUser!.uid,
                 });
                 // await FirebaseFirestore.instance
@@ -175,7 +224,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 //     .add({
                 //   "username": name,
                 // });
-                if (email == 'admin@admin1.com') {
+                if (widget.email == 'admin@admin1.com') {
                   Navigator.of(context).popUntil((route) => route.isFirst);
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const Category()));
