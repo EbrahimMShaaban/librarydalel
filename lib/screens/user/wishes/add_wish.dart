@@ -24,7 +24,7 @@ class AddWish extends StatefulWidget {
 class _AddWishState extends State<AddWish> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController controller = TextEditingController();
-var imageUrl;
+  var imageUrl;
   File? file;
   Reference? ref;
   var name;
@@ -50,17 +50,14 @@ var imageUrl;
         await FirebaseFirestore.instance.collection('wishes').add({
           'nameOfUser': name,
           'imageUrl': 'null',
-          'comment':controller.text,
-          'userId':FirebaseAuth.instance.currentUser!.uid,
-        }). then((value) {
+          'comment': controller.text,
+          'userId': FirebaseAuth.instance.currentUser!.uid,
+        }).then((value) {
           Navigator.pop(context);
           Navigator.pop(context);
         });
-
-
       }
-    }
-      else{
+    } else {
       var formdata = _formKey.currentState;
       if (formdata!.validate()) {
         formdata.save();
@@ -70,18 +67,14 @@ var imageUrl;
         await FirebaseFirestore.instance.collection('wishes').add({
           'nameOfUser': name,
           'imageUrl': imageUrl,
-          'comment':controller.text,
-          'userId':FirebaseAuth.instance.currentUser!.uid,
-        }). then((value) {
+          'comment': controller.text,
+          'userId': FirebaseAuth.instance.currentUser!.uid,
+        }).then((value) {
           Navigator.pop(context);
           Navigator.pop(context);
-
         });
-
-
       }
     }
-
   }
 
   @override
@@ -190,12 +183,16 @@ var imageUrl;
               ),
               Buton('إرسال', onTap: () async {
                 await addWish(context);
+               // Navigator.pop(context);
+                //todo : awesome must dosen't appear after click on screen
                 await AwesomeDialog(
-                    context: context,
-                    title: "هام",
-                    body: const Text("تمت عملية الاضافة بنجاح"),
-                    dialogType: DialogType.SUCCES)
+                        context: context,
+                        autoDismiss: true,
+                        title: "هام",
+                        body: const Text("تمت عملية الاضافة بنجاح"),
+                        dialogType: DialogType.SUCCES)
                     .show();
+                Navigator.pop(context);
               })
             ],
           ),
