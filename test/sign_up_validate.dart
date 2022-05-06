@@ -18,15 +18,11 @@ void main() {
     final result = EmailValidator.emailVal('ebraim.gmail');
     expect(result, 'يجب  أن يحتوي البريد الايكتروني على @');
   });
-  test('email dosen\'t exist show error message', () {
 
-    final result = EmailValidator.emailVal('');
-    expect(result, 'الرجاء إدخال بريد الكتروني');
-  });
-  test('email dosen\'t exist show error message', () {
+  test('pasword dosen\'t exist show error message', () {
 
-    final result = EmailValidator.emailVal('');
-    expect(result, 'الرجاء إدخال بريد الكتروني');
+    final result = PasswordValidator.passVal('');
+    expect(result, 'الرجاء إدخال كلمة مرور');
   });
 
   // test('non-empty email returns null', () {
