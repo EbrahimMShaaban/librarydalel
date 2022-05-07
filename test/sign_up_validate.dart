@@ -25,21 +25,5 @@ void main() {
     expect(result, 'الرجاء إدخال كلمة مرور');
   });
 
-  // test('non-empty email returns null', () {
-  //
-  //   final result = EmailFieldValidator.validate('email');
-  //   expect(result, null);
-  // });
-  //
-  // test('empty password returns error string', () {
-  //
-  //   final result = PasswordFieldValidator.validate('');
-  //   expect(result, 'Password can\'t be empty');
-  // });
-  //
-  // test('non-empty password returns null', () {
-  //
-  //   final result = PasswordFieldValidator.validate('password');
-  //   expect(result, null);
-  // });
+
 }
